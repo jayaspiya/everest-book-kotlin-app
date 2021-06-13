@@ -32,13 +32,13 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnSignup"
         android:text="Signup"
         android:layout_marginHorizontal="40dp"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnSignup"
+        android:id="@+id/btnLogin"
         android:text="Login Here"
         android:backgroundTint="#ffffff"
         android:textColor="#000000"
