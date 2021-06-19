@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:text="Signup"
         android:textSize="40dp"
-        android:textAlignment="center"
+        android:textColor="@color/prime"
         android:layout_gravity="center_horizontal"
         />
     <EditText
@@ -39,12 +39,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/btnSignup"
         android:text="Signup"
-        android:backgroundTint="#00506E"
+        android:background="@drawable/btn_bdrs_20"
         android:layout_marginHorizontal="40dp"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center"
         android:layout_gravity="center"
         >
         <TextView
@@ -56,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvLogin"
-            android:textColor="#00506E"
+            android:textColor="@color/prime"
             android:text="Login"
             />
     </LinearLayout>
