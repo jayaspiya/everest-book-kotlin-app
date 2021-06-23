@@ -30,13 +30,14 @@
             android:layout_alignParentRight="true"
             android:textColor="@color/prime"
             android:layout_centerVertical="true"
-            android:textSize="10dp" />
+            android:textSize="15dp" />
 
     </RelativeLayout>
     <ImageView
         android:id="@+id/ivBook"
         android:layout_width="match_parent"
         android:layout_height="250dp"
+        android:layout_marginVertical="10dp"
         />
 
     <RelativeLayout
@@ -68,6 +69,7 @@
     </RelativeLayout>
     <TextView
         android:id="@+id/tvDescription"
+        android:hint="Description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 </LinearLayout>

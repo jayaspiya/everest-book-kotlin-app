@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 
 class BookActivity : AppCompatActivity() {
     private lateinit var tvTitle: TextView
@@ -36,5 +37,8 @@ class BookActivity : AppCompatActivity() {
         tvBookPrice.text = "Rs." + bookMap["price"].toString()
         tvAuthor.text = bookMap["author"].toString()
         tvDescription.text = bookMap["description"].toString()
+        Glide.with(this)
+            .load(bookMap["imageUrl"].toString())
+            .into(ivBook)
     }
 }
