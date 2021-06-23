@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_margin="40dp"
+    android:gravity="center"
     tools:context=".SignupActivity">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:src="@drawable/everestbook"/>
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,8 +34,7 @@
         android:layout_height="wrap_content"
         android:hint="Password"
         android:inputType="textPassword"
-        android:drawablePadding="10dp"
-
+        android:drawablePadding="9dp"
         android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
         android:id="@+id/etPassword"
         />

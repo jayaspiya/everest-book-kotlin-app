@@ -25,12 +25,13 @@
         android:hint="Username"
         android:id="@+id/etUsername"
         android:drawablePadding="10dp"
+        android:background="@drawable/btn_bdrs_20"
         android:drawableLeft="@drawable/ic_baseline_account_circle_24" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
-        android:drawablePadding="10dp"
+        android:drawablePadding="9dp"
         android:inputType="textPassword"
         android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
         android:id="@+id/etPassword"
