@@ -1,12 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="20dp"
     tools:context=".BookActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Title"
+            android:textColor="@color/prime"
+            android:layout_alignParentLeft="true"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/tvBookPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="$$$"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/prime"
+            android:layout_centerVertical="true"
+            android:textSize="10dp" />
+
+    </RelativeLayout>
+    <ImageView
+        android:id="@+id/ivBook"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Author Name"
+            android:textColor="@color/prime"
+            android:layout_alignParentLeft="true"
+
+            android:layout_centerVertical="true"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/btnAddToCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:paddingHorizontal="20dp"
+            android:text="Add To Cart"
+            android:background="@drawable/btn_round"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>
