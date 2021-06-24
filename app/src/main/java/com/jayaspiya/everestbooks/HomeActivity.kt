@@ -1,5 +1,6 @@
 package com.jayaspiya.everestbooks
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -37,8 +38,11 @@ class HomeActivity : AppCompatActivity() {
         )
         lvBooks.adapter = adapter
         lvBooks.setOnItemClickListener { parent, view, position, id ->
+            val book = bookList[position]
+            val intent = Intent(this, BookActivity::class.java)
+            intent.putExtra("book", book)
+            startActivity(intent)
 
-            Toast.makeText(this, "${bookList[position].author}", Toast.LENGTH_SHORT).show()
             
         }
     }
