@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginVertical="20dp">
+    android:layout_width="200dp"
+    android:layout_height="300dp"
+    android:padding="10dp"
+    android:background="@drawable/btn_round"
+    android:layout_marginHorizontal="20dp">
 
     <ImageView
         android:id="@+id/ivBook"
-        android:layout_width="100dp"
-        android:layout_height="150dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_width="125dp"
+        android:layout_height="200dp" />
 
     <TextView
         android:id="@+id/tvTitle"
+        android:layout_below="@+id/ivBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/ivBook"
         android:hint="Title"
-        android:textSize="25dp" />
+        android:textSize="16dp" />
 
     <TextView
         android:id="@+id/tvAuthor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvTitle"
-        android:layout_toRightOf="@+id/ivBook"
         android:hint="Author name" />
 
     <TextView
@@ -30,6 +32,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvAuthor"
-        android:layout_toRightOf="@+id/ivBook"
         android:hint="$$$" />
 </RelativeLayout>

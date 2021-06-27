@@ -3,6 +3,7 @@ package com.jayaspiya.everestbooks
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
@@ -35,14 +36,8 @@ class HomeActivity : AppCompatActivity() {
         for(book in bookList){
             titleList.add(book.title.toString())
         }
-//        val adapter = ArrayAdapter(
-//            this,
-//            android.R.layout.simple_list_item_1,
-//            titleList
-//        )
-//        lvBooks.adapter = adapter
         val adapter = BookAdapter(bookList, this)
-        bookRecyclerView.layoutManager = LinearLayoutManager(this)
+        bookRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         bookRecyclerView.adapter = adapter
 //        lvBooks.setOnItemClickListener { parent, view, position, id ->
 //            val book = bookList[position]
