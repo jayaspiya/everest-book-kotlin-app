@@ -16,8 +16,14 @@
         android:text="Home"
         />
 
-    <ListView
-        android:id="@+id/lvBooks"
+<!--    <ListView-->
+<!--        android:id="@+id/lvBooks"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        />-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/bookRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />

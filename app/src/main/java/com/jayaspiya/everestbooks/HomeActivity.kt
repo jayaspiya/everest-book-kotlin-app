@@ -6,15 +6,19 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.jayaspiya.everestbooks.adapter.BookAdapter
 import com.jayaspiya.everestbooks.model.Book
 
 class HomeActivity : AppCompatActivity() {
-    private lateinit var lvBooks: ListView
+//    private lateinit var lvBooks: ListView
+    private lateinit var bookRecyclerView: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        lvBooks = findViewById(R.id.lvBooks)
-        var bookList = mutableListOf<Book>()
+        bookRecyclerView = findViewById(R.id.bookRecyclerView)
+        var bookList = ArrayList<Book>()
         val book1 = Book(1, "A Man with One of Those Faces", "Caimh Mcdonnell", "The first time somebody tried to kill him was an accident. The second time was deliberate. Now Paul Mulchrone finds himself on the run with nobody to turn to except a nurse who has read one-too-many crime novels and a renegade copper with a penchant for violence. Together they must solve one of the most notorious crimes in Irish history or else they’ll be history.", "https://silly-visvesvaraya-f21a81.netlify.app/assets/a-man-with-one-of-those-faces--front.png", 450)
         val book2 = Book(2, "Don Quixote", "Miguel De Cervantes", "Don Quixote has become so entranced reading tales of chivalry that he decides to turn knight errant himself. In the company of his faithful squire, Sancho Panza, these exploits blossom in all sorts of wonderful ways. While Quixote's fancy often leads him astray—he tilts at windmills, imagining them to be giants—Sancho acquires cunning and a certain sagacity. Sane madman and wise fool, they roam the world together-and together they have haunted readers' imaginations for nearly four hundred years.", "https://silly-visvesvaraya-f21a81.netlify.app/assets/don-quixote--front.png", 240)
         val book3 = Book(3, "Dracula", "Bram Stoker", "Dracula is a Gothic horror novel by Bram Stoker, published in 1897. As an epistolary novel, the narrative is related through letters, diary entries, and newspaper articles. It has no single protagonist, but opens with solicitor Jonathan Harker taking a business trip to stay at the castle of a Transylvanian noble, Count Dracula. Harker escapes the castle after discovering that Dracula is a vampire, and the Count moves to England and plagues the seaside town of Whitby. ", "https://silly-visvesvaraya-f21a81.netlify.app/assets/dracula--front.png", 640)
@@ -31,19 +35,20 @@ class HomeActivity : AppCompatActivity() {
         for(book in bookList){
             titleList.add(book.title.toString())
         }
-        val adapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_list_item_1,
-            titleList
-        )
-        lvBooks.adapter = adapter
-        lvBooks.setOnItemClickListener { parent, view, position, id ->
-            val book = bookList[position]
-            val intent = Intent(this, BookActivity::class.java)
-            intent.putExtra("book", book)
-            startActivity(intent)
-
-            
-        }
+//        val adapter = ArrayAdapter(
+//            this,
+//            android.R.layout.simple_list_item_1,
+//            titleList
+//        )
+//        lvBooks.adapter = adapter
+        val adapter = BookAdapter(bookList, this)
+        bookRecyclerView.layoutManager = LinearLayoutManager(this)
+        bookRecyclerView.adapter = adapter
+//        lvBooks.setOnItemClickListener { parent, view, position, id ->
+//            val book = bookList[position]
+//            val intent = Intent(this, BookActivity::class.java)
+//            intent.putExtra("book", book)
+//            startActivity(intent)
+//        }
     }
 }
