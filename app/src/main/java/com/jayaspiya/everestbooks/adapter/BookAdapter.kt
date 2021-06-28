@@ -1,13 +1,17 @@
 package com.jayaspiya.everestbooks.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.jayaspiya.everestbooks.BookActivity
 import com.jayaspiya.everestbooks.R
 import com.jayaspiya.everestbooks.model.Book
 
@@ -20,6 +24,7 @@ class BookAdapter(
         val tvAuthor: TextView = view.findViewById(R.id.tvAuthor)
         val tvPrice: TextView = view.findViewById(R.id.tvPrice)
         val ivBook: ImageView = view.findViewById(R.id.ivBook)
+        val mainRelativeLayout: RelativeLayout = view.findViewById(R.id.mainRelativeLayout)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
@@ -34,11 +39,17 @@ class BookAdapter(
         val book = bookList[position]
         holder.tvTitle.text = book.title
         holder.tvAuthor.text = book.author
-        holder.tvPrice.text = book.price.toString()
+        holder.tvPrice.text = "Rs.${book.price}"
 
         Glide.with(context)
             .load(book.imageUrl)
             .into(holder.ivBook)
+
+        holder.mainRelativeLayout.setOnClickListener {
+            val intent = Intent(context, BookActivity::class.java)
+            intent.putExtra("book", book)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
