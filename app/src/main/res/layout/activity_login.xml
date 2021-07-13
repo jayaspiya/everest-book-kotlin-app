@@ -4,63 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_margin="40dp"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".LoginActivity">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:src="@drawable/everestbook"/>
-    <TextView
+        android:src="@drawable/everestbook" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:textSize="40dp"
-        android:textColor="@color/prime"
-        android:layout_gravity="center_horizontal"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Username"
-        android:id="@+id/etUsername"
-        android:drawablePadding="10dp"
-        android:background="@drawable/btn_bdrs_20"
-        android:drawableLeft="@drawable/ic_baseline_account_circle_24" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:drawablePadding="9dp"
-        android:inputType="textPassword"
-        android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
-        android:id="@+id/etPassword"
-        />
+        android:orientation="vertical"
+        android:layout_marginVertical="30dp"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Login"
+            android:textColor="@color/prime"
+            android:textSize="40dp" />
+
+        <EditText
+            android:id="@+id/etUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_baseline_account_circle_24"
+            android:drawablePadding="10dp"
+            android:hint="Username" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
+            android:drawablePadding="9dp"
+            android:hint="Password"
+            android:inputType="textPassword" />
+    </LinearLayout>
+
     <Button
+        android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnLogin"
-        android:background="@drawable/btn_bdrs_20"
+        android:layout_marginHorizontal="40dp"
         android:text="Login"
-        android:layout_marginHorizontal="40dp"/>
+        app:cornerRadius="40dp" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
         android:layout_gravity="center"
-        >
+        android:gravity="center"
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Don't have an Account?"
-            />
+            android:text="Don't have an Account?" />
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/tvSignup"
-            android:textColor="@color/prime"
-            android:text="Sign Up"
-            />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign Up here"
+            android:textColor="@color/prime" />
     </LinearLayout>
 </LinearLayout>

@@ -4,71 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_margin="40dp"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".SignupActivity">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:src="@drawable/everestbook"/>
-    <TextView
+        android:src="@drawable/everestbook" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Signup"
-        android:textSize="40dp"
-        android:textColor="@color/prime"
-        android:layout_gravity="center_horizontal"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Username"
-        android:drawablePadding="10dp"
-        android:drawableLeft="@drawable/ic_baseline_account_circle_24"
-        android:id="@+id/etUsername"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:drawablePadding="9dp"
-        android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
-        android:id="@+id/etPassword"
-        />
+        android:layout_marginVertical="30dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Signup"
+            android:textColor="@color/prime"
+            android:textSize="40dp" />
+
+        <EditText
+            android:id="@+id/etUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_baseline_account_circle_24"
+            android:drawablePadding="10dp"
+            android:hint="Username" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
+            android:drawablePadding="9dp"
+            android:hint="Password"
+            android:inputType="textPassword" />
+    </LinearLayout>
+
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/btnSignup"
-        android:text="Signup"
-        android:background="@drawable/btn_bdrs_20"
-        android:layout_marginHorizontal="40dp"/>
-    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
         android:text="Signup"
-        android:layout_marginHorizontal="40dp"/>
+        app:cornerRadius="40dp" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
         android:layout_gravity="center"
-        >
+        android:gravity="center"
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Already have an Account?"
-            />
+            android:text="Already have an Account?" />
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/tvLogin"
-            android:textColor="@color/prime"
-            android:text="Login"
-            />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login here"
+            android:textColor="@color/prime" />
     </LinearLayout>
 
 
