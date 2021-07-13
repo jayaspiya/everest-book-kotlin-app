@@ -16,7 +16,7 @@ import com.jayaspiya.everestbooks.R
 import com.jayaspiya.everestbooks.model.Book
 
 class BookAdapter(
-    val bookList: ArrayList<Book>,
+    private val bookList: ArrayList<Book>,
     val context: Context
 ) : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
     class BookViewHolder(view: View): RecyclerView.ViewHolder(view){

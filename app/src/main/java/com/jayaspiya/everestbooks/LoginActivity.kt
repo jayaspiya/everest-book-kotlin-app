@@ -35,10 +35,25 @@ class LoginActivity : AppCompatActivity() {
                 etPassword.requestFocus()
                 etPassword.error = "Username can not be empty."
             }
+            else if(checkCredential()){
+                startActivity(
+                    Intent(this, HomeActivity::class.java)
+                )
+                finish()
+            }
             else{
-                Toast.makeText(this@LoginActivity, "Login: ${etUsername.text}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@LoginActivity, "Invalid Credential", Toast.LENGTH_LONG).show()
             }
 
         }
+    }
+
+    private fun checkCredential(): Boolean {
+        val username: String = etUsername.text.toString()
+        val password: String = etPassword.text.toString()
+        if(username == "admin" && password == "admin"){
+            return true
+        }
+        return false
     }
 }

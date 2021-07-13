@@ -39,11 +39,5 @@ class HomeActivity : AppCompatActivity() {
         val adapter = BookAdapter(bookList, this)
         bookRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         bookRecyclerView.adapter = adapter
-//        lvBooks.setOnItemClickListener { parent, view, position, id ->
-//            val book = bookList[position]
-//            val intent = Intent(this, BookActivity::class.java)
-//            intent.putExtra("book", book)
-//            startActivity(intent)
-//        }
     }
 }
