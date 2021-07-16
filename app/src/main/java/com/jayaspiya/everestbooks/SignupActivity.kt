@@ -12,27 +12,37 @@ import android.widget.Toast
 class SignupActivity : AppCompatActivity() {
     private lateinit var btnSignup:Button
     private lateinit var tvLogin: TextView
-    private lateinit var etUsername: EditText
+    private lateinit var etEmail: EditText
     private lateinit var etPassword: EditText
+    private lateinit var etCPassword: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
         btnSignup = findViewById(R.id.btnSignup)
         tvLogin = findViewById(R.id.tvLogin)
-        etUsername = findViewById(R.id.etUsername)
+        etEmail = findViewById(R.id.etEmail)
         etPassword = findViewById(R.id.etPassword)
+        etCPassword = findViewById(R.id.etCPassword)
 
         btnSignup.setOnClickListener {
-            if (TextUtils.isEmpty(etUsername.text)) {
-                etUsername.requestFocus()
-                etUsername.error = "Username can not be empty."
+            if (TextUtils.isEmpty(etEmail.text)) {
+                etEmail.requestFocus()
+                etEmail.error = "Email can not be empty."
             } else if (TextUtils.isEmpty(etPassword.text)) {
                 etPassword.requestFocus()
-                etPassword.error = "Username can not be empty."
+                etPassword.error = "Password can not be empty."
+            }
+            else if (TextUtils.isEmpty(etCPassword.text)) {
+                etCPassword.requestFocus()
+                etCPassword.error = "Confirm Password can not be empty."
+            }
+            else if (etPassword.text.toString() != etCPassword.text.toString()){
+                etCPassword.requestFocus()
+                etCPassword.error = "Password and Confirm Password does not match"
             }
             else{
-                Toast.makeText(this@SignupActivity, "Signup: ${etUsername.text}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@SignupActivity, "Signup: ${etEmail.text}", Toast.LENGTH_LONG).show()
             }
         }
         tvLogin.setOnClickListener {

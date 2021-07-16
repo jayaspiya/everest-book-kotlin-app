@@ -12,14 +12,14 @@ import android.widget.Toast
 class LoginActivity : AppCompatActivity() {
     private lateinit var tvSignup: TextView
     private lateinit var btnLogin: Button
-    private lateinit var etUsername: EditText
+    private lateinit var etEmail: EditText
     private lateinit var etPassword: EditText
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         tvSignup = findViewById(R.id.tvSignup)
         btnLogin = findViewById(R.id.btnLogin)
-        etUsername = findViewById(R.id.etUsername)
+        etEmail = findViewById(R.id.etEmail)
         etPassword = findViewById(R.id.etPassword)
 
 
@@ -28,12 +28,12 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
         btnLogin.setOnClickListener {
-            if (TextUtils.isEmpty(etUsername.text)) {
-                etUsername.requestFocus()
-                etUsername.error = "Username can not be empty."
+            if (TextUtils.isEmpty(etEmail.text)) {
+                etEmail.requestFocus()
+                etEmail.error = "Email can not be empty."
             } else if (TextUtils.isEmpty(etPassword.text)) {
                 etPassword.requestFocus()
-                etPassword.error = "Username can not be empty."
+                etPassword.error = "Password can not be empty."
             }
             else if(checkCredential()){
                 startActivity(
@@ -49,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun checkCredential(): Boolean {
-        val username: String = etUsername.text.toString()
+        val username: String = etEmail.text.toString()
         val password: String = etPassword.text.toString()
         if(username == "admin" && password == "admin"){
             return true

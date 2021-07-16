@@ -29,20 +29,28 @@
             android:textSize="40dp" />
 
         <EditText
-            android:id="@+id/etUsername"
+            android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_baseline_account_circle_24"
             android:drawablePadding="10dp"
-            android:hint="Username" />
+            android:hint="Email Address" />
 
         <EditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
+            android:drawableLeft="@drawable/ic_baseline_lock_24"
             android:drawablePadding="9dp"
             android:hint="Password"
+            android:inputType="textPassword" />
+        <EditText
+            android:id="@+id/etCPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_baseline_lock_open_24"
+            android:drawablePadding="9dp"
+            android:hint="Confirm Password"
             android:inputType="textPassword" />
     </LinearLayout>
 
