@@ -61,9 +61,18 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
             else{
+                saveUserDetail()
                 startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
                 finish()
             }
         }
+    }
+
+    private fun saveUserDetail() {
+        val sharedPreferences = getSharedPreferences("userAuth", MODE_PRIVATE);
+        val editor = sharedPreferences.edit()
+        editor.putString("email", etEmail.text.toString())
+        editor.putString("password", etPassword.text.toString())
+        editor.apply()
     }
 }
