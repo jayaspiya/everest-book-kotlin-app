@@ -8,6 +8,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.jayaspiya.everestbooks.database.EverestDB
+import com.jayaspiya.everestbooks.entity.User
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var tvSignup: TextView
@@ -35,25 +41,29 @@ class LoginActivity : AppCompatActivity() {
                 etPassword.requestFocus()
                 etPassword.error = "Password can not be empty."
             }
-            else if(checkCredential()){
-                startActivity(
-                    Intent(this, HomeActivity::class.java)
-                )
-                finish()
-            }
             else{
-                Toast.makeText(this@LoginActivity, "Invalid Credential", Toast.LENGTH_LONG).show()
+                login()
             }
 
         }
     }
 
-    private fun checkCredential(): Boolean {
-        val username: String = etEmail.text.toString()
+    private fun login() {
+        val email: String = etEmail.text.toString()
         val password: String = etPassword.text.toString()
-        if(username == "admin" && password == "admin"){
-            return true
+
+        CoroutineScope(Dispatchers.IO).launch{
+            val user: User? = EverestDB.getInstance(this@LoginActivity)
+                .getUserDAO().loginUser(email, password)
+            if(user == null){
+                withContext(Dispatchers.Main){
+                    Toast.makeText(this@LoginActivity, "Invalid Credential", Toast.LENGTH_SHORT).show()
+                }
+            }
+            else{
+                startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                finish()
+            }
         }
-        return false
     }
 }
