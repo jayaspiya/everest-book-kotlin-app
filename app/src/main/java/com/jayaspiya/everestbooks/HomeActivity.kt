@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ListView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,5 +40,17 @@ class HomeActivity : AppCompatActivity() {
         val adapter = BookAdapter(bookList, this)
         bookRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         bookRecyclerView.adapter = adapter
+
+        // Logout
+        val logout: Button = findViewById(R.id.btnLogout)
+        logout.setOnClickListener {
+            val sharedPreferences = getSharedPreferences("userAuth", MODE_PRIVATE);
+            val editor = sharedPreferences.edit()
+            editor.putString("email", "")
+            editor.putString("password", "")
+            editor.apply()
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
     }
 }

@@ -54,6 +54,8 @@ class SignupActivity : AppCompatActivity() {
                         .getUserDAO().registerUser(user)
                     withContext(Dispatchers.Main){
                         Toast.makeText(this@SignupActivity, "User created", Toast.LENGTH_LONG).show()
+                        startActivity(Intent(this@SignupActivity, LoginActivity::class.java))
+                        finish()
                     }
                 }
             }
