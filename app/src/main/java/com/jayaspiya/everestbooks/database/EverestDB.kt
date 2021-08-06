@@ -9,7 +9,7 @@ import com.jayaspiya.everestbooks.entity.User
 
 @Database(
     entities = [(User::class)],
-    version = 0
+    version = 1
 )
 abstract class EverestDB: RoomDatabase() {
     abstract fun getUserDAO(): UserDAO

@@ -8,6 +8,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.jayaspiya.everestbooks.database.EverestDB
+import com.jayaspiya.everestbooks.entity.User
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var btnSignup:Button
@@ -42,7 +48,14 @@ class SignupActivity : AppCompatActivity() {
                 etCPassword.error = "Password and Confirm Password does not match"
             }
             else{
-                Toast.makeText(this@SignupActivity, "Signup: ${etEmail.text}", Toast.LENGTH_LONG).show()
+                val user = User(email = etEmail.text.toString(), password = etPassword.text.toString())
+                CoroutineScope(Dispatchers.IO).launch {
+                    EverestDB.getInstance(this@SignupActivity)
+                        .getUserDAO().registerUser(user)
+                    withContext(Dispatchers.Main){
+                        Toast.makeText(this@SignupActivity, "User created", Toast.LENGTH_LONG).show()
+                    }
+                }
             }
         }
         tvLogin.setOnClickListener {
