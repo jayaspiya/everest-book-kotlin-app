@@ -9,25 +9,9 @@
     android:paddingHorizontal="20dp"
     android:background="@color/bg_gray"
     tools:context=".HomeActivity">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/prime"
-        android:textSize="45dp"
-        android:text="Home"
-        />
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout"
-        />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/bookRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
