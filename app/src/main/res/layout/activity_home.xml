@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="20dp"
     android:background="@color/bg_gray"
     tools:context=".HomeActivity">
 
-
-
     <LinearLayout
-        android:orientation="horizontal"
+        android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
         >
+
         <Button
             android:id="@+id/navHome"
-            android:text="home"
-            android:layout_marginHorizontal="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
+            android:layout_marginHorizontal="5dp"
+            android:text="home" />
+
         <Button
             android:id="@+id/navMore"
-            android:text="More"
-            android:layout_marginHorizontal="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
+            android:layout_marginHorizontal="5dp"
+            android:text="More" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/fragmentContainer"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:layout_above="@+id/navigation"/>
 
-</LinearLayout>
+</RelativeLayout>
