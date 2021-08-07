@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jayaspiya.everestbooks.adapter.BookAdapter
@@ -16,7 +17,6 @@ import com.jayaspiya.everestbooks.fragments.MoreFragment
 import com.jayaspiya.everestbooks.model.Book
 
 class HomeActivity : AppCompatActivity() {
-//    private lateinit var lvBooks: ListView
     // Navigation Buttons
     private lateinit var navHome: Button
     private lateinit var navMore: Button
@@ -29,18 +29,22 @@ class HomeActivity : AppCompatActivity() {
         navMore = findViewById(R.id.navMore)
 
         navHome.setOnClickListener {
-            supportFragmentManager.beginTransaction().apply{
-                replace(R.id.fragmentContainer, HomeFragment())
-                addToBackStack(null)
-                commit()
-            }
+            startFragment(HomeFragment())
         }
         navMore.setOnClickListener {
-            supportFragmentManager.beginTransaction().apply{
-                replace(R.id.fragmentContainer, MoreFragment())
-                addToBackStack(null)
-                commit()
-            }
+            startFragment(MoreFragment())
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        startFragment(HomeFragment())
+    }
+    private fun startFragment(fragment: Fragment){
+        supportFragmentManager.beginTransaction().apply{
+            replace(R.id.fragmentContainer, fragment)
+            addToBackStack(null)
+            commit()
         }
     }
 }
