@@ -11,14 +11,40 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jayaspiya.everestbooks.adapter.BookAdapter
+import com.jayaspiya.everestbooks.fragments.HomeFragment
+import com.jayaspiya.everestbooks.fragments.MoreFragment
 import com.jayaspiya.everestbooks.model.Book
 
 class HomeActivity : AppCompatActivity() {
 //    private lateinit var lvBooks: ListView
+    // Navigation Buttons
+    private lateinit var navHome: Button
+    private lateinit var navMore: Button
+
     private lateinit var bookRecyclerView: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        // Navigation
+        navHome = findViewById(R.id.navHome)
+        navMore = findViewById(R.id.navMore)
+
+        navHome.setOnClickListener {
+            supportFragmentManager.beginTransaction().apply{
+                replace(R.id.fragmentContainer, HomeFragment())
+                addToBackStack(null)
+                commit()
+            }
+        }
+        navHome.setOnClickListener {
+            supportFragmentManager.beginTransaction().apply{
+                replace(R.id.fragmentContainer, MoreFragment())
+                addToBackStack(null)
+                commit()
+            }
+        }
+
+
         bookRecyclerView = findViewById(R.id.bookRecyclerView)
         var bookList = ArrayList<Book>()
         val book1 = Book(1, "A Man with One of Those Faces", "Caimh Mcdonnell", "The first time somebody tried to kill him was an accident. The second time was deliberate. Now Paul Mulchrone finds himself on the run with nobody to turn to except a nurse who has read one-too-many crime novels and a renegade copper with a penchant for violence. Together they must solve one of the most notorious crimes in Irish history or else they’ll be history.", "https://silly-visvesvaraya-f21a81.netlify.app/assets/a-man-with-one-of-those-faces--front.png", 450)
