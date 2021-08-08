@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,10 +14,14 @@
         android:textSize="45dp"
         android:text="More"
         />
+
+    <Button
+        style="@style/SettingButton"
+        android:text="A Button"
+        app:backgroundTint="@color/bg_gray" />
     <Button
         android:id="@+id/btnLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/SettingButton"
         android:text="Logout"
-        />
+        app:backgroundTint="@color/bg_gray" />
 </LinearLayout>

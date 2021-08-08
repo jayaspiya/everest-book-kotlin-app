@@ -11,14 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.jayaspiya.everestbooks.LoginActivity
 import com.jayaspiya.everestbooks.R
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 class MoreFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
