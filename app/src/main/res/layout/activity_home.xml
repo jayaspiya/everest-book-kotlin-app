@@ -25,6 +25,18 @@
             android:text="home" />
 
         <Button
+            android:id="@+id/navLibrary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:text="Library" />
+        <Button
+            android:id="@+id/navDiscover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:text="Discover" />
+        <Button
             android:id="@+id/navMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
