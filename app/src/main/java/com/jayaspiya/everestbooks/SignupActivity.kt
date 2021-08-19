@@ -4,12 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.jayaspiya.everestbooks.api.UserRepository
 import com.jayaspiya.everestbooks.database.EverestDB
-import com.jayaspiya.everestbooks.entity.User
+import com.jayaspiya.everestbooks.model.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -49,15 +51,27 @@ class SignupActivity : AppCompatActivity() {
             }
             else{
                 val user = User(email = etEmail.text.toString(), password = etPassword.text.toString())
-                CoroutineScope(Dispatchers.IO).launch {
-                    EverestDB.getInstance(this@SignupActivity)
-                        .getUserDAO().registerUser(user)
-                    withContext(Dispatchers.Main){
-                        Toast.makeText(this@SignupActivity, "User created", Toast.LENGTH_LONG).show()
-                        startActivity(Intent(this@SignupActivity, LoginActivity::class.java))
-                        finish()
-                    }
-                }
+                // Room DB
+//                CoroutineScope(Dispatchers.IO).launch {
+//                    EverestDB.getInstance(this@SignupActivity)
+//                        .getUserDAO().registerUser(user)
+//                    withContext(Dispatchers.Main){
+//                        Toast.makeText(this@SignupActivity, "User created", Toast.LENGTH_LONG).show()
+//                        startActivity(Intent(this@SignupActivity, LoginActivity::class.java))
+//                        finish()
+//                    }
+//                }
+//                CoroutineScope(Dispatchers.IO).launch{
+//                    try {
+//                        val userRepo = UserRepository()
+//                        val response = userRepo.registerUser(user)
+//                        Log.d("check", response.toString())
+//                    }catch (ex: Exception){
+//                        withContext(Dispatchers.Main){
+//                            Toast.makeText(this@SignupActivity, "Error $ex", Toast.LENGTH_SHORT).show()
+//                        }
+//                    }
+//                }
             }
         }
         tvLogin.setOnClickListener {
