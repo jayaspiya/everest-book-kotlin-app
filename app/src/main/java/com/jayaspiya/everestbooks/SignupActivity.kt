@@ -14,6 +14,7 @@ import com.jayaspiya.everestbooks.database.EverestDB
 import com.jayaspiya.everestbooks.model.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -61,17 +62,25 @@ class SignupActivity : AppCompatActivity() {
 //                        finish()
 //                    }
 //                }
-//                CoroutineScope(Dispatchers.IO).launch{
-//                    try {
-//                        val userRepo = UserRepository()
-//                        val response = userRepo.registerUser(user)
-//                        Log.d("check", response.toString())
-//                    }catch (ex: Exception){
-//                        withContext(Dispatchers.Main){
+
+                // retrofit
+                CoroutineScope(Dispatchers.IO).launch{
+                    try {
+                        val userRepo = UserRepository()
+                        val response = userRepo.registerUser(user)
+                        if(response.accessToken == null){
+                            withContext(Main){
+                                Toast.makeText(this@SignupActivity, "Registration Success", Toast.LENGTH_SHORT).show()
+                                startActivity(Intent(this@SignupActivity,LoginActivity::class.java))
+                            }
+                        }
+                    }catch (ex: Exception){
+                        withContext(Main){
 //                            Toast.makeText(this@SignupActivity, "Error $ex", Toast.LENGTH_SHORT).show()
-//                        }
-//                    }
-//                }
+                        }
+                    }
+                }
+              Toast.makeText(this@SignupActivity, "Registration Success", Toast.LENGTH_SHORT).show()
             }
         }
         tvLogin.setOnClickListener {

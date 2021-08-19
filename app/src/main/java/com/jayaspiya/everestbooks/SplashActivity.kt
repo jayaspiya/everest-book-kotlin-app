@@ -3,6 +3,7 @@ package com.jayaspiya.everestbooks
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.jayaspiya.everestbooks.api.ServiceBuilder
 import com.jayaspiya.everestbooks.database.EverestDB
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,6 +29,7 @@ class SplashActivity : AppCompatActivity() {
             val user = EverestDB.getInstance(this@SplashActivity)
                 .getUserDAO()
                 .loginUser(email!!, password!!)
+
             if(user == null){
                 startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
             }

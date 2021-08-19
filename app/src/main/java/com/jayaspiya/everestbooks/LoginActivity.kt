@@ -8,8 +8,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import com.jayaspiya.everestbooks.database.EverestDB
-import com.jayaspiya.everestbooks.entity.User
+import com.jayaspiya.everestbooks.api.ServiceBuilder
+import com.jayaspiya.everestbooks.api.UserRepository
+import com.jayaspiya.everestbooks.model.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -49,21 +50,46 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login() {
-        val email: String = etEmail.text.toString()
-        val password: String = etPassword.text.toString()
 
+
+//        CoroutineScope(Dispatchers.IO).launch{
+//            val user: User? = EverestDB.getInstance(this@LoginActivity)
+//                .getUserDAO().loginUser(email, password)
+//            if(user == null){
+//                withContext(Dispatchers.Main){
+//                    Toast.makeText(this@LoginActivity, "Invalid Credential", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//            else{
+//                saveUserDetail()
+//                startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+//                finish()
+//            }
+//        }
+        // retrofit
         CoroutineScope(Dispatchers.IO).launch{
-            val user: User? = EverestDB.getInstance(this@LoginActivity)
-                .getUserDAO().loginUser(email, password)
-            if(user == null){
-                withContext(Dispatchers.Main){
-                    Toast.makeText(this@LoginActivity, "Invalid Credential", Toast.LENGTH_SHORT).show()
+            val email: String = etEmail.text.toString()
+            val password: String = etPassword.text.toString()
+            val user =User(email = email,password = password)
+            try {
+                val userRepo = UserRepository()
+                val response = userRepo.loginUser(user)
+                if(response.accessToken != null){
+                    ServiceBuilder.token=response.accessToken!!
+                    withContext(Dispatchers.Main){
+                        Toast.makeText(this@LoginActivity, "Login Success", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this@LoginActivity,HomeActivity::class.java))
+                    }
+                } else {
+                    withContext(Dispatchers.Main){
+                        Toast.makeText(this@LoginActivity, "Login failed", Toast.LENGTH_SHORT).show()
+
+                    }
                 }
-            }
-            else{
-                saveUserDetail()
-                startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
-                finish()
+            }catch (ex: Exception){
+                withContext(Dispatchers.Main){
+                    Toast.makeText(this@LoginActivity, "Error $ex", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

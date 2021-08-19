@@ -1,14 +1,19 @@
 package com.jayaspiya.everestbooks.api
 
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.math.log
 
 object ServiceBuilder {
     private const val BASE_URL = "https://everest-book.herokuapp.com/"
     var token: String? = null
+
+    // create logging
+    val logging =HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     // OKHttp Client
-    private val okHttp = OkHttpClient.Builder().build()
+    private val okHttp = OkHttpClient.Builder().addInterceptor(logging).build()
     // Retrofit Builder
     private val retrofitBuilder = Retrofit.Builder().baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
