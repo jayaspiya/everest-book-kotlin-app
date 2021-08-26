@@ -41,8 +41,7 @@ class LoginActivity : AppCompatActivity() {
             } else if (TextUtils.isEmpty(etPassword.text)) {
                 etPassword.requestFocus()
                 etPassword.error = "Password can not be empty."
-            }
-            else{
+            } else {
                 login()
             }
 
@@ -66,31 +65,30 @@ class LoginActivity : AppCompatActivity() {
 //                finish()
 //            }
 //        }
-        // retrofit
-        CoroutineScope(Dispatchers.IO).launch{
-            val email: String = etEmail.text.toString()
-            val password: String = etPassword.text.toString()
-            val user =User(email = email,password = password)
-            try {
+        // Retrofit
+        try {
+            CoroutineScope(Dispatchers.IO).launch {
+                val email: String = etEmail.text.toString()
+                val password: String = etPassword.text.toString()
+                val user = User(email = email, password = password)
                 val userRepo = UserRepository()
                 val response = userRepo.loginUser(user)
-                if(response.accessToken != null){
-                    ServiceBuilder.token=response.accessToken!!
-                    withContext(Dispatchers.Main){
-                        Toast.makeText(this@LoginActivity, "Login Success", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this@LoginActivity,HomeActivity::class.java))
+                if (response.success == true) {
+                    ServiceBuilder.token = response.accessToken!!
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@LoginActivity, response.message, Toast.LENGTH_SHORT)
+                            .show()
+                        startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
                     }
                 } else {
-                    withContext(Dispatchers.Main){
-                        Toast.makeText(this@LoginActivity, "Login failed", Toast.LENGTH_SHORT).show()
-
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@LoginActivity, response.message, Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
-            }catch (ex: Exception){
-                withContext(Dispatchers.Main){
-                    Toast.makeText(this@LoginActivity, "Error $ex", Toast.LENGTH_SHORT).show()
-                }
             }
+        } catch (ex: Exception) {
+            println(ex)
         }
     }
 

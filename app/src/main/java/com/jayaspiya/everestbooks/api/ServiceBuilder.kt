@@ -7,7 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.math.log
 
 object ServiceBuilder {
-    private const val BASE_URL = "https://everest-book.herokuapp.com/"
+//    private const val BASE_URL = "https://everest-book.herokuapp.com/"
+    private const val BASE_URL="http://10.0.2.2:5500/"
     var token: String? = null
 
     // create logging

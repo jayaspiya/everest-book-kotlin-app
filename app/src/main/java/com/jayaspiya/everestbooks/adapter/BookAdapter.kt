@@ -47,7 +47,7 @@ class BookAdapter(
 
         holder.mainRelativeLayout.setOnClickListener {
             val intent = Intent(context, BookActivity::class.java)
-            intent.putExtra("book", book)
+//            intent.putExtra("book", book)
             context.startActivity(intent)
         }
     }

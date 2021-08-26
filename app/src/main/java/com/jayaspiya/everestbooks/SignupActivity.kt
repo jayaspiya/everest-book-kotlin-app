@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class SignupActivity : AppCompatActivity() {
-    private lateinit var btnSignup:Button
+    private lateinit var btnSignup: Button
     private lateinit var tvLogin: TextView
     private lateinit var etEmail: EditText
     private lateinit var etPassword: EditText
@@ -41,17 +41,15 @@ class SignupActivity : AppCompatActivity() {
             } else if (TextUtils.isEmpty(etPassword.text)) {
                 etPassword.requestFocus()
                 etPassword.error = "Password can not be empty."
-            }
-            else if (TextUtils.isEmpty(etCPassword.text)) {
+            } else if (TextUtils.isEmpty(etCPassword.text)) {
                 etCPassword.requestFocus()
                 etCPassword.error = "Confirm Password can not be empty."
-            }
-            else if (etPassword.text.toString() != etCPassword.text.toString()){
+            } else if (etPassword.text.toString() != etCPassword.text.toString()) {
                 etCPassword.requestFocus()
                 etCPassword.error = "Password and Confirm Password does not match"
-            }
-            else{
-                val user = User(email = etEmail.text.toString(), password = etPassword.text.toString())
+            } else {
+                val user =
+                    User(email = etEmail.text.toString(), password = etPassword.text.toString())
                 // Room DB
 //                CoroutineScope(Dispatchers.IO).launch {
 //                    EverestDB.getInstance(this@SignupActivity)
@@ -63,28 +61,35 @@ class SignupActivity : AppCompatActivity() {
 //                    }
 //                }
 
-                // retrofit
-                CoroutineScope(Dispatchers.IO).launch{
-                    try {
+                // Retrofit
+                try {
+                    CoroutineScope(Dispatchers.IO).launch {
                         val userRepo = UserRepository()
                         val response = userRepo.registerUser(user)
-                        if(response.accessToken == null){
-                            withContext(Main){
-                                Toast.makeText(this@SignupActivity, "Registration Success", Toast.LENGTH_SHORT).show()
-                                startActivity(Intent(this@SignupActivity,LoginActivity::class.java))
+                        if (response.success == true) {
+                            withContext(Main) {
+                                Toast.makeText(
+                                    this@SignupActivity,
+                                    response.message,
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                startActivity(
+                                    Intent(
+                                        this@SignupActivity,
+                                        LoginActivity::class.java
+                                    )
+                                )
                             }
                         }
-                    }catch (ex: Exception){
-                        withContext(Main){
-//                            Toast.makeText(this@SignupActivity, "Error $ex", Toast.LENGTH_SHORT).show()
-                        }
                     }
+                } catch (ex: Exception) {
+                    println(ex)
                 }
-              Toast.makeText(this@SignupActivity, "Registration Success", Toast.LENGTH_SHORT).show()
             }
         }
         tvLogin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent) }
+            startActivity(intent)
+        }
     }
 }

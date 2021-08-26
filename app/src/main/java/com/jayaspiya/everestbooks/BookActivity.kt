@@ -25,17 +25,17 @@ class BookActivity : AppCompatActivity() {
         ivBook = findViewById(R.id.ivBook)
         btnAddToCart = findViewById(R.id.btnAddToCart)
 
-        val book: Book? = intent.getParcelableExtra("book")
-
-        if (book != null) {
-            tvTitle.text = book.title.toString()
-            tvBookPrice.text = "Rs." + book.price.toString()
-            tvAuthor.text = book.author.toString()
-            tvDescription.text = book.synopsis.toString()
-            Glide.with(this)
-                .load(book.imageUrl.toString())
-                .into(ivBook)
-        }
+//        val book: Book? = intent.getParcelableExtra("book")
+//
+//        if (book != null) {
+//            tvTitle.text = book.title.toString()
+//            tvBookPrice.text = "Rs." + book.price.toString()
+//            tvAuthor.text = book.author.toString()
+//            tvDescription.text = book.synopsis.toString()
+//            Glide.with(this)
+//                .load(book.imageUrl.toString())
+//                .into(ivBook)
+//        }
 
     }
 }
