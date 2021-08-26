@@ -6,7 +6,12 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.jayaspiya.everestbooks.api.BookRepository
 import com.jayaspiya.everestbooks.model.Book
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class BookActivity : AppCompatActivity() {
     private lateinit var tvTitle: TextView
@@ -24,7 +29,16 @@ class BookActivity : AppCompatActivity() {
         tvDescription = findViewById(R.id.tvDescription)
         ivBook = findViewById(R.id.ivBook)
         btnAddToCart = findViewById(R.id.btnAddToCart)
-
+        val id = intent.getStringExtra("id")
+        try {
+            CoroutineScope(IO).launch {
+                val bookRepository = BookRepository()
+                val response = bo
+            }
+        }
+        catch (ex: Exception){
+            println(ex)
+        }
 //        val book: Book? = intent.getParcelableExtra("book")
 //
 //        if (book != null) {

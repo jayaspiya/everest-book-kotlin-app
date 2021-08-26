@@ -42,12 +42,12 @@ class BookAdapter(
         holder.tvPrice.text = "Rs.${book.price}"
 
         Glide.with(context)
-            .load(book.imageUrl)
+            .load(book.cover?.front)
             .into(holder.ivBook)
 
         holder.mainRelativeLayout.setOnClickListener {
             val intent = Intent(context, BookActivity::class.java)
-//            intent.putExtra("book", book)
+            intent.putExtra("id", book._id)
             context.startActivity(intent)
         }
     }
