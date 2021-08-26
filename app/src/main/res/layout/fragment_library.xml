@@ -16,7 +16,12 @@
         />
     <Button
         android:id="@+id/btnCart"
-        style="@style/SettingButton"
-        android:backgroundTint="#f110f0"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textColor="#111111"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:gravity="start"
+        android:backgroundTint="#ffffff"
         android:text="Cart"/>
 </LinearLayout>

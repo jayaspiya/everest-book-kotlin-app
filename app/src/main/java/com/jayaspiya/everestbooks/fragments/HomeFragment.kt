@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jayaspiya.everestbooks.R
@@ -38,6 +39,7 @@ class HomeFragment : Fragment() {
                         bookList = response.data!!
                         val adapter = BookAdapter(bookList, requireContext())
                         bookRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+//                        bookRecyclerView.layoutManager = GridLayoutManager(requireContext(),2)
                         bookRecyclerView.adapter = adapter
                         return@withContext view
                     }

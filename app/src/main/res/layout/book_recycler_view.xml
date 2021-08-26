@@ -1,37 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mainRelativeLayout"
-    android:layout_width="200dp"
-    android:layout_height="300dp"
-    android:padding="10dp"
-    android:background="#ffffff"
-    android:layout_marginHorizontal="20dp">
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="220dp"
+    android:layout_height="350dp"
+    android:layout_marginHorizontal="20dp"
+    app:cardBackgroundColor="#ffffff"
+    app:cardCornerRadius="2dp"
+    app:cardElevation="8dp"
+    app:cardMaxElevation="10dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
 
-    <ImageView
-        android:id="@+id/ivBook"
-        android:layout_centerHorizontal="true"
-        android:layout_width="125dp"
-        android:layout_height="200dp" />
-
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_below="@+id/ivBook"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/mainRelativeLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Title"
-        android:textSize="16dp" />
+        android:padding="10dp">
 
-    <TextView
-        android:id="@+id/tvAuthor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvTitle"
-        android:hint="Author name" />
+        <ImageView
+            android:id="@+id/ivBook"
+            android:layout_width="125dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:id="@+id/tvPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvAuthor"
-        android:hint="$$$" />
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivBook"
+            android:hint="Title"
+            android:textColor="@color/prime"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTitle"
+            android:hint="Author name" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTitle"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/tvAuthor"
+            android:gravity="end"
+            android:hint="$$$"
+            android:textColor="@color/prime"
+            android:textStyle="bold" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
