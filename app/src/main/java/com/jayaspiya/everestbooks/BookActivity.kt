@@ -1,7 +1,5 @@
 package com.jayaspiya.everestbooks
 
-import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -11,8 +9,6 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.jayaspiya.everestbooks.api.BookRepository
-import com.jayaspiya.everestbooks.fragments.CartFragment
-import com.jayaspiya.everestbooks.model.Book
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main

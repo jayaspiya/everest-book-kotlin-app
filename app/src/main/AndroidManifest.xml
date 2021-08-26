@@ -3,18 +3,21 @@
     package="com.jayaspiya.everestbooks">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
-        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.EverestBooks">
-        <activity android:name=".SplashActivity"/>
+        android:theme="@style/Theme.EverestBooks"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".CartActivity"
+            android:exported="true" />
+        <activity android:name=".SplashActivity" />
         <activity android:name=".BookActivity" />
         <activity android:name=".HomeActivity">
             <intent-filter>
@@ -24,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignupActivity" />
-        <activity android:name=".LoginActivity" />🔥
+        <activity android:name=".LoginActivity" />
     </application>
 
 </manifest>
