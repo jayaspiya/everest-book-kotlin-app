@@ -26,19 +26,6 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun login() {
-        // RoomDB
-//        CoroutineScope(Dispatchers.IO).launch{
-//            val user = EverestDB.getInstance(this@SplashActivity)
-//                .getUserDAO()
-//                .loginUser(email!!, password!!)
-//
-//            if(user == null){
-//                startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
-//            }
-//            else{
-//                startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
-//            }
-//        }
         if(token == null){
             startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
         } else {
@@ -48,8 +35,6 @@ class SplashActivity : AppCompatActivity() {
 
     private fun getUserDetail() {
         val sharedPreferences = getSharedPreferences("userAuth", MODE_PRIVATE)
-//        email = sharedPreferences.getString("email", "")
-//        password = sharedPreferences.getString("password", "")
         token = sharedPreferences.getString("token", null)
     }
 }

@@ -47,7 +47,6 @@ class LoginActivity : AppCompatActivity() {
 
         }
     }
-
     private fun login() {
 
 
@@ -75,6 +74,7 @@ class LoginActivity : AppCompatActivity() {
                 val response = userRepo.loginUser(user)
                 if (response.success == true) {
                     ServiceBuilder.token = response.accessToken!!
+                    saveUserDetail()
                     withContext(Dispatchers.Main) {
                         Toast.makeText(this@LoginActivity, response.message, Toast.LENGTH_SHORT)
                             .show()
@@ -95,8 +95,7 @@ class LoginActivity : AppCompatActivity() {
     private fun saveUserDetail() {
         val sharedPreferences = getSharedPreferences("userAuth", MODE_PRIVATE);
         val editor = sharedPreferences.edit()
-        editor.putString("email", etEmail.text.toString())
-        editor.putString("password", etPassword.text.toString())
+        editor.putString("token", ServiceBuilder.token)
         editor.apply()
     }
 }
