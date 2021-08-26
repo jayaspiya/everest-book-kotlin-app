@@ -10,7 +10,9 @@ import com.jayaspiya.everestbooks.api.BookRepository
 import com.jayaspiya.everestbooks.model.Book
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.lang.Exception
 
 class BookActivity : AppCompatActivity() {
@@ -29,27 +31,31 @@ class BookActivity : AppCompatActivity() {
         tvDescription = findViewById(R.id.tvDescription)
         ivBook = findViewById(R.id.ivBook)
         btnAddToCart = findViewById(R.id.btnAddToCart)
-        val id = intent.getStringExtra("id")
+        val id: String? = intent.getStringExtra("id")
         try {
             CoroutineScope(IO).launch {
                 val bookRepository = BookRepository()
-                val response = bo
+                val response = bookRepository.getBook(id!!)
+                if(response.success == true){
+                    withContext(Main){
+                        val book = response.data?.get(0)!!
+                        tvTitle.text = book.title
+                        tvBookPrice.text = "Rs." + book.price.toString()
+                        tvAuthor.text = book.author
+                        tvDescription.text = book.synopsis
+//                        Glide.with(this)
+//                            .load(book.cover?.front.toString())
+//                            .into(ivBook)
+                    }
+                }
+                else{
+
+                }
             }
         }
         catch (ex: Exception){
             println(ex)
         }
-//        val book: Book? = intent.getParcelableExtra("book")
-//
-//        if (book != null) {
-//            tvTitle.text = book.title.toString()
-//            tvBookPrice.text = "Rs." + book.price.toString()
-//            tvAuthor.text = book.author.toString()
-//            tvDescription.text = book.synopsis.toString()
-//            Glide.with(this)
-//                .load(book.imageUrl.toString())
-//                .into(ivBook)
-//        }
 
     }
 }

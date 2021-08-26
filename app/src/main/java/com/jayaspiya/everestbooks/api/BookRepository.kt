@@ -10,4 +10,10 @@ class BookRepository:HttpRequestNetworkCall() {
             bookService.getBooks()
         }
     }
+
+    suspend fun getBook(id: String): BookResponse{
+        return myHttpRequestNetworkCall {
+            bookService.getBook(id=id)
+        }
+    }
 }
