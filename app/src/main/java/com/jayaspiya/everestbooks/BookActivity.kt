@@ -1,13 +1,17 @@
 package com.jayaspiya.everestbooks
 
+import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.jayaspiya.everestbooks.api.BookRepository
+import com.jayaspiya.everestbooks.fragments.CartFragment
 import com.jayaspiya.everestbooks.model.Book
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -23,6 +27,7 @@ class BookActivity : AppCompatActivity() {
     private lateinit var tvDescription: TextView
     private lateinit var ivBook: ImageView
     private lateinit var btnAddToCart: Button
+    private lateinit var myLayout: LinearLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book)
@@ -32,6 +37,13 @@ class BookActivity : AppCompatActivity() {
         tvDescription = findViewById(R.id.tvDescription)
         ivBook = findViewById(R.id.ivBook)
         btnAddToCart = findViewById(R.id.btnAddToCart)
+        myLayout = findViewById(R.id.myLayout)
+        btnAddToCart.setOnClickListener {
+            val snackBar= Snackbar.make(myLayout,"Book Added to Cart", Snackbar.LENGTH_SHORT).show()
+//            snackBar.setAction("View Cart"){
+//                startActivity(Intent(this@BookActivity,HomeActivity::class.java))
+//            }.show()
+        }
         val id: String? = intent.getStringExtra("id")
         try {
             CoroutineScope(IO).launch {
