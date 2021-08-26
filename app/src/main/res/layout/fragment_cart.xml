@@ -5,18 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.LibraryFragment">
+    tools:context=".fragments.CartFragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/prime"
         android:textSize="45dp"
-        android:text="Library"
+        android:text="Cart"
         />
-    <Button
-        android:id="@+id/btnCart"
-        style="@style/SettingButton"
-        android:backgroundTint="#f110f0"
-        android:text="Cart"/>
 </LinearLayout>

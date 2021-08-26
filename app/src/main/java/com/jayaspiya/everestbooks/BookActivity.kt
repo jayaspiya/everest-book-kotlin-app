@@ -1,5 +1,6 @@
 package com.jayaspiya.everestbooks
 
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -43,9 +44,9 @@ class BookActivity : AppCompatActivity() {
                         tvBookPrice.text = "Rs." + book.price.toString()
                         tvAuthor.text = book.author
                         tvDescription.text = book.synopsis
-//                        Glide.with(this)
-//                            .load(book.cover?.front.toString())
-//                            .into(ivBook)
+                        Glide.with(this@BookActivity)
+                            .load(book.cover?.front.toString())
+                            .into(ivBook)
                     }
                 }
                 else{
