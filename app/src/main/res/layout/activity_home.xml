@@ -13,29 +13,35 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/prime"
+        android:padding="0dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/navHome"
-            style="@style/NavigationButton"
             android:drawableTop="@mipmap/home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_weight="1"
+            android:textSize="9dp"
             android:text="home" />
-
-        <Button
-            android:id="@+id/navLibrary"
-            style="@style/NavigationButton"
-            android:drawableTop="@mipmap/library"
-            android:text="Library" />
-
         <Button
             android:id="@+id/navDiscover"
-            style="@style/NavigationButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_weight="1"
+            android:textSize="9dp"
             android:drawableTop="@mipmap/discover"
             android:text="Discover" />
 
         <Button
             android:id="@+id/navMore"
-            style="@style/NavigationButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_weight="1"
+            android:textSize="9dp"
             android:drawableTop="@mipmap/more"
             android:text="More" />
     </LinearLayout>

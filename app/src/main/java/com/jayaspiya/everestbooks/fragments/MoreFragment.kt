@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.jayaspiya.everestbooks.CartActivity
 import com.jayaspiya.everestbooks.LoginActivity
 import com.jayaspiya.everestbooks.R
 
@@ -20,15 +21,23 @@ class MoreFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_more, container, false)
         val logout: Button = view.findViewById(R.id.btnLogout)
+        val btnCart: Button = view.findViewById(R.id.btnCart)
         logout.setOnClickListener {
-            val sharedPreferences = requireContext().getSharedPreferences("userAuth", AppCompatActivity.MODE_PRIVATE);
-            val editor = sharedPreferences.edit()
-            editor.putString("token", null)
-            editor.apply()
-            startActivity(Intent(requireContext(), LoginActivity::class.java))
-            requireActivity().finish()
+            logoutUser()
+        }
+        btnCart.setOnClickListener {
+            startActivity(Intent(requireContext(), CartActivity::class.java))
         }
         return view
+    }
+
+    private fun logoutUser() {
+        val sharedPreferences = requireContext().getSharedPreferences("userAuth", AppCompatActivity.MODE_PRIVATE);
+        val editor = sharedPreferences.edit()
+        editor.putString("token", null)
+        editor.apply()
+        startActivity(Intent(requireContext(), LoginActivity::class.java))
+        requireActivity().finish()
     }
 
 
