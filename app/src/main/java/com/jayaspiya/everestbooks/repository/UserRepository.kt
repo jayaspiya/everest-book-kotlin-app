@@ -1,5 +1,8 @@
-package com.jayaspiya.everestbooks.api
+package com.jayaspiya.everestbooks.repository
 
+import com.jayaspiya.everestbooks.api.HttpRequestNetworkCall
+import com.jayaspiya.everestbooks.api.ServiceBuilder
+import com.jayaspiya.everestbooks.api.UserServices
 import com.jayaspiya.everestbooks.model.User
 import com.jayaspiya.everestbooks.response.UserResponse
 

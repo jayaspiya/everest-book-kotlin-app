@@ -8,7 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
-import com.jayaspiya.everestbooks.api.BookRepository
+import com.jayaspiya.everestbooks.repository.BookRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -43,7 +43,7 @@ class BookActivity : AppCompatActivity() {
         val id: String? = intent.getStringExtra("id")
         try {
             CoroutineScope(IO).launch {
-                val bookRepository = BookRepository()
+                val bookRepository = BookRepository(this@BookActivity)
                 val response = bookRepository.getBook(id!!)
                 if(response.success == true){
                     withContext(Main){

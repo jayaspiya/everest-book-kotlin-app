@@ -1,17 +1,15 @@
 package com.jayaspiya.everestbooks.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jayaspiya.everestbooks.R
 import com.jayaspiya.everestbooks.adapter.BookAdapter
-import com.jayaspiya.everestbooks.api.BookRepository
+import com.jayaspiya.everestbooks.repository.BookRepository
 import com.jayaspiya.everestbooks.database.EverestDB
 import com.jayaspiya.everestbooks.entity.BookEntity
 import com.jayaspiya.everestbooks.model.Book
@@ -33,13 +31,13 @@ class HomeFragment : Fragment() {
         var bookList = ArrayList<Book>()
         try {
             CoroutineScope(IO).launch {
-                val bookRepository = BookRepository()
+                val bookRepository = BookRepository(requireContext())
                 val response = bookRepository.getBooks()
                 if(response.success == true){
                     bookList = response.data!!
                     // Save book to Room DB
-                    val bookDao = EverestDB.getInstance(requireContext()).getBookDAO()
-                    bookDao.deleteBooks()
+//                    bookRepository.delBookFromDB()
+
                     for(book in bookList){
                         val bookEn = BookEntity(
                             _id = book._id,
@@ -50,7 +48,7 @@ class HomeFragment : Fragment() {
                             price = book.price,
                             cover = book.cover?.front
                         )
-                        bookDao.addBook(bookEn)
+                        bookRepository.addBookFromDB(bookEn)
                     }
 
                     withContext(Main){

@@ -9,7 +9,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.jayaspiya.everestbooks.api.ServiceBuilder
-import com.jayaspiya.everestbooks.api.UserRepository
+import com.jayaspiya.everestbooks.repository.UserRepository
 import com.jayaspiya.everestbooks.model.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
