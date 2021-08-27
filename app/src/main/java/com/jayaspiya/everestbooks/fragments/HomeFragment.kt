@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jayaspiya.everestbooks.R
 import com.jayaspiya.everestbooks.adapter.BookAdapter
 import com.jayaspiya.everestbooks.api.BookRepository
+import com.jayaspiya.everestbooks.database.EverestDB
 import com.jayaspiya.everestbooks.model.Book
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -35,8 +36,16 @@ class HomeFragment : Fragment() {
                 val response = bookRepository.getBooks()
                 Log.d("data", response.toString())
                 if(response.success == true){
+                    bookList = response.data!!
+                    println("************************************************************")
+                    println("************************************************************")
+                    println("************************************************************")
+                    for(book in bookList){
+                        println(book)
+                    }
+//                    EverestDB.getInstance(requireContext())
+//                        .getBookDAO().addBook()
                     withContext(Main){
-                        bookList = response.data!!
                         val adapter = BookAdapter(bookList, requireContext())
                         bookRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 //                        bookRecyclerView.layoutManager = GridLayoutManager(requireContext(),2)

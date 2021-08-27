@@ -4,15 +4,18 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.jayaspiya.everestbooks.dao.BookDAO
 import com.jayaspiya.everestbooks.dao.UserDAO
+import com.jayaspiya.everestbooks.entity.BookEntity
 import com.jayaspiya.everestbooks.entity.User
 
 @Database(
-    entities = [(User::class)],
+    entities = [(User::class),(BookEntity::class)],
     version = 1
 )
 abstract class EverestDB: RoomDatabase() {
     abstract fun getUserDAO(): UserDAO
+    abstract fun getBookDAO(): BookDAO
 
     companion object{
         @Volatile
