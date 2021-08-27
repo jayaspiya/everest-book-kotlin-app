@@ -13,6 +13,7 @@ import com.jayaspiya.everestbooks.R
 import com.jayaspiya.everestbooks.adapter.BookAdapter
 import com.jayaspiya.everestbooks.api.BookRepository
 import com.jayaspiya.everestbooks.database.EverestDB
+import com.jayaspiya.everestbooks.entity.BookEntity
 import com.jayaspiya.everestbooks.model.Book
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -34,17 +35,24 @@ class HomeFragment : Fragment() {
             CoroutineScope(IO).launch {
                 val bookRepository = BookRepository()
                 val response = bookRepository.getBooks()
-                Log.d("data", response.toString())
                 if(response.success == true){
                     bookList = response.data!!
-                    println("************************************************************")
-                    println("************************************************************")
-                    println("************************************************************")
+                    // Save book to Room DB
+                    val bookDao = EverestDB.getInstance(requireContext()).getBookDAO()
+                    bookDao.deleteBooks()
                     for(book in bookList){
-                        println(book)
+                        val bookEn = BookEntity(
+                            _id = book._id,
+                            title = book.title,
+                            author = book.author,
+                            isbn = book.isbn,
+                            synopsis = book.synopsis,
+                            price = book.price,
+                            cover = book.cover?.front
+                        )
+                        bookDao.addBook(bookEn)
                     }
-//                    EverestDB.getInstance(requireContext())
-//                        .getBookDAO().addBook()
+
                     withContext(Main){
                         val adapter = BookAdapter(bookList, requireContext())
                         bookRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
