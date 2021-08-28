@@ -1,33 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".fragments.MoreFragment">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/prime"
-        android:textSize="45dp"
-        android:text="More"
-        />
+        android:orientation="vertical">
 
-    <Button
-        style="@style/SettingButton"
-        android:text="A Button"
-        app:backgroundTint="@color/bg_gray" />
-    <Button
-        android:id="@+id/btnCart"
-        style="@style/SettingButton"
-        android:text="Cart"
-        app:backgroundTint="@color/bg_gray" />
-    <Button
-        android:id="@+id/btnLogout"
-        style="@style/SettingButton"
-        android:text="Logout"
-        app:backgroundTint="@color/bg_gray" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="More"
+            android:textColor="@color/prime"
+            android:textSize="45dp" />
 
-</LinearLayout>
+        <Button
+            style="@style/SettingButton"
+            android:text="Profile"
+            app:backgroundTint="@color/bg_gray" />
+
+
+        <Button
+            android:id="@+id/btnCart"
+            style="@style/SettingButton"
+            android:text="Cart"
+            app:backgroundTint="@color/bg_gray" />
+        <Button
+            style="@style/SettingButton"
+            android:text="Order"
+            app:backgroundTint="@color/bg_gray" />
+        <Button
+            style="@style/SettingButton"
+            android:text="Reviews"
+            app:backgroundTint="@color/bg_gray" />
+        <Button
+            style="@style/SettingButton"
+            android:text="Location"
+            app:backgroundTint="@color/bg_gray" />
+
+        <Button
+            style="@style/SettingButton"
+            android:text="Feedback"
+            app:backgroundTint="@color/bg_gray" />
+
+
+        <Button
+            android:id="@+id/btnLogout"
+            style="@style/SettingButton"
+            android:text="Logout"
+            app:backgroundTint="@color/bg_gray" />
+    </LinearLayout>
+</ScrollView>
