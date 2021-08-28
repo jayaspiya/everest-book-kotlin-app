@@ -26,4 +26,10 @@ class UserRepository: HttpRequestNetworkCall() {
             userService.getCart(token = "Bearer " + ServiceBuilder.token)
         }
     }
+
+    suspend fun addToCart(id: String): BookResponse{
+        return myHttpRequestNetworkCall {
+            userService.addToCart(id = id, token = "Bearer " + ServiceBuilder.token)
+        }
+    }
 }

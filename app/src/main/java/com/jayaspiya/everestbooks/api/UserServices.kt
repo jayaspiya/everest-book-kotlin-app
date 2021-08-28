@@ -4,10 +4,7 @@ import com.jayaspiya.everestbooks.model.User
 import com.jayaspiya.everestbooks.response.BookResponse
 import com.jayaspiya.everestbooks.response.UserResponse
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface UserServices {
     @POST("user/register")
@@ -20,5 +17,13 @@ interface UserServices {
     suspend fun getCart(
         @Header("Authorization")
         token: String
+    ): Response<BookResponse>
+
+    @POST("user/addtocart/{id}")
+    suspend fun addToCart(
+        @Header("Authorization")
+        token: String,
+        @Path("id")
+        id: String
     ): Response<BookResponse>
 }
