@@ -14,4 +14,7 @@ interface BookDAO {
 
     @Query("DELETE FROM BookEntity")
     suspend fun deleteBooks()
+
+//    @Query("SELECT * FROM BookEntity")
+//    suspend fun getBooks()
 }

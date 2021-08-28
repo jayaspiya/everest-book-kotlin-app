@@ -50,7 +50,7 @@ class HomeFragment : Fragment() {
                         )
                         bookRepository.addBookFromDB(bookEn)
                     }
-
+//                    val bookList2 = bookRepository.getBookFromDB()
                     withContext(Main){
                         val adapter = BookAdapter(bookList, requireContext())
                         bookRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

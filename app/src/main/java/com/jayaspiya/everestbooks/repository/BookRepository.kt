@@ -31,4 +31,8 @@ class BookRepository(context: Context): HttpRequestNetworkCall() {
     suspend fun addBookFromDB(bookEn: BookEntity){
         bookDao.addBook(bookEn)
     }
+
+//    suspend fun getBookFromDB(){
+//        return bookDao.getBooks()
+//    }
 }
