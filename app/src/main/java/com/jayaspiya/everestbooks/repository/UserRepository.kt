@@ -4,6 +4,7 @@ import com.jayaspiya.everestbooks.api.HttpRequestNetworkCall
 import com.jayaspiya.everestbooks.api.ServiceBuilder
 import com.jayaspiya.everestbooks.api.UserServices
 import com.jayaspiya.everestbooks.model.User
+import com.jayaspiya.everestbooks.response.BookResponse
 import com.jayaspiya.everestbooks.response.UserResponse
 
 class UserRepository: HttpRequestNetworkCall() {
@@ -17,6 +18,12 @@ class UserRepository: HttpRequestNetworkCall() {
     suspend fun loginUser(user: User): UserResponse {
         return myHttpRequestNetworkCall {
             userService.login(user)
+        }
+    }
+
+    suspend fun getCart(): BookResponse{
+        return myHttpRequestNetworkCall {
+            userService.getCart(token = "Bearer " + ServiceBuilder.token)
         }
     }
 }
