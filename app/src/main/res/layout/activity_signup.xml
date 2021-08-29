@@ -11,13 +11,13 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:src="@drawable/everestbook" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="30dp"
+        android:layout_marginVertical="5dp"
         android:orientation="vertical">
 
         <TextView
@@ -29,10 +29,38 @@
             android:textSize="40dp" />
 
         <EditText
+            android:id="@+id/etFirstname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:hint="First Name" />
+
+        <EditText
+            android:id="@+id/etLastname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:hint="Last Name" />
+
+        <EditText
+            android:id="@+id/etAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:hint="Address" />
+
+        <EditText
+            android:id="@+id/etPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:inputType="number"
+            android:hint="Phone Number" />
+
+        <EditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_baseline_account_circle_24"
             android:drawablePadding="10dp"
             android:hint="Email Address" />
 
@@ -40,7 +68,6 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_baseline_lock_24"
             android:drawablePadding="9dp"
             android:hint="Password"
             android:inputType="textPassword" />
@@ -48,7 +75,6 @@
             android:id="@+id/etCPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_baseline_lock_open_24"
             android:drawablePadding="9dp"
             android:hint="Confirm Password"
             android:inputType="textPassword" />
