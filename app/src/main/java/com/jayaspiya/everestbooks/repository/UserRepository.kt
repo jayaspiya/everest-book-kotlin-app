@@ -32,4 +32,10 @@ class UserRepository: HttpRequestNetworkCall() {
             userService.addToCart(id = id, token = "Bearer " + ServiceBuilder.token)
         }
     }
+
+    suspend fun getProfile(): UserResponse{
+        return myHttpRequestNetworkCall {
+            userService.getProfile(token = "Bearer " + ServiceBuilder.token)
+        }
+    }
 }

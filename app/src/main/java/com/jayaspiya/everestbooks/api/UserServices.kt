@@ -26,4 +26,10 @@ interface UserServices {
         @Path("id")
         id: String
     ): Response<BookResponse>
+
+    @GET("user/profile")
+    suspend fun getProfile(
+        @Header("Authorization")
+        token: String,
+    ): Response<UserResponse>
 }
