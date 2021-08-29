@@ -20,6 +20,7 @@
             android:textSize="45dp" />
 
         <Button
+            android:id="@+id/btnProfile"
             style="@style/SettingButton"
             android:text="Profile"
             app:backgroundTint="@color/bg_gray" />

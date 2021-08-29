@@ -10,6 +10,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.jayaspiya.everestbooks.CartActivity
 import com.jayaspiya.everestbooks.LoginActivity
+import com.jayaspiya.everestbooks.ProfileActivity
 import com.jayaspiya.everestbooks.R
 
 class MoreFragment : Fragment() {
@@ -22,11 +23,16 @@ class MoreFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_more, container, false)
         val logout: Button = view.findViewById(R.id.btnLogout)
         val btnCart: Button = view.findViewById(R.id.btnCart)
+        val btnProfile: Button = view.findViewById(R.id.btnProfile)
         logout.setOnClickListener {
             logoutUser()
         }
         btnCart.setOnClickListener {
             startActivity(Intent(requireContext(), CartActivity::class.java))
+        }
+
+        btnProfile.setOnClickListener {
+            startActivity(Intent(requireContext(), ProfileActivity::class.java))
         }
         return view
     }
