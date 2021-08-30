@@ -13,19 +13,7 @@
         android:text="Cart"
         android:textColor="@color/prime"
         android:textSize="45dp" />
-
-    <LinearLayout
-        android:id="@+id/progressBar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
-        <ProgressBar
-            style="?android:attr/progressBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:layout_gravity="center" />
-    </LinearLayout>
+    <include layout="@layout/cover_progress_bar"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bookRecyclerView"

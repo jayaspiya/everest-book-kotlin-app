@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jayaspiya.everestbooks.R
@@ -28,6 +29,8 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_home, container, false)
         val bookRecyclerView: RecyclerView = view.findViewById(R.id.bookRecyclerView)
+        val progressBar: LinearLayout = view.findViewById(R.id.progressBar)
+        progressBar.visibility = View.VISIBLE
         var bookList = ArrayList<Book>()
         try {
             CoroutineScope(IO).launch {
@@ -52,6 +55,7 @@ class HomeFragment : Fragment() {
                     }
 //                    val bookList2 = bookRepository.getBookFromDB()
                     withContext(Main){
+                        progressBar.visibility = View.GONE
                         val adapter = BookAdapter(bookList, requireContext())
                         bookRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 //                        bookRecyclerView.layoutManager = GridLayoutManager(requireContext(),2)

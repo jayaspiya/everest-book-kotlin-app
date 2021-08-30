@@ -31,19 +31,7 @@
             app:tint="@color/prime" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/progressBar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <ProgressBar
-            style="?android:attr/progressBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:layout_gravity="center" />
-    </LinearLayout>
+    <include layout="@layout/cover_progress_bar"/>
 
     <LinearLayout
         android:layout_width="match_parent"

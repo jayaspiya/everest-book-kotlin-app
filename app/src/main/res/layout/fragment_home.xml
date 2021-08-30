@@ -14,6 +14,7 @@
         android:textSize="45dp"
         android:text="Home"
         />
+    <include layout="@layout/cover_progress_bar"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bookRecyclerView"
