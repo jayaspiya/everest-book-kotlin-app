@@ -20,26 +20,10 @@ class SplashActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch{
             delay(2000)
             getUserDetail()
-//            getUserDataFromBackend()
             login()
             finish()
         }
     }
-
-//    private fun getUserDataFromBackend() {
-//        try {
-//            CoroutineScope(IO).launch {
-//                val userRepository = UserRepository()
-//                val response = userRepository.getProfile()
-//                if(response.success == true){
-//                    ServiceBuilder.user = response.data
-//                }
-//            }
-//        }
-//        catch (ex: Exception){
-//            println(ex)
-//        }
-//    }
 
     private fun login() {
         if(ServiceBuilder.token == null){
