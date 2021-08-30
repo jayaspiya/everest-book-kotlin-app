@@ -7,6 +7,13 @@
     android:background="@color/bg_gray"
     tools:context=".HomeActivity">
 
+
+
+    <LinearLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" />
     <LinearLayout
         android:id="@+id/navigation"
         android:layout_width="match_parent"
@@ -45,11 +52,4 @@
             android:drawableTop="@mipmap/more"
             android:text="More" />
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/fragmentContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" />
-
 </RelativeLayout>
