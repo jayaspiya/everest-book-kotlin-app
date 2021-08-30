@@ -76,10 +76,17 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun loadPopUpSetting() {
         Toast.makeText(this, "Setting", Toast.LENGTH_SHORT).show()
+        val popMenu = PopupMenu(this, ibSetting)
+        popMenu.menuInflater.inflate(R.menu.profile_menu, popMenu.menu)
+        popMenu.setOnMenuItemClickListener {
+            Toast.makeText(this, it.itemId.toString() , Toast.LENGTH_SHORT).show()
+            true
+        }
+        popMenu.show()
     }
 
     private fun loadPopUpProfileUpload() {
-        Toast.makeText(this, "CLicked", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show()
         val popMenu = PopupMenu(this, ivProfilePicture)
         popMenu.menuInflater.inflate(R.menu.profile_picture_menu, popMenu.menu)
         popMenu.setOnMenuItemClickListener { item ->
@@ -90,6 +97,7 @@ class ProfileActivity : AppCompatActivity() {
             }
             true
         }
+        popMenu.show()
     }
     private fun openGallery() {
         val galleryIntent = Intent(Intent.ACTION_PICK)
@@ -100,7 +108,6 @@ class ProfileActivity : AppCompatActivity() {
     private fun openCamera() {
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(cameraIntent, CAMERA_CODE)
-
     }
 
     private val CAMERA_CODE = 1
