@@ -3,6 +3,7 @@ package com.jayaspiya.everestbooks.api
 import com.jayaspiya.everestbooks.model.User
 import com.jayaspiya.everestbooks.response.BookResponse
 import com.jayaspiya.everestbooks.response.UserResponse
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -31,5 +32,14 @@ interface UserServices {
     suspend fun getProfile(
         @Header("Authorization")
         token: String,
+    ): Response<UserResponse>
+
+    @Multipart
+    @PUT("user/cover")
+    suspend fun uploadImage(
+        @Header("Authorization")
+        token: String,
+        @Part
+        profile: MultipartBody.Part
     ): Response<UserResponse>
 }

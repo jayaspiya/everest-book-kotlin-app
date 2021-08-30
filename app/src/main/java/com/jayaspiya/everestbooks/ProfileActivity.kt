@@ -9,15 +9,21 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
+import android.webkit.MimeTypeMap
 import android.widget.*
 import com.bumptech.glide.Glide
 import com.jayaspiya.everestbooks.api.ServiceBuilder
 import com.jayaspiya.everestbooks.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -56,7 +62,6 @@ class ProfileActivity : AppCompatActivity() {
                         tvAddress.text = user.address
                         tvPhone.text = user.phone
                         tvEmail.text = user.email
-
                         Glide.with(this@ProfileActivity)
                             .load(user.profile)
                             .into(ivProfilePicture)
@@ -75,7 +80,6 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun loadPopUpSetting() {
-        Toast.makeText(this, "Setting", Toast.LENGTH_SHORT).show()
         val popMenu = PopupMenu(this, ibSetting)
         popMenu.menuInflater.inflate(R.menu.profile_menu, popMenu.menu)
         popMenu.setOnMenuItemClickListener {
@@ -86,7 +90,6 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun loadPopUpProfileUpload() {
-        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show()
         val popMenu = PopupMenu(this, ivProfilePicture)
         popMenu.menuInflater.inflate(R.menu.profile_picture_menu, popMenu.menu)
         popMenu.setOnMenuItemClickListener { item ->
@@ -115,7 +118,6 @@ class ProfileActivity : AppCompatActivity() {
     private var imageUrl = ""
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if (resultCode == Activity.RESULT_OK) {
             //gallery
             if (requestCode == GALLERY_CODE && data != null) {
@@ -136,6 +138,7 @@ class ProfileActivity : AppCompatActivity() {
                 imageUrl = file!!.absolutePath
                 ivProfilePicture.setImageBitmap(BitmapFactory.decodeFile(imageUrl))
             }
+            uploadImage()
         }
     }
 
@@ -150,7 +153,6 @@ class ProfileActivity : AppCompatActivity() {
                     .toString() + File.separator + fileNameToSave
             )
             file.createNewFile()
-
             //Convert bitmap to byte array
             val bos = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos) // YOU can also save it in JPEG
@@ -166,5 +168,35 @@ class ProfileActivity : AppCompatActivity() {
             e.printStackTrace()
             file // it will return null
         }
+    }
+    private fun uploadImage() {
+        progressBar.visibility = View.VISIBLE
+        val file = File(imageUrl)
+        val mimeType = getMimeType(file)
+        val reqFile = RequestBody.create(mimeType?.let { it.toMediaTypeOrNull() }, file)
+        val body = MultipartBody.Part.createFormData("profile", file.name, reqFile)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val userRepository = UserRepository()
+                val response = userRepository.uploadImage(body)
+                if(response.success == true){
+                    withContext(Main){
+                        progressBar.visibility = View.GONE
+                        Toast.makeText(this@ProfileActivity, response.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } catch (ex: Exception) {
+                println(ex.localizedMessage)
+            }
+        }
+    }
+
+    fun getMimeType(file: File): String? {
+        var type: String? = null
+        val extension = MimeTypeMap.getFileExtensionFromUrl(file.path)
+        if (extension != null) {
+            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
+        }
+        return type
     }
 }

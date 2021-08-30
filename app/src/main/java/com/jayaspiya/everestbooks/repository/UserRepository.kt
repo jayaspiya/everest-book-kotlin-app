@@ -6,6 +6,7 @@ import com.jayaspiya.everestbooks.api.UserServices
 import com.jayaspiya.everestbooks.model.User
 import com.jayaspiya.everestbooks.response.BookResponse
 import com.jayaspiya.everestbooks.response.UserResponse
+import okhttp3.MultipartBody
 
 class UserRepository: HttpRequestNetworkCall() {
     private val userService = ServiceBuilder.buildService(UserServices::class.java)
@@ -36,6 +37,12 @@ class UserRepository: HttpRequestNetworkCall() {
     suspend fun getProfile(): UserResponse{
         return myHttpRequestNetworkCall {
             userService.getProfile(token = "Bearer " + ServiceBuilder.token)
+        }
+    }
+
+    suspend fun uploadImage(body: MultipartBody.Part): UserResponse{
+        return myHttpRequestNetworkCall {
+            userService.uploadImage(token = "Bearer " + ServiceBuilder.token, profile = body)
         }
     }
 }
