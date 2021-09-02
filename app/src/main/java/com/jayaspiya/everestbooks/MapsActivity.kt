@@ -2,6 +2,7 @@ package com.jayaspiya.everestbooks
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.databinding.DataBindingUtil
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -20,7 +21,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -30,31 +30,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-    private var locations = ArrayList<LatitudeLongitude>()
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        locations.add(LatitudeLongitude(27.7061949, 85.3300394, "Everest Books"))
-//        locations.add(LatitudeLongitude(27.704675, 85.329471, "Everest Books"))
+        val store1 = LatitudeLongitude(27.69486292102715, 84.4230918354373, "Everest Books, Milan road")
+        val store2 = LatitudeLongitude(27.691965134338325,   84.42483839591884, "Everest Books, Lionschowk")
+        val locations = arrayListOf<LatitudeLongitude>(store1, store2)
 
         for (location in locations) {
             mMap.addMarker(
                 MarkerOptions().position(LatLng(location.latitude, location.longitude))
                     .title(location.markerName)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
             )
         }
-//        mMap.animateCamera(
-//            CameraUpdateFactory.newLatLngZoom(LatLng(27.7061949, 85.3300394),16F), 4000, null
-//        )
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(27.69486292102715, 84.4230918354373), 16F));
         mMap.uiSettings.isZoomControlsEnabled = true
     }
 }

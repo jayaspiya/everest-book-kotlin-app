@@ -35,7 +35,6 @@ class MoreFragment : Fragment() {
         }
         btnMaps.setOnClickListener {
             startActivity(Intent(requireContext(), MapsActivity::class.java))
-//            Toast.makeText(requireContext(), "Maps", Toast.LENGTH_SHORT).show()
         }
         return view
     }
