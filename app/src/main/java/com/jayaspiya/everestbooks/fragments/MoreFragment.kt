@@ -7,11 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.jayaspiya.everestbooks.CartActivity
-import com.jayaspiya.everestbooks.LoginActivity
-import com.jayaspiya.everestbooks.ProfileActivity
-import com.jayaspiya.everestbooks.R
+import com.jayaspiya.everestbooks.*
 
 class MoreFragment : Fragment() {
 
@@ -24,6 +22,7 @@ class MoreFragment : Fragment() {
         val logout: Button = view.findViewById(R.id.btnLogout)
         val btnCart: Button = view.findViewById(R.id.btnCart)
         val btnProfile: Button = view.findViewById(R.id.btnProfile)
+        val btnMaps: Button = view.findViewById(R.id.btnMaps)
         logout.setOnClickListener {
             logoutUser()
         }
@@ -33,6 +32,10 @@ class MoreFragment : Fragment() {
 
         btnProfile.setOnClickListener {
             startActivity(Intent(requireContext(), ProfileActivity::class.java))
+        }
+        btnMaps.setOnClickListener {
+            startActivity(Intent(requireContext(), MapsActivity::class.java))
+//            Toast.makeText(requireContext(), "Maps", Toast.LENGTH_SHORT).show()
         }
         return view
     }
