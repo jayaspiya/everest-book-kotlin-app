@@ -29,7 +29,6 @@ class MoreFragment : Fragment() {
         btnCart.setOnClickListener {
             startActivity(Intent(requireContext(), CartActivity::class.java))
         }
-
         btnProfile.setOnClickListener {
             startActivity(Intent(requireContext(), ProfileActivity::class.java))
         }

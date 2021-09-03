@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:id="@+id/myLayout"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="20dp"
     tools:context=".BookActivity">
-
-
-    <ImageView
-        android:id="@+id/ivBook"
+    <LinearLayout
+        android:id="@+id/myLayout"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_marginVertical="10dp" />
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:orientation="vertical">
 
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/bookCoverViewPager"
+            android:layout_width="wrap_content"
+            android:layout_height="350dp"/>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/bookCoverTabLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:tabBackground="@drawable/vp_selector_for_dots"
+            app:tabIndicatorHeight="0dp"
+            app:tabRippleColor="@null"
+            android:layout_gravity="center"
+            />
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
@@ -76,5 +85,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Description" />
-
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
