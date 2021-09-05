@@ -5,10 +5,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.hdd.globalmovie.adapter.BookCoverAdapter
+import com.jayaspiya.everestbooks.adapter.ReviewAdapter
 import com.jayaspiya.everestbooks.repository.BookRepository
 import com.jayaspiya.everestbooks.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
@@ -27,6 +30,7 @@ class BookActivity : AppCompatActivity() {
     private lateinit var bookCoverViewPager: ViewPager
     private lateinit var bookCoverTabLayout: TabLayout
     private lateinit var progressBar: LinearLayout
+    private lateinit var rvReview: RecyclerView
 
     private lateinit var id: String
 
@@ -39,6 +43,7 @@ class BookActivity : AppCompatActivity() {
         tvDescription = findViewById(R.id.tvDescription)
         btnAddToCart = findViewById(R.id.btnAddToCart)
         myLayout = findViewById(R.id.myLayout)
+        rvReview = findViewById(R.id.rvReview)
         progressBar = findViewById(R.id.progressBar)
         progressBar.visibility = View.VISIBLE
         myLayout.visibility = View.GONE
@@ -71,6 +76,15 @@ class BookActivity : AppCompatActivity() {
                         var cover = arrayListOf<String>(coverImage.front.toString(),coverImage.back.toString())
                         bookCoverViewPager.adapter = BookCoverAdapter(cover)
                         bookCoverTabLayout.setupWithViewPager(bookCoverViewPager)
+                        val adapter = ReviewAdapter(book.reviews, this@BookActivity)
+                        // Stop Scrolling Recycler View
+                        val myLinearLayoutManager = object : LinearLayoutManager(this@BookActivity) {
+                            override fun canScrollVertically(): Boolean {
+                                return false
+                            }
+                        }
+                        rvReview.layoutManager = myLinearLayoutManager
+                        rvReview.adapter = adapter
                     }
                 } else {
                     withContext(Main) {

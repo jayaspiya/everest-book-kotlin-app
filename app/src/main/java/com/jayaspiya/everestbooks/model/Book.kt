@@ -15,6 +15,7 @@ data class Book(
     val synopsis: String? = null,
     val cover: Cover? = null,
     val price: Int? = 0,
+    val reviews: ArrayList<Review> =ArrayList<Review>()
 )
 
 data class Cover(
