@@ -9,7 +9,7 @@ import com.jayaspiya.everestbooks.entity.BookEntity
 
 @Database(
     entities = [(BookEntity::class)],
-    version = 1
+    version = 2
 )
 abstract class EverestDB: RoomDatabase() {
     abstract fun getBookDAO(): BookDAO
