@@ -2,6 +2,7 @@ package com.jayaspiya.everestbooks
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
@@ -25,6 +26,7 @@ class BookActivity : AppCompatActivity() {
     private lateinit var myLayout: LinearLayout
     private lateinit var bookCoverViewPager: ViewPager
     private lateinit var bookCoverTabLayout: TabLayout
+    private lateinit var progressBar: LinearLayout
 
     private lateinit var id: String
 
@@ -37,6 +39,9 @@ class BookActivity : AppCompatActivity() {
         tvDescription = findViewById(R.id.tvDescription)
         btnAddToCart = findViewById(R.id.btnAddToCart)
         myLayout = findViewById(R.id.myLayout)
+        progressBar = findViewById(R.id.progressBar)
+        progressBar.visibility = View.VISIBLE
+
         // View Pager
         bookCoverViewPager = findViewById(R.id.bookCoverViewPager)
         bookCoverTabLayout = findViewById(R.id.bookCoverTabLayout)
@@ -53,6 +58,7 @@ class BookActivity : AppCompatActivity() {
                 val response = bookRepository.getBook(id!!)
                 if (response.success == true) {
                     withContext(Main) {
+                        progressBar.visibility = View.GONE
                         val book = response.data?.get(0)!!
                         this@BookActivity.id = book._id
                         tvTitle.text = book.title
@@ -78,6 +84,7 @@ class BookActivity : AppCompatActivity() {
     }
 
     private fun addToCart() {
+//        TODO: Token Malformed Beaerer Null
         try {
             CoroutineScope(IO).launch {
                 val userRepository = UserRepository()

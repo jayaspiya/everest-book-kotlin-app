@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BookActivity">
+
+
     <LinearLayout
         android:id="@+id/myLayout"
         android:layout_width="match_parent"
@@ -13,77 +14,87 @@
         android:layout_marginHorizontal="20dp"
         android:orientation="vertical">
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/bookCoverViewPager"
-            android:layout_width="wrap_content"
-            android:layout_height="350dp"/>
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/bookCoverTabLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:tabBackground="@drawable/vp_selector_for_dots"
-            app:tabIndicatorHeight="0dp"
-            app:tabRippleColor="@null"
-            android:layout_gravity="center"
-            />
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:hint="Title"
-        android:textColor="@color/prime"
-        android:textSize="35dp"
-        android:textStyle="bold" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
+        <include layout="@layout/cover_progress_bar" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvAuthor"
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/bookCoverViewPager"
+                android:layout_width="wrap_content"
+                android:layout_height="350dp" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/bookCoverTabLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Author Name"
-                android:textColor="@color/prime"
-                android:textSize="20dp" />
+                android:layout_gravity="center"
+                app:tabBackground="@drawable/vp_selector_for_dots"
+                app:tabIndicatorHeight="0dp"
+                app:tabRippleColor="@null" />
 
             <TextView
-                android:id="@+id/tvBookPrice"
+                android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:hint="$$$"
+                android:layout_alignParentLeft="true"
+                android:hint="Title"
                 android:textColor="@color/prime"
-                android:textSize="15dp" />
+                android:textSize="35dp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvAuthor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="Author Name"
+                        android:textColor="@color/prime"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/tvBookPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:hint="$$$"
+                        android:textColor="@color/prime"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnAddToCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingHorizontal="20dp"
+                    android:text="Add To Cart"
+                    android:textSize="12dp"
+                    app:cornerRadius="40dp" />
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Description" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btnAddToCart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:paddingHorizontal="20dp"
-            android:text="Add To Cart"
-            android:textSize="12dp"
-            app:cornerRadius="40dp" />
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/tvDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Description" />
     </LinearLayout>
 </ScrollView>
