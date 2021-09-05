@@ -68,21 +68,25 @@ class BookActivity : AppCompatActivity() {
                         myLayout.visibility = View.VISIBLE
                         val book = response.data?.get(0)!!
                         this@BookActivity.id = book._id
-                        tvTitle.text = book.title
+                        tvTitle.text = capitalizeSentence(book.title!!)
                         tvBookPrice.text = "Rs." + book.price.toString()
-                        tvAuthor.text = book.author
+                        tvAuthor.text = capitalizeSentence(book.author!!)
                         tvDescription.text = book.synopsis
                         val coverImage = book.cover!!
-                        var cover = arrayListOf<String>(coverImage.front.toString(),coverImage.back.toString())
+                        var cover = arrayListOf<String>(
+                            coverImage.front.toString(),
+                            coverImage.back.toString()
+                        )
                         bookCoverViewPager.adapter = BookCoverAdapter(cover)
                         bookCoverTabLayout.setupWithViewPager(bookCoverViewPager)
                         val adapter = ReviewAdapter(book.reviews, this@BookActivity)
                         // Stop Scrolling Recycler View
-                        val myLinearLayoutManager = object : LinearLayoutManager(this@BookActivity) {
-                            override fun canScrollVertically(): Boolean {
-                                return false
+                        val myLinearLayoutManager =
+                            object : LinearLayoutManager(this@BookActivity) {
+                                override fun canScrollVertically(): Boolean {
+                                    return false
+                                }
                             }
-                        }
                         rvReview.layoutManager = myLinearLayoutManager
                         rvReview.adapter = adapter
                     }
@@ -121,6 +125,15 @@ class BookActivity : AppCompatActivity() {
         } catch (ex: Exception) {
             println(ex)
         }
+    }
+
+    fun capitalizeSentence(sentence: String): String {
+        val words = sentence.split(" ")?.toMutableList()
+        var output = ""
+        for (word in words) {
+            output += word.capitalize() + " "
+        }
+        return output.trim()
     }
 
 }

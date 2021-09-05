@@ -99,8 +99,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:hint="Reviews"
                 android:textColor="@color/prime"
+                android:text="Reviews"
                 android:textSize="25dp"
                 android:textStyle="bold" />
             <androidx.recyclerview.widget.RecyclerView
