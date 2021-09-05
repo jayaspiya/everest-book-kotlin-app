@@ -54,11 +54,9 @@ class HomeFragment : Fragment() {
                         )
                         bookRepository.addBookFromDB(bookEn)
                     }
-//                    val bookList2 = bookRepository.getBookFromDB()
                     withContext(Main){
                         progressBar.visibility = View.GONE
                         val adapter = BookAdapter(bookList, requireContext())
-//                        bookRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                         bookRecyclerView.layoutManager = GridLayoutManager(requireContext(),2)
                         bookRecyclerView.adapter = adapter
                         return@withContext view

@@ -35,7 +35,7 @@ interface UserServices {
     ): Response<UserResponse>
 
     @Multipart
-    @PUT("user/cover")
+    @PATCH("user/cover")
     suspend fun uploadImage(
         @Header("Authorization")
         token: String,

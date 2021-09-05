@@ -41,6 +41,7 @@ class BookActivity : AppCompatActivity() {
         myLayout = findViewById(R.id.myLayout)
         progressBar = findViewById(R.id.progressBar)
         progressBar.visibility = View.VISIBLE
+        myLayout.visibility = View.GONE
 
         // View Pager
         bookCoverViewPager = findViewById(R.id.bookCoverViewPager)
@@ -59,6 +60,7 @@ class BookActivity : AppCompatActivity() {
                 if (response.success == true) {
                     withContext(Main) {
                         progressBar.visibility = View.GONE
+                        myLayout.visibility = View.VISIBLE
                         val book = response.data?.get(0)!!
                         this@BookActivity.id = book._id
                         tvTitle.text = book.title
