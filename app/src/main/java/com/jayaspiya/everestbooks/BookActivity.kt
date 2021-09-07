@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.hdd.globalmovie.adapter.BookCoverAdapter
@@ -25,7 +26,7 @@ class BookActivity : AppCompatActivity() {
     private lateinit var tvBookPrice: TextView
     private lateinit var tvAuthor: TextView
     private lateinit var tvDescription: TextView
-    private lateinit var btnAddToCart: Button
+    private lateinit var btnAddToCart: FloatingActionButton
     private lateinit var myLayout: LinearLayout
     private lateinit var bookCoverViewPager: ViewPager
     private lateinit var bookCoverTabLayout: TabLayout

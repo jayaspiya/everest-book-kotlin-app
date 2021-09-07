@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,106 +7,113 @@
     tools:context=".BookActivity">
 
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="20dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <include layout="@layout/cover_progress_bar" />
 
         <LinearLayout
-            android:id="@+id/myLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginHorizontal="20dp"
             android:orientation="vertical">
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/bookCoverViewPager"
-                android:layout_width="wrap_content"
-                android:layout_height="350dp" />
+            <include layout="@layout/cover_progress_bar" />
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/bookCoverTabLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                app:tabBackground="@drawable/vp_selector_for_dots"
-                app:tabIndicatorHeight="0dp"
-                app:tabRippleColor="@null" />
-
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:hint="Title"
-                android:textColor="@color/prime"
-                android:textSize="35dp"
-                android:textStyle="bold" />
-
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/myLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/bookCoverViewPager"
+                    android:layout_width="wrap_content"
+                    android:layout_height="350dp" />
 
-                <LinearLayout
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/bookCoverTabLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:tabBackground="@drawable/vp_selector_for_dots"
+                    app:tabIndicatorHeight="0dp"
+                    app:tabRippleColor="@null" />
+
+                <TextView
+                    android:id="@+id/tvTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:orientation="vertical">
+                    android:hint="Title"
+                    android:textColor="@color/prime"
+                    android:textSize="35dp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tvAuthor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="Author Name"
-                        android:textColor="@color/prime"
-                        android:textSize="20dp" />
 
-                    <TextView
-                        android:id="@+id/tvBookPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:hint="$$$"
-                        android:textColor="@color/prime"
-                        android:textSize="15dp" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/tvAuthor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Author Name"
+                    android:textColor="@color/prime"
+                    android:textSize="20dp" />
 
-                <Button
-                    android:id="@+id/btnAddToCart"
+                <TextView
+                    android:id="@+id/tvBookPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:paddingHorizontal="20dp"
-                    android:text="Add To Cart"
-                    android:textSize="12dp"
-                    app:cornerRadius="40dp" />
+                    android:layout_centerVertical="true"
+                    android:hint="$$$"
+                    android:textColor="@color/prime"
+                    android:textSize="15dp" />
+
+                <!--                <Button-->
+                <!--                    android:id="@+id/btnAddToCart"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:paddingHorizontal="20dp"-->
+                <!--                    android:text="Add To Cart"-->
+                <!--                    android:textSize="12dp"-->
+                <!--                    app:cornerRadius="40dp" />-->
 
 
-            </RelativeLayout>
+                <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Description" />
 
-            <TextView
-                android:id="@+id/tvDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Description" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:textColor="@color/prime"
-                android:text="Reviews"
-                android:textSize="25dp"
-                android:textStyle="bold" />
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvReview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="Reviews"
+                    android:textColor="@color/prime"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvReview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnAddToCart"
+        android:src="@drawable/cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/white"
+        app:borderWidth="0dp"
+        app:rippleColor="@color/prime"
+        />
+
+</RelativeLayout>
