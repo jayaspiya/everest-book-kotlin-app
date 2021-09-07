@@ -48,22 +48,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
     private fun login() {
-
-
-//        CoroutineScope(Dispatchers.IO).launch{
-//            val user: User? = EverestDB.getInstance(this@LoginActivity)
-//                .getUserDAO().loginUser(email, password)
-//            if(user == null){
-//                withContext(Dispatchers.Main){
-//                    Toast.makeText(this@LoginActivity, "Invalid Credential", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//            else{
-//                saveUserDetail()
-//                startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
-//                finish()
-//            }
-//        }
         // Retrofit
         try {
             CoroutineScope(Dispatchers.IO).launch {
@@ -73,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
                 val userRepo = UserRepository()
                 val response = userRepo.loginUser(user)
                 if (response.success == true) {
-                    ServiceBuilder.token = response.accessToken!!
+                    ServiceBuilder.token = "Bearer " + response.accessToken!!
                     saveUserDetail()
                     withContext(Dispatchers.Main) {
                         Toast.makeText(this@LoginActivity, response.message, Toast.LENGTH_SHORT)

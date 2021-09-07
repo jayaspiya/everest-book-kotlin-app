@@ -24,25 +24,25 @@ class UserRepository: HttpRequestNetworkCall() {
 
     suspend fun getCart(): BookResponse{
         return myHttpRequestNetworkCall {
-            userService.getCart(token = "Bearer " + ServiceBuilder.token)
+            userService.getCart(token = ServiceBuilder.token)
         }
     }
 
     suspend fun addToCart(id: String): BookResponse{
         return myHttpRequestNetworkCall {
-            userService.addToCart(id = id, token = "Bearer " + ServiceBuilder.token)
+            userService.addToCart(id = id, token = ServiceBuilder.token)
         }
     }
 
     suspend fun getProfile(): UserResponse{
         return myHttpRequestNetworkCall {
-            userService.getProfile(token = "Bearer " + ServiceBuilder.token)
+            userService.getProfile(token = ServiceBuilder.token)
         }
     }
 
     suspend fun uploadImage(body: MultipartBody.Part): UserResponse{
         return myHttpRequestNetworkCall {
-            userService.uploadImage(token = "Bearer " + ServiceBuilder.token, profile = body)
+            userService.uploadImage(token = ServiceBuilder.token, profile = body)
         }
     }
 }

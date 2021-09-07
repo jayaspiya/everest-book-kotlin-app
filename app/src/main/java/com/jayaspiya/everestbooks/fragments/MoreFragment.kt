@@ -41,7 +41,7 @@ class MoreFragment : Fragment() {
     private fun logoutUser() {
         val sharedPreferences = requireContext().getSharedPreferences("userAuth", AppCompatActivity.MODE_PRIVATE);
         val editor = sharedPreferences.edit()
-        editor.putString("token", null)
+        editor.putString("token", "")
         editor.apply()
         startActivity(Intent(requireContext(), LoginActivity::class.java))
         requireActivity().finish()

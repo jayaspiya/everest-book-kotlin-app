@@ -1,5 +1,6 @@
 package com.jayaspiya.everestbooks.api
 
+import com.jayaspiya.everestbooks.model.Book
 import com.jayaspiya.everestbooks.model.User
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -10,9 +11,11 @@ import kotlin.math.log
 object ServiceBuilder {
 //    private const val BASE_URL = "https://everest-book.herokuapp.com/"
     private const val BASE_URL="http://10.0.2.2:5500/"
-    var token: String? = null
+    var token: String = ""
 
     var user: User? =null
+
+    var userCart: ArrayList<Book> = ArrayList()
 
     // create logging
     val logging =HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)

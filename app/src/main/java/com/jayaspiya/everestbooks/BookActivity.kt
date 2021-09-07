@@ -1,9 +1,14 @@
 package com.jayaspiya.everestbooks
 
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.text.BoringLayout
 import android.view.View
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.hdd.globalmovie.adapter.BookCoverAdapter
 import com.jayaspiya.everestbooks.adapter.ReviewAdapter
+import com.jayaspiya.everestbooks.api.ServiceBuilder
 import com.jayaspiya.everestbooks.repository.BookRepository
 import com.jayaspiya.everestbooks.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
@@ -34,7 +40,9 @@ class BookActivity : AppCompatActivity() {
     private lateinit var rvReview: RecyclerView
 
     private lateinit var id: String
+    private var inCart: Boolean = false
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book)
@@ -49,16 +57,38 @@ class BookActivity : AppCompatActivity() {
         progressBar.visibility = View.VISIBLE
         myLayout.visibility = View.GONE
 
+        val id: String? = intent.getStringExtra("id")
+        for(book in ServiceBuilder.userCart){
+            if(book._id == id){
+                inCart = true
+                break
+            }
+        }
+
         // View Pager
         bookCoverViewPager = findViewById(R.id.bookCoverViewPager)
         bookCoverTabLayout = findViewById(R.id.bookCoverTabLayout)
-
+        if (inCart) {
+            btnAddToCart.imageTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.prime))
+        } else {
+            btnAddToCart.imageTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.bg_graydark))
+        }
         // Button Click Listener
         btnAddToCart.setOnClickListener {
-            addToCart()
+            if (inCart) {
+                val snackBar =
+                    Snackbar.make(myLayout, "Book Already On Cart", Snackbar.LENGTH_SHORT)
+                snackBar.setAction("View Cart") {
+                    startActivity(Intent(this@BookActivity, CartActivity::class.java))
+                }.show()
+            } else {
+                addToCart()
+            }
+
         }
 
-        val id: String? = intent.getStringExtra("id")
         try {
             CoroutineScope(IO).launch {
                 val bookRepository = BookRepository(this@BookActivity)
@@ -104,6 +134,7 @@ class BookActivity : AppCompatActivity() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun addToCart() {
 //        TODO: Token Malformed Beaerer Null
         try {
@@ -111,11 +142,16 @@ class BookActivity : AppCompatActivity() {
                 val userRepository = UserRepository()
                 val response = userRepository.addToCart(id)
                 if (response.success == true) {
-                    val snackBar =
-                        Snackbar.make(myLayout, "Book Added to Cart", Snackbar.LENGTH_SHORT)
-                    snackBar.setAction("View Cart") {
-                        startActivity(Intent(this@BookActivity, CartActivity::class.java))
-                    }.show()
+                    withContext(Main) {
+                        inCart = true
+                        btnAddToCart.imageTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.prime))
+                        val snackBar =
+                            Snackbar.make(myLayout, "Book Added to Cart", Snackbar.LENGTH_SHORT)
+                        snackBar.setAction("View Cart") {
+                            startActivity(Intent(this@BookActivity, CartActivity::class.java))
+                        }.show()
+                    }
                 } else {
                     withContext(Main) {
                         Toast.makeText(this@BookActivity, response.message, Toast.LENGTH_SHORT)
@@ -138,3 +174,4 @@ class BookActivity : AppCompatActivity() {
     }
 
 }
+
