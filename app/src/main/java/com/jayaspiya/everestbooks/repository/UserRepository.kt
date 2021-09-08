@@ -34,6 +34,12 @@ class UserRepository: HttpRequestNetworkCall() {
         }
     }
 
+    suspend fun deleteFromCart(id: String): BookResponse{
+        return myHttpRequestNetworkCall {
+            userService.deleteFromCart(id = id, token = ServiceBuilder.token)
+        }
+    }
+
     suspend fun getProfile(): UserResponse{
         return myHttpRequestNetworkCall {
             userService.getProfile(token = ServiceBuilder.token)

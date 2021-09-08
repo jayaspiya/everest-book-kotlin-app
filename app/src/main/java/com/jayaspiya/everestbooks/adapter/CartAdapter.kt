@@ -5,15 +5,20 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jayaspiya.everestbooks.BookActivity
 import com.jayaspiya.everestbooks.R
+import com.jayaspiya.everestbooks.api.ServiceBuilder
 import com.jayaspiya.everestbooks.model.Book
+import com.jayaspiya.everestbooks.repository.UserRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CartAdapter(
     private val bookList: ArrayList<Book>,
@@ -24,7 +29,9 @@ class CartAdapter(
         val tvAuthor: TextView = view.findViewById(R.id.tvAuthor)
         val tvPrice: TextView = view.findViewById(R.id.tvPrice)
         val ivBook: ImageView = view.findViewById(R.id.ivBook)
-        val mainRelativeLayout: RelativeLayout = view.findViewById(R.id.mainRelativeLayout)
+        val quantitySpinner: Spinner = view.findViewById(R.id.quantitySpinner)
+        val btnView: Button = view.findViewById(R.id.btnView)
+        val btnRemove: Button = view.findViewById(R.id.btnRemove)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
@@ -40,15 +47,39 @@ class CartAdapter(
         holder.tvTitle.text = book.title
         holder.tvAuthor.text = book.author
         holder.tvPrice.text = "Rs.${book.price}"
+        val qty = arrayOf(1,2,3,4,5,6,7,8,9)
+        val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, qty)
+        holder.quantitySpinner.adapter = adapter
 
         Glide.with(context)
             .load(book.cover?.front)
             .into(holder.ivBook)
 
-        holder.mainRelativeLayout.setOnClickListener {
+        holder.btnView.setOnClickListener {
             val intent = Intent(context, BookActivity::class.java)
             intent.putExtra("id", book._id)
             context.startActivity(intent)
+        }
+        holder.btnRemove.setOnClickListener {
+            try {
+                CoroutineScope(IO).launch {
+                    val userRepository = UserRepository()
+                    val response = userRepository.deleteFromCart(book._id)
+                    if(response.success == true){
+                        withContext(Main){
+                            println("*************************************************************")
+                            println(ServiceBuilder.userCart)
+                        }
+                    }else{
+                        withContext(Main) {
+                            Toast.makeText(context, response.message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+            catch (ex: Exception){
+                println(ex)
+            }
         }
     }
 
