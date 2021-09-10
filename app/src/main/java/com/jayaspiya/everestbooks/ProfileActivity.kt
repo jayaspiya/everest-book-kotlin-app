@@ -48,6 +48,20 @@ class ProfileActivity : AppCompatActivity() {
         tvEmail = findViewById(R.id.tvEmail)
         ibSetting = findViewById(R.id.ibSetting)
         progressBar = findViewById(R.id.progressBar)
+        getData()
+        ivProfilePicture.setOnClickListener {
+            loadPopUpProfileUpload()
+        }
+        ibSetting.setOnClickListener {
+            loadPopUpSetting()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getData()
+    }
+    private fun getData() {
         progressBar.visibility = View.VISIBLE
         try {
             CoroutineScope(IO).launch {
@@ -71,12 +85,6 @@ class ProfileActivity : AppCompatActivity() {
         } catch (ex: Exception) {
             println(ex)
         }
-        ivProfilePicture.setOnClickListener {
-            loadPopUpProfileUpload()
-        }
-        ibSetting.setOnClickListener {
-            loadPopUpSetting()
-        }
     }
 
     private fun loadPopUpSetting() {
@@ -84,7 +92,7 @@ class ProfileActivity : AppCompatActivity() {
         popMenu.menuInflater.inflate(R.menu.profile_menu, popMenu.menu)
         popMenu.setOnMenuItemClickListener { item ->
             if (item.itemId == R.id.menuUpdateProfile) {
-                startActivity(Intent(this, UpdateProfileActivity::class.java))
+                startActivity(Intent(this,UpdateProfileActivity::class.java))
             } else if (item.itemId == R.id.menuChangePassword) {
                 startActivity(Intent(this,ChangePasswordActivity::class.java))
             }

@@ -46,6 +46,12 @@ class UserRepository: HttpRequestNetworkCall() {
         }
     }
 
+    suspend fun updateUser(user: User): UserResponse{
+        return myHttpRequestNetworkCall {
+            userService.updateUser(token = ServiceBuilder.token,user = user)
+        }
+    }
+
     suspend fun uploadImage(body: MultipartBody.Part): UserResponse{
         return myHttpRequestNetworkCall {
             userService.uploadImage(token = ServiceBuilder.token, profile = body)

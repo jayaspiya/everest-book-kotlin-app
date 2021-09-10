@@ -28,6 +28,14 @@ interface UserServices {
         id: String
     ): Response<BookResponse>
 
+    @PUT("user")
+    suspend fun updateUser(
+        @Header("Authorization")
+        token: String,
+        @Body
+        user: User
+    ): Response<UserResponse>
+
     @DELETE("user/deletefromcart/{id}")
     suspend fun deleteFromCart(
         @Header("Authorization")
