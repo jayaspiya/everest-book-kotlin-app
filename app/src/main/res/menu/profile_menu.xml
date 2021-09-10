@@ -5,7 +5,7 @@
         android:title="Update Profile"
         />
     <item
-        android:id="@+id/menuUploadProfile"
-        android:title="Hello world"
+        android:id="@+id/menuChangePassword"
+        android:title="Change Password"
         />
 </menu>

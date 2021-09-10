@@ -82,8 +82,12 @@ class ProfileActivity : AppCompatActivity() {
     private fun loadPopUpSetting() {
         val popMenu = PopupMenu(this, ibSetting)
         popMenu.menuInflater.inflate(R.menu.profile_menu, popMenu.menu)
-        popMenu.setOnMenuItemClickListener {
-            Toast.makeText(this, it.itemId.toString() , Toast.LENGTH_SHORT).show()
+        popMenu.setOnMenuItemClickListener { item ->
+            if (item.itemId == R.id.menuUpdateProfile) {
+                startActivity(Intent(this, UpdateProfileActivity::class.java))
+            } else if (item.itemId == R.id.menuChangePassword) {
+                startActivity(Intent(this,ChangePasswordActivity::class.java))
+            }
             true
         }
         popMenu.show()
