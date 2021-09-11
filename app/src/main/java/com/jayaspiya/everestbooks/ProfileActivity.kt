@@ -32,6 +32,7 @@ import java.util.*
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var ivProfilePicture: ImageView
+    private lateinit var iv_add_profile: ImageView
     private lateinit var ibSetting: ImageButton
     private lateinit var tvUsername: TextView
     private lateinit var tvAddress: TextView
@@ -42,6 +43,7 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         ivProfilePicture = findViewById(R.id.ivProfilePicture)
+        iv_add_profile = findViewById(R.id.iv_add_profile)
         tvUsername = findViewById(R.id.tvUsername)
         tvAddress = findViewById(R.id.tvAddress)
         tvPhone = findViewById(R.id.tvPhone)
@@ -49,7 +51,7 @@ class ProfileActivity : AppCompatActivity() {
         ibSetting = findViewById(R.id.ibSetting)
         progressBar = findViewById(R.id.progressBar)
         getData()
-        ivProfilePicture.setOnClickListener {
+        iv_add_profile.setOnClickListener {
             loadPopUpProfileUpload()
         }
         ibSetting.setOnClickListener {

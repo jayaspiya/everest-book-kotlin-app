@@ -1,12 +1,12 @@
 package com.jayaspiya.everestbooks
 
-import android.content.Intent
+import android.app.DatePickerDialog
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
+import androidx.annotation.RequiresApi
 import com.jayaspiya.everestbooks.model.User
 import com.jayaspiya.everestbooks.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
@@ -14,6 +14,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalDate
+import java.util.*
 
 class UpdateProfileActivity : AppCompatActivity() {
     private lateinit var etFirstname: EditText
@@ -24,10 +26,14 @@ class UpdateProfileActivity : AppCompatActivity() {
     private lateinit var rdoFemale: RadioButton
     private lateinit var rdoOthers: RadioButton
     private lateinit var btnUpdate: Button
+    private lateinit var btnDatePicker: Button
+    private lateinit var tvDOB: TextView
     private lateinit var progressBar: LinearLayout
 
     private var gender: String = ""
+    var selectDate: String =""
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_profile)
@@ -39,13 +45,20 @@ class UpdateProfileActivity : AppCompatActivity() {
         rdoFemale = findViewById(R.id.rdoFemale)
         rdoOthers = findViewById(R.id.rdoOthers)
         btnUpdate = findViewById(R.id.btnUpdate)
+        btnDatePicker = findViewById(R.id.btnDatePicker)
+        tvDOB = findViewById(R.id.tvDOB)
         progressBar = findViewById(R.id.progressBar)
         progressBar.visibility = View.VISIBLE
         getUserDate()
         btnUpdate.setOnClickListener {
+//            gender = getGender()
+//            Toast.makeText(this, "gender $gender", Toast.LENGTH_SHORT).show()
             updateUser()
             super.onBackPressed()
             finish()
+        }
+        btnDatePicker.setOnClickListener {
+            selectDatePicker()
         }
     }
 
@@ -59,9 +72,34 @@ class UpdateProfileActivity : AppCompatActivity() {
         } else if (rdoOthers.isSelected) {
             selectedGender = "other"
         }
+        else{
+            selectedGender = "why"
+        }
         return selectedGender
     }
+    private fun selectDatePicker() {
+            var cal = Calendar.getInstance()
+            var limitYear = cal.get(Calendar.YEAR)
+            var limitMonth = cal.get(Calendar.MONTH)
+            var limitDay = cal.get(Calendar.DAY_OF_MONTH)
+            DatePickerDialog(
+                this,
+                DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+                    if (dayOfMonth <= limitDay || month < limitMonth || year < limitYear) {
+                        selectDate = "${year}-${month+1}-${dayOfMonth}"
+                        tvDOB.text = selectDate
+                    } else {
+                        Toast.makeText(this, "You have to pick a past date", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                },
+                limitYear,
+                limitMonth,
+                limitDay
+            ).show()
 
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun updateUser() {
         // TODO: Validation Check
         try {
@@ -74,14 +112,15 @@ class UpdateProfileActivity : AppCompatActivity() {
                     lastname = etLastname.text.toString(),
                     address = etAddress.text.toString(),
                     phone = etPhone.text.toString(),
-                    gender = gender
+                    gender = gender,
+//                    DOB = LocalDate.parse(selectDate)
+                //Parsing Errror
                 )
                 println(user)
                 val response = userRepository.updateUser(user)
                 if (response.success == true) {
                     withContext(Main){
                         Toast.makeText(this@UpdateProfileActivity, "Profile Updated", Toast.LENGTH_SHORT).show()
-
                     }
                 }
             }
@@ -96,13 +135,14 @@ class UpdateProfileActivity : AppCompatActivity() {
                 val userRepository = UserRepository()
                 val response = userRepository.getProfile()
                 if (response.success == true) {
-                    withContext(Dispatchers.Main) {
+                    withContext(Main) {
                         progressBar.visibility = View.GONE
                         val user = response.data!!
                         etFirstname.setText(user.firstname)
                         etLastname.setText(user.lastname)
                         etAddress.setText(user.address)
                         etPhone.setText(user.phone)
+                        tvDOB.text = user.DOB.toString()
                         when (user.gender) {
                             "male" -> {
                                 rdoMale.isSelected = true

@@ -76,7 +76,8 @@ class SignupActivity : AppCompatActivity() {
                 }
                 else -> {
                     val user =
-                        User(email = etEmail.text.toString(), password = etPassword.text.toString(),
+                        User(
+                            email = etEmail.text.toString(), password = etPassword.text.toString(),
                             firstname = etFirstname.text.toString(), lastname = etLastname.text.toString(),
                             address = etAddress.text.toString(), phone = etPhone.text.toString()
                         )

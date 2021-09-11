@@ -15,29 +15,30 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/tvHeader"
             android:text="Profile"
             android:textColor="@color/prime"
             android:textSize="45dp" />
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_below="@+id/tvHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/ivProfilePicture"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_marginTop="25dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <ImageView
                 android:id="@+id/iv_add_profile"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:elevation="4dp"
                 app:layout_constraintBottom_toBottomOf="@+id/ivProfilePicture"
                 app:layout_constraintEnd_toEndOf="@+id/ivProfilePicture"
                 app:srcCompat="@android:drawable/ic_menu_add"
-                app:tint="@color/purple_700" />
+                app:tint="@color/prime" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageButton

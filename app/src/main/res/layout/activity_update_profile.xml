@@ -43,13 +43,7 @@
         android:inputType="number"
         android:hint="Phone Number" />
 
-    <Button
-        android:id="@+id/btnUpdate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
-        android:text="Update User"
-        app:cornerRadius="40dp" />
+
     <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -78,5 +72,27 @@
             android:text="Others" />
 
     </RadioGroup>
-
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:hint="2000/10/10"
+            android:id="@+id/tvDOB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/btnDatePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pick Date"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:text="Update User"
+        app:cornerRadius="40dp" />
 </LinearLayout>
