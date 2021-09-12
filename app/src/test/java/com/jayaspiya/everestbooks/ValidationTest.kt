@@ -1,8 +1,6 @@
 package com.jayaspiya.everestbooks
 
-import com.jayaspiya.everestbooks.api.ServiceBuilder
 import com.jayaspiya.everestbooks.model.User
-import com.jayaspiya.everestbooks.repository.BookRepository
 import com.jayaspiya.everestbooks.repository.UserRepository
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals

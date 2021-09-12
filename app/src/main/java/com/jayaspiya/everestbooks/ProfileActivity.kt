@@ -74,7 +74,7 @@ class ProfileActivity : AppCompatActivity() {
                         progressBar.visibility = View.GONE
                         val user = response.data!!
                         println(user)
-                        tvUsername.text = user.firstname + " " + user.lastname
+                        tvUsername.text = user.firstname!!.capitalize() + " " + user.lastname!!.capitalize()
                         tvAddress.text = user.address
                         tvPhone.text = user.phone
                         tvEmail.text = user.email
