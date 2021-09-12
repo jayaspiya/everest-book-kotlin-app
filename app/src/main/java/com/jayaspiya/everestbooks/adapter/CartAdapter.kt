@@ -1,5 +1,6 @@
 package com.jayaspiya.everestbooks.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -17,14 +18,15 @@ import com.jayaspiya.everestbooks.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class CartAdapter(
-    private val bookList: ArrayList<Book>,
+    private val bookList: MutableList<Book>,
     val context: Context
 ) : RecyclerView.Adapter<CartAdapter.BookViewHolder>() {
-    class BookViewHolder(view: View): RecyclerView.ViewHolder(view){
+    class BookViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvTitle: TextView = view.findViewById(R.id.tvTitle)
         val tvAuthor: TextView = view.findViewById(R.id.tvAuthor)
         val tvPrice: TextView = view.findViewById(R.id.tvPrice)
@@ -41,13 +43,14 @@ class CartAdapter(
         return BookViewHolder(view)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         // Inserting property value to BookVIewHolder Object
         val book = bookList[position]
         holder.tvTitle.text = book.title
         holder.tvAuthor.text = book.author
         holder.tvPrice.text = "Rs.${book.price}"
-        val qty = arrayOf(1,2,3,4,5,6,7,8,9)
+        val qty = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
         val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, qty)
         holder.quantitySpinner.adapter = adapter
 
@@ -61,26 +64,17 @@ class CartAdapter(
             context.startActivity(intent)
         }
         holder.btnRemove.setOnClickListener {
-            try {
-//                TODO: Dispatcher Error
-                CoroutineScope(IO).launch {
-                    val userRepository = UserRepository()
-                    val response = userRepository.deleteFromCart(book._id)
-                    if(response.success == true){
-                        withContext(Main){
-                            println("*************************************************************")
-                            println(ServiceBuilder.userCart)
-                        }
-                    }else{
-                        withContext(Main) {
-                            Toast.makeText(context, response.message, Toast.LENGTH_SHORT).show()
-                        }
-                    }
+            CoroutineScope(IO).launch {
+                try {
+                    val repository = UserRepository()
+                    val response = repository.deleteFromCart(book._id)
+                    println(response.message)
+                } catch (ex: Exception) {
+                    print(ex)
                 }
             }
-            catch (ex: Exception){
-                println(ex)
-            }
+            bookList.remove(book)
+            notifyDataSetChanged()
         }
     }
 

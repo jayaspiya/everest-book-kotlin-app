@@ -5,5 +5,5 @@ import com.jayaspiya.everestbooks.model.Book
 class BookResponse (
     val message: String? = null,
     val success: Boolean? = null,
-    val data: ArrayList<Book>? = null
+    val data: MutableList<Book>? = null
 )

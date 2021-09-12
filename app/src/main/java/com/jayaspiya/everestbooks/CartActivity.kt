@@ -1,5 +1,6 @@
 package com.jayaspiya.everestbooks
 
+import android.annotation.SuppressLint
 import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jayaspiya.everestbooks.adapter.BookAdapter
 import com.jayaspiya.everestbooks.adapter.CartAdapter
+import com.jayaspiya.everestbooks.model.Book
 import com.jayaspiya.everestbooks.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -23,6 +25,7 @@ import kotlinx.coroutines.withContext
 class CartActivity : AppCompatActivity() {
     private lateinit var bookRecyclerView: RecyclerView
     private lateinit var progressBar: LinearLayout
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
@@ -45,6 +48,7 @@ class CartActivity : AppCompatActivity() {
                             false
                         )
                         bookRecyclerView.adapter = adapter
+                        adapter.notifyDataSetChanged()
                     }
                 }
                 else{

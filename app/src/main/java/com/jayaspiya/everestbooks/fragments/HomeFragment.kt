@@ -32,13 +32,12 @@ class HomeFragment : Fragment() {
         val bookRecyclerView: RecyclerView = view.findViewById(R.id.bookRecyclerView)
         val progressBar: LinearLayout = view.findViewById(R.id.progressBar)
         progressBar.visibility = View.VISIBLE
-        var bookList = ArrayList<Book>()
         try {
             CoroutineScope(IO).launch {
                 val bookRepository = BookRepository(requireContext())
                 val response = bookRepository.getBooks()
                 if(response.success == true){
-                    bookList = response.data!!
+                    var bookList = response.data!!
                     // Save book to Room DB
 //                    bookRepository.delBookFromDB()
 
@@ -56,7 +55,7 @@ class HomeFragment : Fragment() {
                     }
                     withContext(Main){
                         progressBar.visibility = View.GONE
-                        val adapter = BookAdapter(bookList, requireContext())
+                        val adapter = BookAdapter(bookList!!, requireContext())
                         bookRecyclerView.layoutManager = GridLayoutManager(requireContext(),2)
                         bookRecyclerView.adapter = adapter
                         return@withContext view
