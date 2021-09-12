@@ -1,6 +1,7 @@
 package com.jayaspiya.everestbooks.api
 
 import com.jayaspiya.everestbooks.model.User
+import com.jayaspiya.everestbooks.model.UserPasswordChange
 import com.jayaspiya.everestbooks.response.BookResponse
 import com.jayaspiya.everestbooks.response.UserResponse
 import okhttp3.MultipartBody
@@ -34,6 +35,14 @@ interface UserServices {
         token: String,
         @Body
         user: User
+    ): Response<UserResponse>
+
+    @PUT("user/password")
+    suspend fun passwordChange(
+        @Header("Authorization")
+        token: String,
+        @Body
+        userPasswordChange: UserPasswordChange
     ): Response<UserResponse>
 
     @DELETE("user/deletefromcart/{id}")

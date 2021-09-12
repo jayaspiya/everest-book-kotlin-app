@@ -4,6 +4,7 @@ import com.jayaspiya.everestbooks.api.HttpRequestNetworkCall
 import com.jayaspiya.everestbooks.api.ServiceBuilder
 import com.jayaspiya.everestbooks.api.UserServices
 import com.jayaspiya.everestbooks.model.User
+import com.jayaspiya.everestbooks.model.UserPasswordChange
 import com.jayaspiya.everestbooks.response.BookResponse
 import com.jayaspiya.everestbooks.response.UserResponse
 import okhttp3.MultipartBody
@@ -52,6 +53,11 @@ class UserRepository: HttpRequestNetworkCall() {
         }
     }
 
+    suspend fun passwordChange(userPasswordChange: UserPasswordChange): UserResponse{
+        return myHttpRequestNetworkCall {
+            userService.passwordChange(token = ServiceBuilder.token,userPasswordChange = userPasswordChange)
+        }
+    }
     suspend fun uploadImage(body: MultipartBody.Part): UserResponse{
         return myHttpRequestNetworkCall {
             userService.uploadImage(token = ServiceBuilder.token, profile = body)
