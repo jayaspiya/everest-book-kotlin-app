@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.text.BoringLayout
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
@@ -34,6 +35,7 @@ class BookActivity : AppCompatActivity() {
     private lateinit var tvDescription: TextView
     private lateinit var btnAddToCart: FloatingActionButton
     private lateinit var myLayout: LinearLayout
+    private lateinit var snackDesign: RelativeLayout
     private lateinit var bookCoverViewPager: ViewPager
     private lateinit var bookCoverTabLayout: TabLayout
     private lateinit var progressBar: LinearLayout
@@ -52,6 +54,7 @@ class BookActivity : AppCompatActivity() {
         tvDescription = findViewById(R.id.tvDescription)
         btnAddToCart = findViewById(R.id.btnAddToCart)
         myLayout = findViewById(R.id.myLayout)
+        snackDesign = findViewById(R.id.snackDesign)
         rvReview = findViewById(R.id.rvReview)
         progressBar = findViewById(R.id.progressBar)
         progressBar.visibility = View.VISIBLE
@@ -74,13 +77,30 @@ class BookActivity : AppCompatActivity() {
             } else {
                 addToCart()
                 inCart = true
+                val snackbar = Snackbar.make(snackDesign,"Item Added",Snackbar.LENGTH_SHORT)
+                snackbar.setAction("View Cart"){
+                    startActivity(Intent(this, CartActivity::class.java ))
+                }.show()
                 btnAddToCart.imageTintList = ColorStateList.valueOf(resources.getColor(R.color.prime))
             }
-
         }
 
         getBook()
 
+    }
+
+    private fun addToCart() {
+        CoroutineScope(IO).launch {
+            try {
+                val userRepository=UserRepository()
+                val response = userRepository.addToCart(id)
+                if (response.success==true) {
+                    Log.i("MY LOG", response.message!!)
+                }
+            }catch (ex:Exception){
+                print(ex)
+            }
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -139,32 +159,7 @@ class BookActivity : AppCompatActivity() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun addToCart() {
-//        TODO: Token Malformed Beaerer Null
-        try {
-            CoroutineScope(IO).launch {
-                val userRepository = UserRepository()
-                userRepository.addToCart(id)
-//                if (response.success == true) {
-//                    withContext(Main) {
-//                        val snackBar =
-//                            Snackbar.make(myLayout, "Book Added", Snackbar.LENGTH_SHORT)
-//                        snackBar.setAction("View Cart") {
-//                            startActivity(Intent(this@BookActivity, CartActivity::class.java))
-//                        }.show()
-//                    }
-//                } else {
-//                    withContext(Main) {
-//                        Toast.makeText(this@BookActivity, response.message, Toast.LENGTH_SHORT)
-//                            .show()
-//                    }
-//                }
-            }
-        } catch (ex: Exception) {
-            println(ex)
-        }
-    }
+
 
     fun capitalizeSentence(sentence: String): String {
         val words = sentence.split(" ")?.toMutableList()
