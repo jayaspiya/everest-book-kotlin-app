@@ -40,7 +40,7 @@ class BookActivity : AppCompatActivity() {
     private lateinit var rvReview: RecyclerView
 
     private lateinit var id: String
-    private var inCart: Boolean = false
+    private var inCart: Boolean = true
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,24 +57,12 @@ class BookActivity : AppCompatActivity() {
         progressBar.visibility = View.VISIBLE
         myLayout.visibility = View.GONE
 
-        val id: String? = intent.getStringExtra("id")
-        for(book in ServiceBuilder.userCart){
-            if(book._id == id){
-                inCart = true
-                break
-            }
-        }
-
         // View Pager
         bookCoverViewPager = findViewById(R.id.bookCoverViewPager)
         bookCoverTabLayout = findViewById(R.id.bookCoverTabLayout)
-        if (inCart) {
-            btnAddToCart.imageTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.prime))
-        } else {
-            btnAddToCart.imageTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.bg_graydark))
-        }
+
+        id = intent.getStringExtra("id").toString()
+
         // Button Click Listener
         btnAddToCart.setOnClickListener {
             if (inCart) {
@@ -85,10 +73,18 @@ class BookActivity : AppCompatActivity() {
                 }.show()
             } else {
                 addToCart()
+                inCart = true
+                btnAddToCart.imageTintList = ColorStateList.valueOf(resources.getColor(R.color.prime))
             }
 
         }
 
+        getBook()
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun getBook() {
         try {
             CoroutineScope(IO).launch {
                 val bookRepository = BookRepository(this@BookActivity)
@@ -108,6 +104,16 @@ class BookActivity : AppCompatActivity() {
                             coverImage.front.toString(),
                             coverImage.back.toString()
                         )
+                        // Check if Book is in User Cart
+                        if (book.inCart==true) {
+                            inCart = true
+                            btnAddToCart.imageTintList =
+                                ColorStateList.valueOf(resources.getColor(R.color.prime))
+                        } else {
+                            inCart = false
+                            btnAddToCart.imageTintList =
+                                ColorStateList.valueOf(resources.getColor(R.color.bg_graydark))
+                        }
                         bookCoverViewPager.adapter = BookCoverAdapter(cover)
                         bookCoverTabLayout.setupWithViewPager(bookCoverViewPager)
                         val adapter = ReviewAdapter(book.reviews, this@BookActivity)
@@ -131,7 +137,6 @@ class BookActivity : AppCompatActivity() {
         } catch (ex: Exception) {
             println(ex)
         }
-
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -140,24 +145,21 @@ class BookActivity : AppCompatActivity() {
         try {
             CoroutineScope(IO).launch {
                 val userRepository = UserRepository()
-                val response = userRepository.addToCart(id)
-                if (response.success == true) {
-                    withContext(Main) {
-                        inCart = true
-                        btnAddToCart.imageTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.prime))
-                        val snackBar =
-                            Snackbar.make(myLayout, "Book Added to Cart", Snackbar.LENGTH_SHORT)
-                        snackBar.setAction("View Cart") {
-                            startActivity(Intent(this@BookActivity, CartActivity::class.java))
-                        }.show()
-                    }
-                } else {
-                    withContext(Main) {
-                        Toast.makeText(this@BookActivity, response.message, Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                }
+                userRepository.addToCart(id)
+//                if (response.success == true) {
+//                    withContext(Main) {
+//                        val snackBar =
+//                            Snackbar.make(myLayout, "Book Added", Snackbar.LENGTH_SHORT)
+//                        snackBar.setAction("View Cart") {
+//                            startActivity(Intent(this@BookActivity, CartActivity::class.java))
+//                        }.show()
+//                    }
+//                } else {
+//                    withContext(Main) {
+//                        Toast.makeText(this@BookActivity, response.message, Toast.LENGTH_SHORT)
+//                            .show()
+//                    }
+//                }
             }
         } catch (ex: Exception) {
             println(ex)
@@ -174,4 +176,5 @@ class BookActivity : AppCompatActivity() {
     }
 
 }
+
 

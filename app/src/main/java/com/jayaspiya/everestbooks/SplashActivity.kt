@@ -38,9 +38,9 @@ class SplashActivity : AppCompatActivity() {
         try {
             CoroutineScope(IO).launch {
                 val userRepository = UserRepository()
-                val response = userRepository.getCart()
+                val response = userRepository.getProfile()
                 if(response.success == true){
-                    ServiceBuilder.userCart = response.data!!
+                    ServiceBuilder.user = response.data!!
                     startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
                 }
                 else{

@@ -20,7 +20,7 @@ class BookRepository(context: Context): HttpRequestNetworkCall() {
 
     suspend fun getBook(id: String): BookResponse{
         return myHttpRequestNetworkCall {
-            bookService.getBook(id=id)
+            bookService.getBook(token = ServiceBuilder.token,id=id)
         }
     }
 
