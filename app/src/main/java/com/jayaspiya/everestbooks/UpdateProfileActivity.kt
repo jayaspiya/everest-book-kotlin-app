@@ -72,21 +72,6 @@ class UpdateProfileActivity : AppCompatActivity() {
         }
     }
 
-//    private fun getGender(): String {
-////        TODO: Gender not found
-//        var selectedGender = ""
-//        if (rdoFemale.isSelected) {
-//            selectedGender = "female"
-//        } else if (rdoMale.isSelected) {
-//            selectedGender = "male"
-//        } else if (rdoOthers.isSelected) {
-//            selectedGender = "other"
-//        }
-//        else{
-//            selectedGender = "why"
-//        }
-//        return selectedGender
-//    }
     private fun selectDatePicker() {
             var cal = Calendar.getInstance()
             var limitYear = cal.get(Calendar.YEAR)
