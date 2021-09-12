@@ -12,6 +12,5 @@ data class User(
     val phone: String? = null,
     val profile: String? = null,
     val gender: String? = null,
-//    TODO: DOB Date
-    val DOB: LocalDate? = null
+    val DOB: String? = null
 )

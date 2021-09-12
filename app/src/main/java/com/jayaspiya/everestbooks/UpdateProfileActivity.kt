@@ -22,15 +22,16 @@ class UpdateProfileActivity : AppCompatActivity() {
     private lateinit var etLastname: EditText
     private lateinit var etAddress: EditText
     private lateinit var etPhone: EditText
-    private lateinit var rdoMale: RadioButton
-    private lateinit var rdoFemale: RadioButton
-    private lateinit var rdoOthers: RadioButton
+    private lateinit var rdbMale: RadioButton
+    private lateinit var rdbFemale: RadioButton
+    private lateinit var rdoOther: RadioButton
+    private var gender: String = "male"
+
     private lateinit var btnUpdate: Button
     private lateinit var btnDatePicker: Button
     private lateinit var tvDOB: TextView
     private lateinit var progressBar: LinearLayout
 
-    private var gender: String = ""
     var selectDate: String =""
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -41,9 +42,9 @@ class UpdateProfileActivity : AppCompatActivity() {
         etLastname = findViewById(R.id.etLastname)
         etAddress = findViewById(R.id.etAddress)
         etPhone = findViewById(R.id.etPhone)
-        rdoMale = findViewById(R.id.rdoMale)
-        rdoFemale = findViewById(R.id.rdoFemale)
-        rdoOthers = findViewById(R.id.rdoOthers)
+        rdbMale = findViewById(R.id.rdbMale)
+        rdbFemale = findViewById(R.id.rdbFemale)
+        rdoOther = findViewById(R.id.rdoOther)
         btnUpdate = findViewById(R.id.btnUpdate)
         btnDatePicker = findViewById(R.id.btnDatePicker)
         tvDOB = findViewById(R.id.tvDOB)
@@ -60,23 +61,32 @@ class UpdateProfileActivity : AppCompatActivity() {
         btnDatePicker.setOnClickListener {
             selectDatePicker()
         }
+        rdbMale.setOnClickListener {
+            gender = "male"
+        }
+        rdbFemale . setOnClickListener {
+            gender = "female"
+        }
+        rdoOther . setOnClickListener {
+            gender = "other"
+        }
     }
 
-    private fun getGender(): String {
-//        TODO: Gender not found
-        var selectedGender = ""
-        if (rdoFemale.isSelected) {
-            selectedGender = "female"
-        } else if (rdoMale.isSelected) {
-            selectedGender = "male"
-        } else if (rdoOthers.isSelected) {
-            selectedGender = "other"
-        }
-        else{
-            selectedGender = "why"
-        }
-        return selectedGender
-    }
+//    private fun getGender(): String {
+////        TODO: Gender not found
+//        var selectedGender = ""
+//        if (rdoFemale.isSelected) {
+//            selectedGender = "female"
+//        } else if (rdoMale.isSelected) {
+//            selectedGender = "male"
+//        } else if (rdoOthers.isSelected) {
+//            selectedGender = "other"
+//        }
+//        else{
+//            selectedGender = "why"
+//        }
+//        return selectedGender
+//    }
     private fun selectDatePicker() {
             var cal = Calendar.getInstance()
             var limitYear = cal.get(Calendar.YEAR)
@@ -103,7 +113,6 @@ class UpdateProfileActivity : AppCompatActivity() {
     private fun updateUser() {
         // TODO: Validation Check
         try {
-            gender = getGender()
             Toast.makeText(this, "gender $gender", Toast.LENGTH_SHORT).show()
             CoroutineScope(Dispatchers.IO).launch {
                 val userRepository = UserRepository()
@@ -113,8 +122,7 @@ class UpdateProfileActivity : AppCompatActivity() {
                     address = etAddress.text.toString(),
                     phone = etPhone.text.toString(),
                     gender = gender,
-//                    DOB = LocalDate.parse(selectDate)
-                //Parsing Errror
+                    DOB = selectDate
                 )
                 println(user)
                 val response = userRepository.updateUser(user)
@@ -145,13 +153,13 @@ class UpdateProfileActivity : AppCompatActivity() {
                         tvDOB.text = user.DOB.toString()
                         when (user.gender) {
                             "male" -> {
-                                rdoMale.isSelected = true
+                                rdbMale.isChecked = true
                             }
                             "female" -> {
-                                rdoFemale.isSelected = true
+                                rdbFemale.isChecked = true
                             }
                             "other" -> {
-                                rdoOthers.isSelected = true
+                                rdoOther.isChecked = true
                             }
                         }
                         println(user)
