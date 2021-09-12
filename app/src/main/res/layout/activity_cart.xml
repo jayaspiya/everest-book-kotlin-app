@@ -14,7 +14,11 @@
         android:textColor="@color/prime"
         android:textSize="45dp" />
     <include layout="@layout/cover_progress_bar"/>
-
+    <TextView
+        android:id="@+id/tvEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No Item In Cart"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bookRecyclerView"
         android:layout_width="match_parent"

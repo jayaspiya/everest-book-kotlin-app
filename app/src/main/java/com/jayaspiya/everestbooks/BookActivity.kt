@@ -77,10 +77,6 @@ class BookActivity : AppCompatActivity() {
             } else {
                 addToCart()
                 inCart = true
-                val snackbar = Snackbar.make(snackDesign,"Item Added",Snackbar.LENGTH_SHORT)
-                snackbar.setAction("View Cart"){
-                    startActivity(Intent(this, CartActivity::class.java ))
-                }.show()
                 btnAddToCart.imageTintList = ColorStateList.valueOf(resources.getColor(R.color.prime))
             }
         }

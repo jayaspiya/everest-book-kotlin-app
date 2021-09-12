@@ -8,6 +8,7 @@ import android.os.SystemClock
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,11 +26,13 @@ import kotlinx.coroutines.withContext
 class CartActivity : AppCompatActivity() {
     private lateinit var bookRecyclerView: RecyclerView
     private lateinit var progressBar: LinearLayout
+    private lateinit var tvEmpty: TextView
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
         bookRecyclerView = findViewById(R.id.bookRecyclerView)
+        tvEmpty = findViewById(R.id.tvEmpty)
         progressBar = findViewById(R.id.progressBar)
         progressBar.visibility = View.VISIBLE
         try {
@@ -39,6 +42,9 @@ class CartActivity : AppCompatActivity() {
                 if(response.success == true){
                     val bookList = response.data!!
                     withContext(Main){
+                        if(!bookList.isEmpty()){
+                            tvEmpty.visibility = View.GONE
+                        }
                         progressBar.visibility = View.GONE
                         Toast.makeText(this@CartActivity, response.message, Toast.LENGTH_SHORT).show()
                         val adapter = CartAdapter(bookList, this@CartActivity)
