@@ -86,14 +86,26 @@
                     android:layout_height="wrap_content"
                     android:hint="Description" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="Reviews"
-                    android:textColor="@color/prime"
-                    android:textSize="25dp"
-                    android:textStyle="bold" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="Reviews"
+                        android:textColor="@color/prime"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+                    <Button
+                        android:textSize="12sp"
+                        android:id="@+id/btnCreateReview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Create Review"/>
+                </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvReview"

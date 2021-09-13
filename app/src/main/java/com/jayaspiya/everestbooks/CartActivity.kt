@@ -74,3 +74,6 @@ class CartActivity : AppCompatActivity() {
 
     }
 }
+
+/// checkout button clicked--> order = 4
+//

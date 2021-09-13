@@ -1,5 +1,6 @@
 package com.jayaspiya.everestbooks
 
+import android.app.Dialog
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -8,6 +9,7 @@ import android.os.Bundle
 import android.text.BoringLayout
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -40,6 +42,7 @@ class BookActivity : AppCompatActivity() {
     private lateinit var bookCoverTabLayout: TabLayout
     private lateinit var progressBar: LinearLayout
     private lateinit var rvReview: RecyclerView
+    private lateinit var btnCreateReview: Button
 
     private lateinit var id: String
     private var inCart: Boolean = true
@@ -56,6 +59,7 @@ class BookActivity : AppCompatActivity() {
         myLayout = findViewById(R.id.myLayout)
         snackDesign = findViewById(R.id.snackDesign)
         rvReview = findViewById(R.id.rvReview)
+        btnCreateReview = findViewById(R.id.btnCreateReview)
         progressBar = findViewById(R.id.progressBar)
         progressBar.visibility = View.VISIBLE
         myLayout.visibility = View.GONE
@@ -79,6 +83,25 @@ class BookActivity : AppCompatActivity() {
                 inCart = true
                 btnAddToCart.imageTintList = ColorStateList.valueOf(resources.getColor(R.color.prime))
             }
+        }
+        btnCreateReview.setOnClickListener {
+            val reviewDialog=Dialog(this)
+            reviewDialog.setContentView(R.layout.review_dialog)
+            reviewDialog.setCancelable(true)
+            reviewDialog.setCanceledOnTouchOutside(true)
+            reviewDialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+            val etReview: EditText =reviewDialog.findViewById(R.id.etReview)
+            val spinnerRating: Spinner =reviewDialog.findViewById(R.id.spinnerRating)
+            val btnSubmit: Button =reviewDialog.findViewById(R.id.btnSubmit)
+            val adapter = ArrayAdapter(
+                this, android.R.layout.simple_list_item_1, arrayOf(1,2,3,4,5)
+            )
+            spinnerRating.adapter = adapter
+            btnSubmit.setOnClickListener{
+                Toast.makeText(this, spinnerRating.selectedItem.toString(), Toast.LENGTH_SHORT).show()
+                reviewDialog.hide()
+            }
+            reviewDialog.show()
         }
 
         getBook()
