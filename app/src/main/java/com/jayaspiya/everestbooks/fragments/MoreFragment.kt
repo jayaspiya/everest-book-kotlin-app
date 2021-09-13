@@ -23,6 +23,7 @@ class MoreFragment : Fragment() {
         val btnCart: Button = view.findViewById(R.id.btnCart)
         val btnProfile: Button = view.findViewById(R.id.btnProfile)
         val btnMaps: Button = view.findViewById(R.id.btnMaps)
+        val btnOrder: Button = view.findViewById(R.id.btnOrder)
         logout.setOnClickListener {
             logoutUser()
         }
@@ -35,6 +36,9 @@ class MoreFragment : Fragment() {
         btnMaps.setOnClickListener {
             startActivity(Intent(requireContext(), MapsActivity::class.java))
         }
+        btnOrder.setOnClickListener {
+            startActivity(Intent(requireContext(), OrderActivity::class.java))
+        }
         return view
     }
 
@@ -46,6 +50,4 @@ class MoreFragment : Fragment() {
         startActivity(Intent(requireContext(), LoginActivity::class.java))
         requireActivity().finish()
     }
-
-
 }

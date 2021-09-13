@@ -23,6 +23,9 @@
         android:theme="@style/Theme.EverestBooks"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".OrderActivity"
+            android:exported="true" />
+        <activity
             android:name=".UpdateProfileActivity"
             android:exported="true" />
         <activity
