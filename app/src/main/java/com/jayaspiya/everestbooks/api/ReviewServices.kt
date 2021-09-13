@@ -21,4 +21,22 @@ interface ReviewServices {
         @Body
         review: Review
     ):Response<ReviewResponse>
+
+    @PUT("review/{id}")
+    suspend fun updateReview(
+        @Header("Authorization")
+        token: String,
+        @Path("id")
+        id: String,
+        @Body
+        review: Review
+    ):Response<ReviewResponse>
+
+    @DELETE("review/{id}")
+    suspend fun deleteReview(
+        @Header("Authorization")
+        token: String,
+        @Path("id")
+        id: String
+    ):Response<ReviewResponse>
 }

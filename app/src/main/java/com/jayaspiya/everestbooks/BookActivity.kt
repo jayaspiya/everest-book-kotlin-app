@@ -117,9 +117,7 @@ class BookActivity : AppCompatActivity() {
                         user = ServiceBuilder.user
                     ))
                     setReviewRecyclerView(reviewList)
-//                    getReview()
                 }
-
             }
         }
 
@@ -210,7 +208,7 @@ class BookActivity : AppCompatActivity() {
                     return false
                 }
             }
-        rvReview.layoutManager = LinearLayoutManager(this)
+        rvReview.layoutManager = myLinearLayoutManager
         rvReview.adapter = adapter
         adapter.notifyItemInserted(0)
     }

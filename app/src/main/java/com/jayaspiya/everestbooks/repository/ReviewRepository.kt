@@ -22,4 +22,16 @@ class ReviewRepository(): HttpRequestNetworkCall() {
         }
     }
 
+    suspend fun updateReview(id: String, review: Review): ReviewResponse{
+        return myHttpRequestNetworkCall {
+            reviewService.updateReview(token = ServiceBuilder.token, id = id, review = review)
+        }
+    }
+
+    suspend fun deleteReview(id: String): ReviewResponse{
+        return myHttpRequestNetworkCall {
+            reviewService.deleteReview(token = ServiceBuilder.token, id = id)
+        }
+    }
+
 }
