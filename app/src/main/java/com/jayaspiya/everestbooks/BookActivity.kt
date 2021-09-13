@@ -3,10 +3,9 @@ package com.jayaspiya.everestbooks
 import android.app.Dialog
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.text.BoringLayout
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +21,10 @@ import com.google.android.material.tabs.TabLayout
 import com.hdd.globalmovie.adapter.BookCoverAdapter
 import com.jayaspiya.everestbooks.adapter.ReviewAdapter
 import com.jayaspiya.everestbooks.api.ServiceBuilder
+import com.jayaspiya.everestbooks.model.Book
+import com.jayaspiya.everestbooks.model.Review
 import com.jayaspiya.everestbooks.repository.BookRepository
+import com.jayaspiya.everestbooks.repository.ReviewRepository
 import com.jayaspiya.everestbooks.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -46,6 +48,7 @@ class BookActivity : AppCompatActivity() {
 
     private lateinit var id: String
     private var inCart: Boolean = true
+    private lateinit var reviewList: MutableList<Review>
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,8 +64,7 @@ class BookActivity : AppCompatActivity() {
         rvReview = findViewById(R.id.rvReview)
         btnCreateReview = findViewById(R.id.btnCreateReview)
         progressBar = findViewById(R.id.progressBar)
-        progressBar.visibility = View.VISIBLE
-        myLayout.visibility = View.GONE
+
 
         // View Pager
         bookCoverViewPager = findViewById(R.id.bookCoverViewPager)
@@ -97,25 +99,52 @@ class BookActivity : AppCompatActivity() {
                 this, android.R.layout.simple_list_item_1, arrayOf(1,2,3,4,5)
             )
             spinnerRating.adapter = adapter
-            btnSubmit.setOnClickListener{
-                Toast.makeText(this, spinnerRating.selectedItem.toString(), Toast.LENGTH_SHORT).show()
-                reviewDialog.hide()
-            }
             reviewDialog.show()
+
+            btnSubmit.setOnClickListener{
+                if(TextUtils.isEmpty(etReview.text)){
+                    etReview.requestFocus()
+                    etReview.error = "Review name can not be empty."
+                }
+                else{
+                    val review = etReview.text.toString()
+                    val rating = spinnerRating.selectedItem.toString().toInt()
+                    addReview(review, rating)
+                    reviewDialog.hide()
+                    reviewList.add(0, Review(
+                        rating = rating,
+                        description = review,
+                        user = ServiceBuilder.user
+                    ))
+                    setReviewRecyclerView(reviewList)
+//                    getReview()
+                }
+
+            }
         }
 
         getBook()
 
     }
 
+    private fun addReview(description: String, rating: Int) {
+        CoroutineScope(IO).launch {
+            try {
+                val repository = ReviewRepository()
+                val review = Review(rating = rating, description = description)
+                repository.addReview(id,review)
+            }
+            catch(ex: Exception){
+                println(ex)
+            }
+        }
+    }
+
     private fun addToCart() {
         CoroutineScope(IO).launch {
             try {
                 val userRepository=UserRepository()
-                val response = userRepository.addToCart(id)
-                if (response.success==true) {
-                    Log.i("MY LOG", response.message!!)
-                }
+                userRepository.addToCart(id)
             }catch (ex:Exception){
                 print(ex)
             }
@@ -124,6 +153,8 @@ class BookActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun getBook() {
+        progressBar.visibility = View.VISIBLE
+        myLayout.visibility = View.GONE
         try {
             CoroutineScope(IO).launch {
                 val bookRepository = BookRepository(this@BookActivity)
@@ -155,16 +186,8 @@ class BookActivity : AppCompatActivity() {
                         }
                         bookCoverViewPager.adapter = BookCoverAdapter(cover)
                         bookCoverTabLayout.setupWithViewPager(bookCoverViewPager)
-                        val adapter = ReviewAdapter(book.reviews, this@BookActivity)
-                        // Stop Scrolling Recycler View
-                        val myLinearLayoutManager =
-                            object : LinearLayoutManager(this@BookActivity) {
-                                override fun canScrollVertically(): Boolean {
-                                    return false
-                                }
-                            }
-                        rvReview.layoutManager = myLinearLayoutManager
-                        rvReview.adapter = adapter
+                        reviewList = book.reviews!!
+                        setReviewRecyclerView(reviewList)
                     }
                 } else {
                     withContext(Main) {
@@ -178,6 +201,19 @@ class BookActivity : AppCompatActivity() {
         }
     }
 
+    private fun setReviewRecyclerView(reviews:MutableList<Review>) {
+        val adapter = ReviewAdapter(reviews, this@BookActivity)
+        // Stop Scrolling Recycler View
+        val myLinearLayoutManager =
+            object : LinearLayoutManager(this@BookActivity) {
+                override fun canScrollVertically(): Boolean {
+                    return false
+                }
+            }
+        rvReview.layoutManager = LinearLayoutManager(this)
+        rvReview.adapter = adapter
+        adapter.notifyItemInserted(0)
+    }
 
 
     fun capitalizeSentence(sentence: String): String {

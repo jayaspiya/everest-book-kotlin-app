@@ -15,7 +15,7 @@ import com.jayaspiya.everestbooks.R
 import com.jayaspiya.everestbooks.model.Review
 
 class ReviewAdapter(
-    private val reviewList: ArrayList<Review>,
+    private val reviewList: MutableList<Review>,
     val context: Context
 ): RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
     class ReviewViewHolder(view: View): RecyclerView.ViewHolder(view){
