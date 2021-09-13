@@ -1,6 +1,8 @@
 package com.jayaspiya.everestbooks.api
 
 import com.jayaspiya.everestbooks.model.Book
+import com.jayaspiya.everestbooks.model.OrderBook
+import com.jayaspiya.everestbooks.model.OrderItem
 import com.jayaspiya.everestbooks.model.User
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -14,6 +16,8 @@ object ServiceBuilder {
     var token: String = ""
 
     var user: User? = null
+
+    var orderBook :OrderBook = OrderBook()
 
     // create logging
     val logging =HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)

@@ -21,6 +21,12 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import android.widget.AdapterView
+
+import android.widget.AdapterView.OnItemSelectedListener
+
+
+
 
 class CartAdapter(
     private val bookList: MutableList<Book>,
@@ -44,7 +50,7 @@ class CartAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BookViewHolder, @SuppressLint("RecyclerView") position: Int) {
         // Inserting property value to BookVIewHolder Object
         val book = bookList[position]
         holder.tvTitle.text = book.title
@@ -53,7 +59,25 @@ class CartAdapter(
         val qty = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
         val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, qty)
         holder.quantitySpinner.adapter = adapter
+        holder.quantitySpinner.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                index: Int,
+                id: Long
+            ) {
+                val selectedItem = parent.getItemAtPosition(index).toString()
+                val orderItem = ServiceBuilder.orderBook.orderBook?.get(position)
+                if (orderItem != null) {
+                    orderItem.qty = selectedItem.toInt()
+                }
+                if (orderItem != null) {
+                    ServiceBuilder.orderBook.orderBook?.set(position, orderItem)
+                }
+            }
 
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
         Glide.with(context)
             .load(book.cover?.front)
             .into(holder.ivBook)
