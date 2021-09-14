@@ -1,10 +1,19 @@
 package com.jayaspiya.everestbooks
 
 import android.annotation.SuppressLint
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.View
 import android.widget.*
+import androidx.core.app.NotificationCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jayaspiya.everestbooks.adapter.CartAdapter
@@ -15,10 +24,13 @@ import com.jayaspiya.everestbooks.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class CartActivity : AppCompatActivity() {
+    private val channelID = "com.jayaspiya.everestbooks"
+    private var notificationManager: NotificationManager? = null
     private lateinit var bookRecyclerView: RecyclerView
     private lateinit var progressBar: LinearLayout
     private lateinit var ivEmpty: ImageView
@@ -29,6 +41,8 @@ class CartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        createNotificationChannel(channelID, "Everest Book", "Notification Channel")
         bookRecyclerView = findViewById(R.id.bookRecyclerView)
         ivEmpty = findViewById(R.id.ivEmpty)
         tvEmpty = findViewById(R.id.tvEmpty)
@@ -39,7 +53,9 @@ class CartActivity : AppCompatActivity() {
         getCart()
         btnOrder.setOnClickListener {
             placeOrder()
-//            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, HomeActivity::class.java))
+            // TODO Notification Here
+            displayNotification()
         }
     }
 
@@ -48,7 +64,6 @@ class CartActivity : AppCompatActivity() {
             try {
                 val repository = OrderRepository()
                 repository.placeOrder(ServiceBuilder.orderBook)
-//            message = response.message!!
             }
             catch(ex: Exception){
                 println(ex)
@@ -98,7 +113,44 @@ class CartActivity : AppCompatActivity() {
             println(ex)
         }
     }
-}
+    @SuppressLint("RestrictedApi")
+    private fun displayNotification() {
+        val notificationId = 66
 
-/// checkout button clicked--> order = 4
-//
+        val intent = Intent(this, OrderActivity::class.java)
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(
+            this,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        val action : NotificationCompat.Action =
+            NotificationCompat.Action.Builder(0,"View Order",pendingIntent).build()
+
+        val notification = NotificationCompat.Builder(this, channelID)
+            .setContentTitle("Everest Book")
+            .setContentText("Your order has been confirmed.")
+            .setSmallIcon(android.R.drawable.ic_dialog_info)
+            .setAutoCancel(true)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .addAction(action)
+            .build()
+        CoroutineScope(IO).launch {
+            delay(3000)
+            withContext(Main){
+                notificationManager?.notify(notificationId, notification)
+            }
+        }
+    }
+
+    private fun createNotificationChannel(id: String, name: String, channelDescription: String) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val channel = NotificationChannel(id, name, importance).apply {
+                description = channelDescription
+            }
+            notificationManager?.createNotificationChannel(channel)
+        }
+
+    }
+}

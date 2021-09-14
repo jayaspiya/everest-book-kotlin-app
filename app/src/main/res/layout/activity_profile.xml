@@ -52,7 +52,7 @@
             app:tint="@color/prime" />
     </RelativeLayout>
 
-    <include layout="@layout/cover_progress_bar"/>
+<!--    <include layout="@layout/cover_progress_bar"/>-->
 
     <TextView
         android:id="@+id/tvUsername"
@@ -85,4 +85,15 @@
         android:drawableLeft="@drawable/mail"
         android:hint="Email"
         android:textSize="20dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Recently Viewed"
+        android:textColor="@color/prime"
+        android:textSize="25dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvRecentlyViewed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>
