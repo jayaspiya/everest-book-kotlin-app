@@ -52,7 +52,7 @@
             app:tint="@color/prime" />
     </RelativeLayout>
 
-<!--    <include layout="@layout/cover_progress_bar"/>-->
+    <include layout="@layout/cover_progress_bar"/>
 
     <TextView
         android:id="@+id/tvUsername"

@@ -11,7 +11,10 @@ import android.provider.MediaStore
 import android.view.View
 import android.webkit.MimeTypeMap
 import android.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.jayaspiya.everestbooks.adapter.RecentlyViewedAdapter
 import com.jayaspiya.everestbooks.api.ServiceBuilder
 import com.jayaspiya.everestbooks.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
@@ -39,6 +42,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var tvPhone: TextView
     private lateinit var tvEmail: TextView
     private lateinit var progressBar: LinearLayout
+    private lateinit var rvRecentlyViewed: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
@@ -50,6 +54,7 @@ class ProfileActivity : AppCompatActivity() {
         tvEmail = findViewById(R.id.tvEmail)
         ibSetting = findViewById(R.id.ibSetting)
         progressBar = findViewById(R.id.progressBar)
+        rvRecentlyViewed = findViewById(R.id.rvRecentlyViewed)
         getData()
         iv_add_profile.setOnClickListener {
             loadPopUpProfileUpload()
@@ -81,6 +86,9 @@ class ProfileActivity : AppCompatActivity() {
                         Glide.with(this@ProfileActivity)
                             .load(user.profile)
                             .into(ivProfilePicture)
+                        val adapter = user.recentlyViewed?.let { RecentlyViewedAdapter(it, this@ProfileActivity) }
+                        rvRecentlyViewed.layoutManager = LinearLayoutManager(this@ProfileActivity, LinearLayoutManager.HORIZONTAL, true)
+                        rvRecentlyViewed.adapter = adapter
                     }
                 }
             }

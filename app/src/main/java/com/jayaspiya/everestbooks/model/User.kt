@@ -12,5 +12,6 @@ data class User(
     val phone: String? = null,
     val profile: String? = null,
     val gender: String? = null,
-    val DOB: String? = null
+    val DOB: String? = null,
+    val recentlyViewed:MutableList<Book>? = null
 )

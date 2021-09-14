@@ -54,7 +54,6 @@ class CartActivity : AppCompatActivity() {
         btnOrder.setOnClickListener {
             placeOrder()
             startActivity(Intent(this, HomeActivity::class.java))
-            // TODO Notification Here
             displayNotification()
         }
     }
@@ -130,7 +129,7 @@ class CartActivity : AppCompatActivity() {
         val notification = NotificationCompat.Builder(this, channelID)
             .setContentTitle("Everest Book")
             .setContentText("Your order has been confirmed.")
-            .setSmallIcon(android.R.drawable.ic_dialog_info)
+            .setSmallIcon(R.drawable.mail)
             .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .addAction(action)

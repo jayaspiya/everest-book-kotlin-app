@@ -37,10 +37,6 @@
             android:text="Order"
             app:backgroundTint="@color/bg_gray" />
         <Button
-            style="@style/SettingButton"
-            android:text="Reviews"
-            app:backgroundTint="@color/bg_gray" />
-        <Button
             android:id="@+id/btnMaps"
             style="@style/SettingButton"
             android:text="Location"
