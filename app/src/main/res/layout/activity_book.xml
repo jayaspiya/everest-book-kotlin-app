@@ -14,9 +14,9 @@
 
 
         <LinearLayout
+            android:id="@+id/myLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/myLayout"
             android:layout_marginHorizontal="20dp"
             android:orientation="vertical">
 
@@ -70,16 +70,6 @@
                     android:textColor="@color/prime"
                     android:textSize="15dp" />
 
-                <!--                <Button-->
-                <!--                    android:id="@+id/btnAddToCart"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:paddingHorizontal="20dp"-->
-                <!--                    android:text="Add To Cart"-->
-                <!--                    android:textSize="12dp"-->
-                <!--                    app:cornerRadius="40dp" />-->
-
-
                 <TextView
                     android:id="@+id/tvDescription"
                     android:layout_width="match_parent"
@@ -87,24 +77,26 @@
                     android:hint="Description" />
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
                     <TextView
-                        android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:layout_weight="1"
                         android:text="Reviews"
                         android:textColor="@color/prime"
                         android:textSize="25dp"
                         android:textStyle="bold" />
+
                     <Button
-                        android:textSize="12sp"
                         android:id="@+id/btnCreateReview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Create Review"/>
+                        android:text="Create Review"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -126,7 +118,6 @@
         android:backgroundTint="@color/white"
         android:src="@drawable/shopping_cart"
         app:borderWidth="0dp"
-        app:rippleColor="@color/prime"
-        />
+        app:rippleColor="@color/prime" />
 
 </RelativeLayout>

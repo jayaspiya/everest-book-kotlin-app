@@ -56,6 +56,7 @@ class HomeFragment : Fragment() {
                     withContext(Main){
                         progressBar.visibility = View.GONE
                         val adapter = BookAdapter(bookList!!, requireContext())
+
                         bookRecyclerView.layoutManager = GridLayoutManager(requireContext(),2)
                         bookRecyclerView.adapter = adapter
                         return@withContext view

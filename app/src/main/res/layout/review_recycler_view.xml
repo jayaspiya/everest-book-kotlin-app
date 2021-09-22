@@ -85,7 +85,7 @@
         app:layout_constraintBottom_toTopOf="@+id/tvDescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/prime" />
+        app:tint="@color/prime"/>
 
     <View
         android:id="@+id/divider"

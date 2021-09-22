@@ -30,11 +30,11 @@ class SplashActivity : AppCompatActivity() {
         if(ServiceBuilder.token == ""){
             startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
         } else {
-            getCart()
+            getProfile()
         }
     }
 
-    private fun getCart() {
+    private fun getProfile() {
         try {
             CoroutineScope(IO).launch {
                 val userRepository = UserRepository()
