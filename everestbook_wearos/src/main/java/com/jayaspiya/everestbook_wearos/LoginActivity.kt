@@ -7,6 +7,9 @@ import android.text.TextUtils
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.jayaspiya.everestbook_wearos.databinding.ActivityLoginBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class LoginActivity : Activity() {
 
@@ -38,6 +41,30 @@ class LoginActivity : Activity() {
         }
     }
     private fun login() {
-
+        try {
+            CoroutineScope(Dispatchers.IO).launch {
+                val email: String = binding.etEmail.text.toString()
+                val password: String = binding.etPassword.text.toString()
+                val user = User(email = email, password = password)
+                val userRepo = UserRepository()
+                val response = userRepo.loginUser(user)
+                if (response.success == true) {
+                    ServiceBuilder.token = "Bearer " + response.accessToken!!
+                    saveUserDetail()
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@LoginActivity, response.message, Toast.LENGTH_SHORT)
+                            .show()
+                        startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@LoginActivity, response.message, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+            }
+        } catch (ex: Exception) {
+            println(ex)
+        }
     }
 }
