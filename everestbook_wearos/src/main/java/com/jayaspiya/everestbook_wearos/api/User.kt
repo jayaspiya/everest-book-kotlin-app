@@ -11,4 +11,6 @@ data class User(
     val profile: String? = null,
     val gender: String? = null,
     val DOB: String? = null,
+    val reviews: Int = 0,
+    val orders: Int = 0,
 )
