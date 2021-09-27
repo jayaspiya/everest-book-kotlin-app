@@ -41,6 +41,8 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var tvAddress: TextView
     private lateinit var tvPhone: TextView
     private lateinit var tvEmail: TextView
+    private lateinit var tvOrders: TextView
+    private lateinit var tvReviews: TextView
     private lateinit var progressBar: LinearLayout
     private lateinit var rvRecentlyViewed: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +54,8 @@ class ProfileActivity : AppCompatActivity() {
         tvAddress = findViewById(R.id.tvAddress)
         tvPhone = findViewById(R.id.tvPhone)
         tvEmail = findViewById(R.id.tvEmail)
+        tvOrders = findViewById(R.id.tvOrders)
+        tvReviews = findViewById(R.id.tvReviews)
         ibSetting = findViewById(R.id.ibSetting)
         progressBar = findViewById(R.id.progressBar)
         rvRecentlyViewed = findViewById(R.id.rvRecentlyViewed)
@@ -83,6 +87,8 @@ class ProfileActivity : AppCompatActivity() {
                         tvAddress.text = user.address
                         tvPhone.text = user.phone
                         tvEmail.text = user.email
+                        tvReviews.text = "Total Reviews: " + user.reviews.toString()
+                        tvOrders.text = "Total Orders: " + user.orders.toString()
                         Glide.with(this@ProfileActivity)
                             .load(user.profile)
                             .into(ivProfilePicture)

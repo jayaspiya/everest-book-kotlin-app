@@ -13,5 +13,7 @@ data class User(
     val profile: String? = null,
     val gender: String? = null,
     val DOB: String? = null,
-    val recentlyViewed:MutableList<Book>? = null
+    val recentlyViewed:MutableList<Book>? = null,
+    val reviews: Int = 0,
+    val orders: Int = 0,
 )

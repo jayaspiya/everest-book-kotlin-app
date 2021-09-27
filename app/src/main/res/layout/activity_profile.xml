@@ -85,6 +85,17 @@
         android:hint="Email"
         android:textSize="20dp"/>
     <TextView
+        android:id="@+id/tvReviews"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/review"
+        android:hint="Reviews" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/order"
+        android:id="@+id/tvOrders"/>
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Recently Viewed"
