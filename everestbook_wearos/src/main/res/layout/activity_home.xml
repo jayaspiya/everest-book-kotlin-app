@@ -8,7 +8,6 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#d6d6d6"
         android:gravity="center"
         android:orientation="vertical"
         tools:context=".HomeActivity"
@@ -53,13 +52,19 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:hint="Phone" />
-
                 <TextView
-                    android:id="@+id/tvEmail"
+                    android:id="@+id/tvReview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:hint="Email" />
+                    android:hint="Reviews" />
+                <TextView
+                    android:id="@+id/tvOrder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="Orders" />
+
             </LinearLayout>
 
         </ScrollView>

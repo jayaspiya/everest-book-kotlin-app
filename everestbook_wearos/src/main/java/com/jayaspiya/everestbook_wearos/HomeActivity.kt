@@ -21,7 +21,8 @@ class HomeActivity : Activity() {
     private lateinit var tvUsername: TextView
     private lateinit var tvLocation: TextView
     private lateinit var tvPhone: TextView
-    private lateinit var tvEmail: TextView
+    private lateinit var tvReview: TextView
+    private lateinit var tvOrder: TextView
     private lateinit var ivProfilePicture: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +31,8 @@ class HomeActivity : Activity() {
         tvUsername = findViewById(R.id.tvUsername)
         tvLocation = findViewById(R.id.tvLocation)
         tvPhone = findViewById(R.id.tvPhone)
-        tvEmail = findViewById(R.id.tvEmail)
+        tvReview = findViewById(R.id.tvReview)
+        tvOrder = findViewById(R.id.tvOrder)
         ivProfilePicture = findViewById(R.id.ivProfilePicture)
         getData(token)
     }
@@ -46,7 +48,8 @@ class HomeActivity : Activity() {
                         tvUsername.text = "Hello "+ user.firstname!!.capitalize() + " "+ user.lastname!!.capitalize()
                         tvLocation.text = "Location " + user.address!!.capitalize()
                         tvPhone.text = "Phone " + user.phone
-                        tvEmail.text = user.email
+                        tvOrder.text = "Total Orders: " + user.orders.toString()
+                        tvReview.text = "Total Reviews: "+user.reviews.toString()
                         Glide.with(this@HomeActivity)
                             .load(user.profile)
                             .into(ivProfilePicture)
