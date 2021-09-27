@@ -52,9 +52,10 @@ class LoginActivity : Activity() {
                 val response = userRepo.loginUser(user)
                 if (response.success == true) {
                     ServiceBuilder.token = "Bearer " + response.accessToken!!
-
                     withContext(Dispatchers.Main) {
-                        startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                        intent.putExtra("token", response.accessToken!!)
+                        startActivity(intent)
                     }
                 } else {
                     withContext(Dispatchers.Main) {

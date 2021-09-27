@@ -9,9 +9,9 @@ class UserRepository: HttpRequestNetworkCall() {
         }
     }
 
-    suspend fun getProfile(): UserResponse{
+    suspend fun getProfile(token: String): UserResponse{
         return myHttpRequestNetworkCall {
-            userService.getProfile(token = ServiceBuilder.token)
+            userService.getProfile(token = token)
         }
     }
 
