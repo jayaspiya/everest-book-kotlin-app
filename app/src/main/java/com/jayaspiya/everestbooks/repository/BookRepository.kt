@@ -4,18 +4,27 @@ import android.content.Context
 import com.jayaspiya.everestbooks.api.BookServices
 import com.jayaspiya.everestbooks.api.HttpRequestNetworkCall
 import com.jayaspiya.everestbooks.api.ServiceBuilder
-import com.jayaspiya.everestbooks.database.EverestDB
+import com.jayaspiya.everestbooks.dao.BookDAO
 import com.jayaspiya.everestbooks.entity.BookEntity
+import com.jayaspiya.everestbooks.model.Book
 import com.jayaspiya.everestbooks.response.BookResponse
 
-class BookRepository(context: Context): HttpRequestNetworkCall() {
+class BookRepository(context: Context,private val bookDAO: BookDAO? = null): HttpRequestNetworkCall() {
     private val bookService = ServiceBuilder.buildService(BookServices::class.java)
-    val bookDao = EverestDB.getInstance(context).getBookDAO()
 
-    suspend fun getBooks(): BookResponse{
-        return myHttpRequestNetworkCall {
-            bookService.getBooks()
+    suspend fun getBooks(): MutableList<Book>?{
+        try {
+            val response = myHttpRequestNetworkCall {
+                bookService.getBooks()
+            }
+            if (response.success == true) {
+                addAllBookListToDB(response.data!!)
+            }
+            return bookDAO?.getAllBooks()
+        } catch (ex: Exception) {
+            print(ex)
         }
+        return bookDAO?.getAllBooks()
     }
 
     suspend fun getBook(id: String): BookResponse{
@@ -24,15 +33,10 @@ class BookRepository(context: Context): HttpRequestNetworkCall() {
         }
     }
 
-    suspend fun delBookFromDB() {
-        bookDao.deleteBooks()
+    //Insert Product to Room Database
+    private suspend fun addAllBookListToDB(bookList: MutableList<Book>) {
+        for (book in bookList) {
+            bookDAO?.addBook(book)
+        }
     }
-
-    suspend fun addBookFromDB(bookEn: BookEntity){
-        bookDao.addBook(bookEn)
-    }
-
-//    suspend fun getBookFromDB(){
-//        return bookDao.getBooks()
-//    }
 }

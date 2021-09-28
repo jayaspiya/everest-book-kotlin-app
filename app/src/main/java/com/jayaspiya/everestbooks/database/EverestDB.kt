@@ -6,9 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.jayaspiya.everestbooks.dao.BookDAO
 import com.jayaspiya.everestbooks.entity.BookEntity
+import com.jayaspiya.everestbooks.model.Book
 
 @Database(
-    entities = [(BookEntity::class)],
+    entities = [(Book::class)],
     version = 2
 )
 abstract class EverestDB: RoomDatabase() {

@@ -1,26 +1,31 @@
 package com.jayaspiya.everestbooks.model
 
-import android.os.Parcel
-import android.os.Parcelable
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import org.jetbrains.annotations.NotNull
+import org.jetbrains.annotations.Nullable
 
 @Entity
 data class Book(
     @PrimaryKey()
-    val _id: String = "",
-    val title: String? = null,
-    val author: String? = null,
-    val isbn: String? = null,
-    val synopsis: String? = null,
-    val cover: Cover? = null,
-    val price: Int? = 0,
-    val reviews: MutableList<Review>? = null,
-    val inCart: Boolean? = null
+    @Nullable
+    var _id: String = "",
+    var title: String? = null,
+    var author: String? = null,
+    var isbn: String? = null,
+    var synopsis: String? = null,
+    var price: Int? = 0,
+    var inCart: Boolean? = null,
+    var frontCover:String?=null,
+    @Ignore
+    var cover: Cover? = null,
+    @Ignore
+    var reviews: MutableList<Review>? = null,
 )
 
 data class Cover(
-    val side: String? = null,
-    val front: String? = null,
-    val back: String? = null,
+    var side: String? = null,
+    var front: String? = null,
+    var back: String? = null,
 )

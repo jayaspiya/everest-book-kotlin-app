@@ -1,6 +1,8 @@
 package com.jayaspiya.everestbooks
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -34,24 +36,32 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
+    private fun checkNetwork():Boolean{
+        val connectivityManager=getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo=connectivityManager.activeNetworkInfo
+        return  networkInfo!=null && networkInfo.isConnected
+    }
+
     private fun getProfile() {
-        try {
-            CoroutineScope(IO).launch {
-                val userRepository = UserRepository()
-                val response = userRepository.getProfile()
-                if(response.success == true){
-                    ServiceBuilder.user = response.data!!
-                    startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
-                }
-                else{
-                    withContext(Dispatchers.Main){
-                        startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+        if(checkNetwork()) {
+            try {
+                CoroutineScope(IO).launch {
+                    val userRepository = UserRepository()
+                    val response = userRepository.getProfile()
+                    if (response.success == true) {
+                        ServiceBuilder.user = response.data!!
+                        startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
+                    } else {
+                        withContext(Dispatchers.Main) {
+                            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+                        }
                     }
                 }
+            } catch (ex: Exception) {
+                println(ex)
             }
-        }
-        catch(ex: Exception){
-            println(ex)
+        }else{
+            startActivity(Intent(this,HomeActivity::class.java))
         }
     }
 

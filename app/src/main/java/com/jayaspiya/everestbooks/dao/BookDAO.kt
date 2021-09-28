@@ -3,18 +3,14 @@ package com.jayaspiya.everestbooks.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
-import androidx.room.OnConflictStrategy.IGNORE
 import androidx.room.Query
-import com.jayaspiya.everestbooks.entity.BookEntity
+import com.jayaspiya.everestbooks.model.Book
 
 @Dao
 interface BookDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addBook(bookEntity:BookEntity)
+    suspend fun addBook(book:Book)
 
-    @Query("DELETE FROM BookEntity")
-    suspend fun deleteBooks()
-
-//    @Query("SELECT * FROM BookEntity")
-//    suspend fun getBooks()
+    @Query("SELECT * FROM Book")
+    suspend fun getAllBooks():MutableList<Book>
 }

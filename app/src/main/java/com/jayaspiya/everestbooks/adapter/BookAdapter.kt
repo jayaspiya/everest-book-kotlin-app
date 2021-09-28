@@ -42,7 +42,7 @@ class BookAdapter(
         holder.tvPrice.text = "Rs.${book.price}"
 
         Glide.with(context)
-            .load(book.cover?.front)
+            .load(book.frontCover)
             .into(holder.ivBook)
 
         holder.mainRelativeLayout.setOnClickListener {

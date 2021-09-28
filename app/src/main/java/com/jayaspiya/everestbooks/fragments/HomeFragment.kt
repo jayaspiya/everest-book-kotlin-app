@@ -43,36 +43,16 @@ class HomeFragment : Fragment(), SensorEventListener {
         val progressBar: LinearLayout = view.findViewById(R.id.progressBar)
         progressBar.visibility = View.VISIBLE
         try {
+            val bookRepository = BookRepository(requireContext(), EverestDB.getInstance(requireContext()).getBookDAO())
             CoroutineScope(IO).launch {
-                val bookRepository = BookRepository(requireContext())
-                val response = bookRepository.getBooks()
-                if(response.success == true){
-                    var bookList = response.data!!
-                    // Save book to Room DB
-//                    bookRepository.delBookFromDB()
-
-                    for(book in bookList){
-                        val bookEn = BookEntity(
-                            _id = book._id,
-                            title = book.title,
-                            author = book.author,
-                            isbn = book.isbn,
-                            synopsis = book.synopsis,
-                            price = book.price,
-                            cover = book.cover?.front
-                        )
-                        bookRepository.addBookFromDB(bookEn)
-                    }
+                val bookList = bookRepository.getBooks()
                     withContext(Main){
                         progressBar.visibility = View.GONE
                         val adapter = BookAdapter(bookList!!, requireContext())
-
                         bookRecyclerView.layoutManager = GridLayoutManager(requireContext(),2)
                         bookRecyclerView.adapter = adapter
-                        return@withContext view
                     }
                 }
-            }
         }
         catch (ex: Exception){
             println(ex)
