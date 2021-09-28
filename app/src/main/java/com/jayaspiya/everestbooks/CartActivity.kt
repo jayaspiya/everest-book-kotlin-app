@@ -85,7 +85,7 @@ class CartActivity : AppCompatActivity() {
                             btnOrder.visibility = View.VISIBLE
                             val newOrderBook:MutableList<OrderItem> = ArrayList()
                             for (book in bookList){
-                                newOrderBook.add(OrderItem(book._id, 1, book.price))
+                                newOrderBook.add(OrderItem(book, 1, book.price))
                             }
                             ServiceBuilder.orderBook.orderBook = newOrderBook
                         }
