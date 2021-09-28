@@ -1,9 +1,12 @@
 package com.jayaspiya.everestbooks
 
+import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jayaspiya.everestbooks.adapter.CartAdapter
@@ -18,10 +21,14 @@ import kotlinx.coroutines.withContext
 
 class OrderActivity : AppCompatActivity() {
     private lateinit var progressBar: LinearLayout
+    private lateinit var ivEmpty: ImageView
+    private lateinit var tvEmpty: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order)
         progressBar = findViewById(R.id.progressBar)
+        ivEmpty = findViewById(R.id.ivEmpty)
+        tvEmpty = findViewById(R.id.tvEmpty)
         progressBar.visibility = View.VISIBLE
         getOrder()
     }
@@ -33,8 +40,10 @@ class OrderActivity : AppCompatActivity() {
                 if(response.success == true){
                     var orderBook = response.data!!
                     withContext(Dispatchers.Main){
+                        progressBar.visibility = View.GONE
                         if(orderBook.isNotEmpty()){
-                            progressBar.visibility = View.GONE
+                            ivEmpty.visibility = View.GONE
+                            tvEmpty.visibility = View.GONE
                         }
                     }
                 }
