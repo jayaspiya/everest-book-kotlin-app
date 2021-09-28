@@ -9,8 +9,11 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.jayaspiya.everestbooks.adapter.CartAdapter
+import com.jayaspiya.everestbooks.adapter.OrderBookAdapter
 import com.jayaspiya.everestbooks.api.ServiceBuilder
+import com.jayaspiya.everestbooks.model.OrderBook
 import com.jayaspiya.everestbooks.model.OrderItem
 import com.jayaspiya.everestbooks.repository.OrderRepository
 import com.jayaspiya.everestbooks.repository.UserRepository
@@ -21,6 +24,7 @@ import kotlinx.coroutines.withContext
 
 class OrderActivity : AppCompatActivity() {
     private lateinit var progressBar: LinearLayout
+    private lateinit var rvOrderList: RecyclerView
     private lateinit var ivEmpty: ImageView
     private lateinit var tvEmpty: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +33,7 @@ class OrderActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progressBar)
         ivEmpty = findViewById(R.id.ivEmpty)
         tvEmpty = findViewById(R.id.tvEmpty)
+        rvOrderList = findViewById(R.id.rvOrderList)
         progressBar.visibility = View.VISIBLE
         getOrder()
     }
@@ -45,6 +50,9 @@ class OrderActivity : AppCompatActivity() {
                             ivEmpty.visibility = View.GONE
                             tvEmpty.visibility = View.GONE
                         }
+                        val adapter = OrderBookAdapter(orderBook, this@OrderActivity)
+                        rvOrderList.layoutManager = LinearLayoutManager(this@OrderActivity)
+                        rvOrderList.adapter = adapter
                     }
                 }
                 else{
