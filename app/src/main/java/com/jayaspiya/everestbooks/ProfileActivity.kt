@@ -1,10 +1,12 @@
 package com.jayaspiya.everestbooks
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.hardware.Sensor
+import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
@@ -33,10 +35,14 @@ import okhttp3.RequestBody
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
+import java.lang.Math.sqrt
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ProfileActivity : AppCompatActivity() {
+class ProfileActivity : AppCompatActivity() , SensorEventListener {
+    private var sensor: Sensor? = null
+    private lateinit var currentSensorManager: SensorManager
+    private var sensorManager: SensorManager? = null
 
 
     private lateinit var ivProfilePicture: ImageView
@@ -50,9 +56,14 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var tvReviews: TextView
     private lateinit var progressBar: LinearLayout
     private lateinit var rvRecentlyViewed: RecyclerView
+
+    private var acceleration = 0f
+    private var currentAcceleration = 0f
+    private var lastAcceleration = 0f
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+        currentSensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         ivProfilePicture = findViewById(R.id.ivProfilePicture)
         iv_add_profile = findViewById(R.id.iv_add_profile)
         tvUsername = findViewById(R.id.tvUsername)
@@ -71,11 +82,66 @@ class ProfileActivity : AppCompatActivity() {
         ibSetting.setOnClickListener {
             loadPopUpSetting()
         }
+
+        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        Objects.requireNonNull(sensorManager)!!.registerListener(sensorListener, sensorManager!!
+            .getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL)
+        acceleration = 10f
+        currentAcceleration = SensorManager.GRAVITY_EARTH
+        lastAcceleration = SensorManager.GRAVITY_EARTH
+        if (!checkSensor())
+            return
+        else {
+            sensor = currentSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY)
+            currentSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL)
+        }
+    }
+
+    private fun checkSensor(): Boolean {
+        var flag = true
+        if (currentSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) == null) {
+            flag = false
+        }
+        return flag
+    }
+
+    override fun onSensorChanged(event: SensorEvent?) {
+        val values = event!!.values[0]
+        if(values<=0){
+//            showAlertDialog()
+        }
+
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
+    private val sensorListener: SensorEventListener = object : SensorEventListener {
+        override fun onSensorChanged(event: SensorEvent) {
+            val currentX = event.values[0]
+            val currentY = event.values[1]
+            val currentZ = event.values[2]
+            lastAcceleration = currentAcceleration
+            currentAcceleration = sqrt((currentX * currentX + currentY * currentY + currentZ * currentZ).toDouble()).toFloat()
+            val changeValue: Float = currentAcceleration - lastAcceleration
+            acceleration = acceleration * 0.9f + changeValue
+            if (acceleration > 12) {
+//                openMyFragment("Our Location", MapsFragment(), MAP_FRAGMENT)
+                //Toast.makeText(this@MainActivity, "Shaking of Mobile Detected", Toast.LENGTH_SHORT).show()
+            }
+        }
+        override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
     }
 
     override fun onResume() {
-        super.onResume()
         getData()
+        sensorManager?.registerListener(sensorListener, sensorManager!!.getDefaultSensor(
+            Sensor .TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL
+        )
+        super.onResume()
+    }
+
+    override fun onPause() {
+        sensorManager!!.unregisterListener(sensorListener)
+        super.onPause()
     }
     private fun getData() {
         progressBar.visibility = View.VISIBLE
