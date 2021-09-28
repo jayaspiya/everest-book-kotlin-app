@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jayaspiya.everestbooks.BookActivity
@@ -23,6 +24,7 @@ class OrderBookAdapter(
     class OrderBookViewHolder(view: View): RecyclerView.ViewHolder(view){
         val tvOrder: TextView = view.findViewById(R.id.tvOrder)
         val tvStatus: TextView = view.findViewById(R.id.tvStatus)
+        val rvOrderItem: RecyclerView = view.findViewById(R.id.rvOrderItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderBookViewHolder {
@@ -34,6 +36,9 @@ class OrderBookAdapter(
         val order = orderList[position]
         holder.tvOrder.text = "Order ID: " + order._id
         holder.tvStatus.text = "Status: " + order.status
+        val adapter = OrderItemAdapter(order.orderBook!!, context)
+        holder.rvOrderItem.layoutManager = LinearLayoutManager(context)
+        holder.rvOrderItem.adapter = adapter
     }
 
     override fun getItemCount(): Int {
