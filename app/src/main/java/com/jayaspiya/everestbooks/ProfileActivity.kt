@@ -108,7 +108,7 @@ class ProfileActivity : AppCompatActivity() , SensorEventListener {
     override fun onSensorChanged(event: SensorEvent?) {
         val values = event!!.values[0]
         if(values<=0){
-//            showAlertDialog()
+            startActivity(Intent(this,OrderActivity::class.java))
         }
 
     }
@@ -124,8 +124,7 @@ class ProfileActivity : AppCompatActivity() , SensorEventListener {
             val changeValue: Float = currentAcceleration - lastAcceleration
             acceleration = acceleration * 0.9f + changeValue
             if (acceleration > 12) {
-//                openMyFragment("Our Location", MapsFragment(), MAP_FRAGMENT)
-                //Toast.makeText(this@MainActivity, "Shaking of Mobile Detected", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this@ProfileActivity,MapsActivity::class.java))
             }
         }
         override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}

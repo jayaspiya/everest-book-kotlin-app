@@ -3,6 +3,10 @@ package com.jayaspiya.everestbooks
 import android.app.Dialog
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
@@ -32,7 +36,11 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class BookActivity : AppCompatActivity() {
+class BookActivity : AppCompatActivity() , SensorEventListener {
+    private var sensor: Sensor? = null
+    private lateinit var currentSensorManager: SensorManager
+    private var sensorManager: SensorManager? = null
+
     private lateinit var tvTitle: TextView
     private lateinit var tvBookPrice: TextView
     private lateinit var tvAuthor: TextView
@@ -54,6 +62,7 @@ class BookActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book)
+        currentSensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         tvTitle = findViewById(R.id.tvTitle)
         tvBookPrice = findViewById(R.id.tvBookPrice)
         tvAuthor = findViewById(R.id.tvAuthor)
@@ -74,17 +83,7 @@ class BookActivity : AppCompatActivity() {
 
         // Button Click Listener
         btnAddToCart.setOnClickListener {
-            if (inCart) {
-                val snackBar =
-                    Snackbar.make(myLayout, "Book Already On Cart", Snackbar.LENGTH_SHORT)
-                snackBar.setAction("View Cart") {
-                    startActivity(Intent(this@BookActivity, CartActivity::class.java))
-                }.show()
-            } else {
-                addToCart()
-                inCart = true
-                btnAddToCart.imageTintList = ColorStateList.valueOf(resources.getColor(R.color.prime))
-            }
+            checkCart()
         }
         btnCreateReview.setOnClickListener {
             val reviewDialog=Dialog(this)
@@ -122,6 +121,49 @@ class BookActivity : AppCompatActivity() {
         }
 
         getBook()
+
+    if (!checkSensor())
+            return
+        else {
+            sensor = currentSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY)
+            currentSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun checkCart() {
+        if (inCart) {
+            val snackBar =
+                Snackbar.make(myLayout, "Book Already On Cart", Snackbar.LENGTH_SHORT)
+            snackBar.setAction("View Cart") {
+                startActivity(Intent(this@BookActivity, CartActivity::class.java))
+            }.show()
+        } else {
+            addToCart()
+            inCart = true
+            btnAddToCart.imageTintList = ColorStateList.valueOf(resources.getColor(R.color.prime))
+            Toast.makeText(this, "Added to Cart", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun checkSensor(): Boolean {
+        var flag = true
+        if (currentSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) == null) {
+            flag = false
+        }
+        return flag
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    override fun onSensorChanged(event: SensorEvent?) {
+        val values = event!!.values[0]
+        if(values<=0){
+            checkCart()
+        }
+
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
 
     }
 

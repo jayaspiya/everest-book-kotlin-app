@@ -99,6 +99,7 @@ class HomeFragment : Fragment(), SensorEventListener {
         if (values < 5)
         else if (values > 10){
             startActivity(Intent(requireContext(),ProfileActivity::class.java))
+
         }
 
     }
