@@ -4,6 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.hardware.Sensor
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
@@ -34,6 +37,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ProfileActivity : AppCompatActivity() {
+
+
     private lateinit var ivProfilePicture: ImageView
     private lateinit var iv_add_profile: ImageView
     private lateinit var ibSetting: ImageButton

@@ -54,7 +54,9 @@
             android:name=".CartActivity"
             android:exported="true" />
         <activity android:name=".BookActivity" />
-        <activity android:name=".HomeActivity" />
+        <activity android:name=".HomeActivity"
+            android:screenOrientation="locked"
+            />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
