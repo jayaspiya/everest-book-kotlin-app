@@ -54,7 +54,7 @@ class DiscoverFragment : Fragment() {
     private fun getBook(pattern: String) {
         progressBar.visibility = View.VISIBLE
         try {
-            val bookRepository = BookRepository(requireContext(), EverestDB.getInstance(requireContext()).getBookDAO())
+            val bookRepository = BookRepository()
             CoroutineScope(Dispatchers.IO).launch {
                 val response = bookRepository.searchBook(getSlug(pattern))
                 withContext(Dispatchers.Main){

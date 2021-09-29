@@ -1,6 +1,9 @@
 package com.jayaspiya.everestbooks
 
+import com.jayaspiya.everestbooks.api.ServiceBuilder
 import com.jayaspiya.everestbooks.model.User
+import com.jayaspiya.everestbooks.repository.BookRepository
+import com.jayaspiya.everestbooks.repository.OrderRepository
 import com.jayaspiya.everestbooks.repository.UserRepository
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -8,10 +11,12 @@ import org.junit.Test
 
 class ValidationTest {
     private lateinit var userRepository: UserRepository
+    private lateinit var bookRepository: BookRepository
+    private lateinit var orderRepository: OrderRepository
     @Test
     fun loginUser() = runBlocking {
         userRepository = UserRepository()
-        val user = User(email="user@everest.com", password = "123456")
+        val user = User(email="a@a.com", password = "a123")
         val response = userRepository.loginUser(user)
         val expectedResult = true
         val actualResult = response.success
@@ -20,7 +25,7 @@ class ValidationTest {
     @Test
     fun registerUser() = runBlocking {
         val user = User(
-            email = "user21@everest.com",
+            email = "prqvgh@everest.com",
             firstname = "Point",
             lastname = "Pin",
             address = "Somewhere",
@@ -34,14 +39,38 @@ class ValidationTest {
         assertEquals(expectedResult, actualResult)
     }
 
-//    @Test
-//    fun addToCart() = runBlocking {
-//        userRepository = UserRepository()
-//        val accessToken = "Bearer " + userRepository.loginUser(User(email="user@everest.com", password = "123456")).accessToken
-//        ServiceBuilder.token=accessToken
-//        val response = userRepository.addToCart("612d0ad8dc66860f808be2a7")
-//        val expectedResult = true
-//        val actualResult = response.success
-//        assertEquals(expectedResult, actualResult)
-//    }
+    @Test
+    fun getUserCart() = runBlocking {
+        userRepository = UserRepository()
+        val accessToken = "Bearer " + userRepository.loginUser(User(email="a@a.com", password = "a123")).accessToken
+        ServiceBuilder.token=accessToken
+        val response = userRepository.getCart()
+        val expectedResult = true
+        val actualResult = response.success
+        assertEquals(expectedResult, actualResult)
+    }
+
+
+    @Test
+    fun getUserProfile() = runBlocking {
+        userRepository = UserRepository()
+        val accessToken = "Bearer " + userRepository.loginUser(User(email="a@a.com", password = "a123")).accessToken
+        ServiceBuilder.token=accessToken
+        val response = userRepository.getProfile()
+        val expectedResult = true
+        val actualResult = response.success
+        assertEquals(expectedResult, actualResult)
+    }
+    @Test
+    fun getAllOrder() = runBlocking {
+        orderRepository = OrderRepository()
+        userRepository = UserRepository()
+        val accessToken = "Bearer " + userRepository.loginUser(User(email="a@a.com", password = "a123")).accessToken
+        ServiceBuilder.token=accessToken
+        val response = orderRepository.getOrder()
+        val expectedResult = true
+        val actualResult = response.success
+        assertEquals(expectedResult, actualResult)
+    }
+    
 }

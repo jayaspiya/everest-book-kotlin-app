@@ -11,8 +11,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.math.log
 
 object ServiceBuilder {
-//    private const val BASE_URL = "https://everest-android.herokuapp.com/"
-    private const val BASE_URL="http://10.0.2.2:5500/"
+    private const val BASE_URL = "https://everest-android.herokuapp.com/"
+//    private const val BASE_URL="http://10.0.2.2:5500/"
 //    private const val BASE_URL="http://192.168.1.175:5500/"
 //    private const val BASE_URL="http://localhost:5500/"  // for testing only
     var token: String = ""

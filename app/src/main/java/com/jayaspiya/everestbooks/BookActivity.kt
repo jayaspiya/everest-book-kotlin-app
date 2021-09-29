@@ -197,7 +197,7 @@ class BookActivity : AppCompatActivity() , SensorEventListener {
         myLayout.visibility = View.GONE
         try {
             CoroutineScope(IO).launch {
-                val bookRepository = BookRepository(this@BookActivity)
+                val bookRepository = BookRepository()
                 val response = bookRepository.getBook(id!!)
                 if (response.success == true) {
                     withContext(Main) {

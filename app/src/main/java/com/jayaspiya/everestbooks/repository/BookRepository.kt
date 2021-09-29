@@ -9,7 +9,7 @@ import com.jayaspiya.everestbooks.entity.BookEntity
 import com.jayaspiya.everestbooks.model.Book
 import com.jayaspiya.everestbooks.response.BookResponse
 
-class BookRepository(context: Context,private val bookDAO: BookDAO? = null): HttpRequestNetworkCall() {
+class BookRepository(private val bookDAO: BookDAO? = null): HttpRequestNetworkCall() {
     private val bookService = ServiceBuilder.buildService(BookServices::class.java)
 
     suspend fun getBooks(): MutableList<Book>?{
