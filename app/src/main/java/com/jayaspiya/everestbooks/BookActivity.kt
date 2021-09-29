@@ -157,8 +157,7 @@ class BookActivity : AppCompatActivity() , SensorEventListener {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onSensorChanged(event: SensorEvent?) {
         val values = event!!.values[0]
-        // TODO: Check Value
-        if(values<=4){
+        if(values<=0){
             checkCart()
         }
 
@@ -253,7 +252,7 @@ class BookActivity : AppCompatActivity() , SensorEventListener {
             }
         rvReview.layoutManager = myLinearLayoutManager
         rvReview.adapter = adapter
-        adapter.notifyItemInserted(0)
+        adapter.notifyDataSetChanged()
     }
 
 

@@ -34,7 +34,6 @@ class ValidationTest {
         assertEquals(expectedResult, actualResult)
     }
 
-//    TODO: ERROR ERROR
 //    @Test
 //    fun addToCart() = runBlocking {
 //        userRepository = UserRepository()

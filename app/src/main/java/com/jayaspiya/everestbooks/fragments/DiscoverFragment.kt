@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jayaspiya.everestbooks.R
@@ -33,12 +34,19 @@ class DiscoverFragment : Fragment() {
         progressBar= view.findViewById(R.id.progressBar)
         progressBar.visibility = View.GONE
         bookRecyclerView= view.findViewById(R.id.bookRecyclerView)
-//        svSearch.setOnQueryTextListener{
-//            println("hello")
-//            true
-//        }
-        getBook("wil")
+        svSearch.setOnQueryTextListener(
+            object :SearchView.OnQueryTextListener{
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    getBook(query!!)
+                    return true
+                }
 
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    return false
+                }
+
+            }
+        )
         return view
 
     }
@@ -48,20 +56,10 @@ class DiscoverFragment : Fragment() {
         try {
             val bookRepository = BookRepository(requireContext(), EverestDB.getInstance(requireContext()).getBookDAO())
             CoroutineScope(Dispatchers.IO).launch {
-                // TODO : SLUG
-                val response = bookRepository.searchBook(pattern)
+                val response = bookRepository.searchBook(getSlug(pattern))
                 withContext(Dispatchers.Main){
                     progressBar.visibility = View.GONE
                     val adapter = BookAdapter(response.data!!, requireContext())
-                    // TODO: STOP Scroll /  modify code
-                    // Stop Scrolling Recycler View
-//                    val myLinearLayoutManager =
-//                        object : LinearLayoutManager(context) {
-//                            override fun canScrollVertically(): Boolean {
-//                                return false
-//                            }
-//                        }
-//                    rvReview.layoutManager = myLinearLayoutManager
                     bookRecyclerView.layoutManager = GridLayoutManager(requireContext(),2)
                     bookRecyclerView.adapter = adapter
                 }
@@ -70,5 +68,10 @@ class DiscoverFragment : Fragment() {
         catch (ex: Exception){
             println(ex)
         }
+    }
+
+    private fun getSlug(pattern: String): String {
+        val parts = pattern.split(" ")
+        return parts.joinToString("-")
     }
 }

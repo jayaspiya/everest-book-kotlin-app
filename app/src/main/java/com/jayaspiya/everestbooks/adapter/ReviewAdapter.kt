@@ -112,8 +112,9 @@ class ReviewAdapter(
                         .setMessage("Do you want to delete the review?")
                         .setIcon(android.R.drawable.ic_menu_delete)
                         .setPositiveButton("Delete"){_,_->
-                            // TODO: On delete hide the view
                             deleteReview(review._id)
+                            reviewList.remove(review)
+                            notifyDataSetChanged()
                         }
                         .setNegativeButton("Cancel"){_,_->
                             println("Canceled")
