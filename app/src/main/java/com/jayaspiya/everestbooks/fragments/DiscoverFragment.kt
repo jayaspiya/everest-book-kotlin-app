@@ -1,6 +1,5 @@
 package com.jayaspiya.everestbooks.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,9 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.jayaspiya.everestbooks.CartActivity
 import com.jayaspiya.everestbooks.R
 import com.jayaspiya.everestbooks.adapter.BookAdapter
 import com.jayaspiya.everestbooks.database.EverestDB
@@ -40,21 +37,22 @@ class DiscoverFragment : Fragment() {
 //            println("hello")
 //            true
 //        }
-        getBook()
+        getBook("wil")
 
         return view
 
     }
 
-    private fun getBook() {
+    private fun getBook(pattern: String) {
         progressBar.visibility = View.VISIBLE
         try {
             val bookRepository = BookRepository(requireContext(), EverestDB.getInstance(requireContext()).getBookDAO())
             CoroutineScope(Dispatchers.IO).launch {
-                val bookList = bookRepository.getBooks()
+                // TODO : SLUG
+                val response = bookRepository.searchBook(pattern)
                 withContext(Dispatchers.Main){
                     progressBar.visibility = View.GONE
-                    val adapter = BookAdapter(bookList!!, requireContext())
+                    val adapter = BookAdapter(response.data!!, requireContext())
                     // TODO: STOP Scroll /  modify code
                     // Stop Scrolling Recycler View
 //                    val myLinearLayoutManager =

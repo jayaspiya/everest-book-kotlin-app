@@ -33,6 +33,12 @@ class BookRepository(context: Context,private val bookDAO: BookDAO? = null): Htt
         }
     }
 
+    suspend fun searchBook(pattern: String): BookResponse{
+        return myHttpRequestNetworkCall {
+            bookService.searchBook(pattern=pattern)
+        }
+    }
+
     //Insert Product to Room Database
     private suspend fun addAllBookListToDB(bookList: MutableList<Book>) {
         for (book in bookList) {

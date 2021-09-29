@@ -17,4 +17,10 @@ interface BookServices {
         @Path("id")
         id: String
     ):Response<BookResponse>
+
+    @GET("book/search/{pattern}")
+    suspend fun searchBook(
+        @Path("pattern")
+        pattern: String
+    ):Response<BookResponse>
 }

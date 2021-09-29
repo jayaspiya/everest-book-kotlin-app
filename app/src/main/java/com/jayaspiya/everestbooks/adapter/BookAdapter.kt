@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.jayaspiya.everestbooks.BookActivity
 import com.jayaspiya.everestbooks.R
 import com.jayaspiya.everestbooks.model.Book
+import com.jayaspiya.everestbooks.response.BookResponse
 
 class BookAdapter(
     private val bookList: MutableList<Book>,
