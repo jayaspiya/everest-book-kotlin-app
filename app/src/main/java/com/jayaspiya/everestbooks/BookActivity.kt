@@ -16,6 +16,9 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
@@ -23,6 +26,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.hdd.globalmovie.adapter.BookCoverAdapter
+import com.jayaspiya.everestbooks.adapter.BookAdapter
 import com.jayaspiya.everestbooks.adapter.ReviewAdapter
 import com.jayaspiya.everestbooks.api.ServiceBuilder
 import com.jayaspiya.everestbooks.model.Book
@@ -30,6 +34,9 @@ import com.jayaspiya.everestbooks.model.Review
 import com.jayaspiya.everestbooks.repository.BookRepository
 import com.jayaspiya.everestbooks.repository.ReviewRepository
 import com.jayaspiya.everestbooks.repository.UserRepository
+import com.jayaspiya.everestbooks.viewModel.book.BookViewModel
+import com.jayaspiya.everestbooks.viewModel.review.ReviewViewModelFactory
+import com.jayaspiya.everestreviews.viewModel.review.ReviewViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -37,6 +44,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class BookActivity : AppCompatActivity() , SensorEventListener {
+    private lateinit var reviewViewModel: ReviewViewModel
     private var sensor: Sensor? = null
     private lateinit var currentSensorManager: SensorManager
     private var sensorManager: SensorManager? = null
@@ -80,6 +88,12 @@ class BookActivity : AppCompatActivity() , SensorEventListener {
         bookCoverTabLayout = findViewById(R.id.bookCoverTabLayout)
 
         id = intent.getStringExtra("id").toString()
+
+        reviewViewModel= ViewModelProvider(this,ReviewViewModelFactory(ReviewRepository())).get(ReviewViewModel::class.java)
+        reviewViewModel.getReview("jdkjadnka")
+        reviewViewModel.reviewList.observe(this, Observer {
+           // TODO #1: Do something
+        })
 
         // Button Click Listener
         btnAddToCart.setOnClickListener {
