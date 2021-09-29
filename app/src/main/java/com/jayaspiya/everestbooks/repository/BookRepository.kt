@@ -1,11 +1,9 @@
 package com.jayaspiya.everestbooks.repository
 
-import android.content.Context
 import com.jayaspiya.everestbooks.api.BookServices
 import com.jayaspiya.everestbooks.api.HttpRequestNetworkCall
 import com.jayaspiya.everestbooks.api.ServiceBuilder
 import com.jayaspiya.everestbooks.dao.BookDAO
-import com.jayaspiya.everestbooks.entity.BookEntity
 import com.jayaspiya.everestbooks.model.Book
 import com.jayaspiya.everestbooks.response.BookResponse
 

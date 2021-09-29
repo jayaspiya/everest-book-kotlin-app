@@ -40,7 +40,7 @@ class HomeFragment : Fragment(), SensorEventListener {
         val progressBar: LinearLayout = view.findViewById(R.id.progressBar)
         progressBar.visibility = View.VISIBLE
         try {
-            val bookRepository = BookRepository()
+            val bookRepository = BookRepository(EverestDB.getInstance(requireContext()).getBookDAO())
             CoroutineScope(IO).launch {
                 val bookList = bookRepository.getBooks()
                     withContext(Main){
