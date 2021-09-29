@@ -37,6 +37,7 @@ class CartActivity : AppCompatActivity() {
     private lateinit var tvEmpty: TextView
     private lateinit var btnOrder: Button
     private var message: String = ""
+    private var delayTime: Long = 2000
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,8 +54,20 @@ class CartActivity : AppCompatActivity() {
         getCart()
         btnOrder.setOnClickListener {
             placeOrder()
-            startActivity(Intent(this, HomeActivity::class.java))
+//            startActivity(Intent(this, HomeActivity::class.java))
+            progressBar.visibility = View.VISIBLE
             displayNotification()
+            CoroutineScope(IO).launch {
+                delay(delayTime)
+                withContext(Main){
+                    progressBar.visibility = View.GONE
+                    ivEmpty.visibility = View.VISIBLE
+                    tvEmpty.visibility = View.VISIBLE
+                    btnOrder.visibility = View.GONE
+                    bookRecyclerView.visibility = View.GONE
+                }
+            }
+
         }
     }
 
@@ -90,7 +103,6 @@ class CartActivity : AppCompatActivity() {
                             ServiceBuilder.orderBook.orderBook = newOrderBook
                         }
                         progressBar.visibility = View.GONE
-                        Toast.makeText(this@CartActivity, response.message, Toast.LENGTH_SHORT).show()
                         val adapter = CartAdapter(bookList, this@CartActivity)
                         bookRecyclerView.layoutManager = LinearLayoutManager(
                             this@CartActivity,
@@ -135,7 +147,7 @@ class CartActivity : AppCompatActivity() {
             .addAction(action)
             .build()
         CoroutineScope(IO).launch {
-            delay(3000)
+            delay(delayTime+1000)
             withContext(Main){
                 notificationManager?.notify(notificationId, notification)
             }

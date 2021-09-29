@@ -96,7 +96,6 @@ class UpdateProfileActivity : AppCompatActivity() {
     }
     @RequiresApi(Build.VERSION_CODES.O)
     private fun updateUser() {
-        // TODO: Validation Check
         try {
             Toast.makeText(this, "gender $gender", Toast.LENGTH_SHORT).show()
             CoroutineScope(Dispatchers.IO).launch {

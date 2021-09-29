@@ -25,9 +25,6 @@ import android.widget.AdapterView
 
 import android.widget.AdapterView.OnItemSelectedListener
 
-
-
-
 class CartAdapter(
     private val bookList: MutableList<Book>,
     val context: Context

@@ -157,7 +157,8 @@ class BookActivity : AppCompatActivity() , SensorEventListener {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onSensorChanged(event: SensorEvent?) {
         val values = event!!.values[0]
-        if(values<=0){
+        // TODO: Check Value
+        if(values<=4){
             checkCart()
         }
 
