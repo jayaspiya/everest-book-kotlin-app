@@ -12,6 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jayaspiya.everestbooks.ProfileActivity
@@ -19,13 +21,11 @@ import com.jayaspiya.everestbooks.R
 import com.jayaspiya.everestbooks.adapter.BookAdapter
 import com.jayaspiya.everestbooks.repository.BookRepository
 import com.jayaspiya.everestbooks.database.EverestDB
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.jayaspiya.everestbooks.viewModel.book.BookViewModel
+import com.jayaspiya.everestbooks.viewModel.book.BookViewModelFactory
 
 class HomeFragment : Fragment(), SensorEventListener {
+    private lateinit var bookViewModel: BookViewModel
     private lateinit var sensorManager: SensorManager
     private var sensor: Sensor? = null
 
@@ -39,21 +39,19 @@ class HomeFragment : Fragment(), SensorEventListener {
         val bookRecyclerView: RecyclerView = view.findViewById(R.id.bookRecyclerView)
         val progressBar: LinearLayout = view.findViewById(R.id.progressBar)
         progressBar.visibility = View.VISIBLE
-        try {
-            val bookRepository = BookRepository(EverestDB.getInstance(requireContext()).getBookDAO())
-            CoroutineScope(IO).launch {
-                val bookList = bookRepository.getBooks()
-                    withContext(Main){
-                        progressBar.visibility = View.GONE
-                        val adapter = BookAdapter(bookList!!, requireContext())
-                        bookRecyclerView.layoutManager = GridLayoutManager(requireContext(),2)
-                        bookRecyclerView.adapter = adapter
-                    }
-                }
-        }
-        catch (ex: Exception){
-            println(ex)
-        }
+
+        val bookDAO = EverestDB.getInstance(requireContext()).getBookDAO()
+            val bookRepository = BookRepository(bookDAO)
+        val bookFactory = BookViewModelFactory(bookRepository)
+        bookViewModel = ViewModelProvider(requireActivity(),bookFactory).get(BookViewModel::class.java)
+        bookViewModel.getAllBook()
+        bookViewModel.bookList.observe(requireActivity(), Observer {
+            progressBar.visibility = View.GONE
+            val adapter = BookAdapter(it!!, requireContext())
+            bookRecyclerView.layoutManager = GridLayoutManager(requireContext(),2)
+            bookRecyclerView.adapter = adapter
+        })
+
         if (!checkSensor()) {
             return null
         }
