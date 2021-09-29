@@ -55,6 +55,12 @@ class ReviewAdapter(
     override fun onBindViewHolder(holder: ReviewViewHolder, position: Int) {
         val review = reviewList[position]
         holder.tvUsername.text = review.user?.firstname?.capitalize()
+        // Checking Credential
+//        holder.tvUsername.setOnClickListener {
+//            println(review.user?._id == ServiceBuilder.user?._id)
+//            println(review.user?._id)
+//            println(ServiceBuilder.user?._id)
+//        }
         if(review.user?._id == ServiceBuilder.user?._id){
             holder.ibSetting.visibility = View.VISIBLE
         }
@@ -65,7 +71,6 @@ class ReviewAdapter(
         holder.ibSetting.setOnClickListener{
             val popMenu = PopupMenu(context, holder.ibSetting)
             popMenu.menuInflater.inflate(R.menu.review_menu, popMenu.menu)
-//            TODO: Reload
             popMenu.setOnMenuItemClickListener { item ->
                 if (item.itemId == R.id.menuEdit) {
                     val reviewDialog= Dialog(context)
@@ -93,6 +98,12 @@ class ReviewAdapter(
                             val rating = spinnerRating.selectedItem.toString().toInt()
                             updateReview(review._id,reviewComment, rating)
                             reviewDialog.hide()
+                            holder.tvDescription.text = reviewComment
+                            val stars = arrayOf(holder.ivStar1,holder.ivStar2,holder.ivStar3,holder.ivStar4,holder.ivStar5)
+                            val newRating = rating - 1
+                            for (i in 0..newRating){
+                                stars[i].imageTintList = ColorStateList.valueOf(context.resources.getColor(R.color.star))
+                            }
                         }
                     }
                 } else if (item.itemId == R.id.menuDelete) {
@@ -101,6 +112,7 @@ class ReviewAdapter(
                         .setMessage("Do you want to delete the review?")
                         .setIcon(android.R.drawable.ic_menu_delete)
                         .setPositiveButton("Delete"){_,_->
+                            // TODO: On delete hide the view
                             deleteReview(review._id)
                         }
                         .setNegativeButton("Cancel"){_,_->
