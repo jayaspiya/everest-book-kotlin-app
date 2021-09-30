@@ -4,7 +4,8 @@ package com.jayaspiya.everestbooks
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.*
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
@@ -21,11 +22,11 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class LoginActivityTest {
+class ProfileActivityTest {
 
     @Rule
     @JvmField
-    var mActivityTestRule = ActivityTestRule(SplashActivity::class.java)
+    var mActivityTestRule = ActivityTestRule(HomeActivity::class.java)
 
     @Rule
     @JvmField
@@ -36,44 +37,17 @@ class LoginActivityTest {
         )
 
     @Test
-    fun loginActivityTest() {
-        val appCompatEditText = onView(
-            allOf(
-                withId(R.id.etEmail),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.LinearLayout")),
-                        1
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatEditText.perform(replaceText("a@a.com"), closeSoftKeyboard())
-
-        val appCompatEditText2 = onView(
-            allOf(
-                withId(R.id.etPassword),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.LinearLayout")),
-                        1
-                    ),
-                    2
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatEditText2.perform(replaceText("a123"), closeSoftKeyboard())
-
+    fun profileActivityTest() {
         val materialButton = onView(
             allOf(
-                withId(R.id.btnLogin), withText("Login"),
+                withId(R.id.navMore), withText("More"),
                 childAtPosition(
-                    childAtPosition(
-                        withId(android.R.id.content),
-                        0
+                    allOf(
+                        withId(R.id.navigation),
+                        childAtPosition(
+                            withClassName(`is`("android.widget.RelativeLayout")),
+                            1
+                        )
                     ),
                     2
                 ),
@@ -81,6 +55,20 @@ class LoginActivityTest {
             )
         )
         materialButton.perform(click())
+
+        val materialButton2 = onView(
+            allOf(
+                withId(R.id.btnProfile), withText("Profile"),
+                childAtPosition(
+                    childAtPosition(
+                        withClassName(`is`("android.widget.ScrollView")),
+                        0
+                    ),
+                    1
+                )
+            )
+        )
+        materialButton2.perform(scrollTo(), click())
     }
 
     private fun childAtPosition(

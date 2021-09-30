@@ -25,7 +25,7 @@ class ValidationTest {
     @Test
     fun registerUser() = runBlocking {
         val user = User(
-            email = "prqvgh@everest.com",
+            email = "tghrtyue@everest.com",
             firstname = "Point",
             lastname = "Pin",
             address = "Somewhere",

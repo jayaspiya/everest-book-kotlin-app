@@ -101,7 +101,7 @@ class SignupActivityTest {
                 isDisplayed()
             )
         )
-        appCompatEditText5.perform(replaceText("xyz@xyz.com"), closeSoftKeyboard())
+        appCompatEditText5.perform(replaceText("xyz@xyhhz.com"), closeSoftKeyboard())
 
         val appCompatEditText6 = onView(
             allOf(
