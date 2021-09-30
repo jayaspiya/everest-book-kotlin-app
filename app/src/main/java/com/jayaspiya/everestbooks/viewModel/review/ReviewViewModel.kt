@@ -18,7 +18,7 @@ class ReviewViewModel(private val reviewRepository: ReviewRepository): ViewModel
             val response = reviewRepository.getReview(id)
                 result=response.data
         }
-        reviewList.value=result!!
+//        reviewList.value=result!!
 
     }
 

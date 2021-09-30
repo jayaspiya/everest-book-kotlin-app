@@ -1,14 +1,14 @@
-package com.jayaspiya.everestbooks.viewModel.review
+package com.jayaspiya.everestbooks.viewModel.order
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.jayaspiya.everestbooks.repository.ReviewRepository
-import com.jayaspiya.everestreviews.viewModel.review.ReviewViewModel
+import com.jayaspiya.everestbooks.repository.OrderRepository
+import com.jayaspiya.everestorders.viewModel.order.OrderViewModel
 
-class ReviewViewModelFactory (val repository: ReviewRepository): ViewModelProvider.Factory{
+class OrderViewModelFactory (val repository: OrderRepository): ViewModelProvider.Factory{
     override fun <T: ViewModel?>create(modelClass: Class<T>):T{
-        if (modelClass.isAssignableFrom(ReviewViewModel::class.java)){
-            return ReviewViewModel(repository) as T
+        if (modelClass.isAssignableFrom(OrderViewModel::class.java)){
+            return OrderViewModel(repository) as T
         }
         throw IllegalAccessException("")
     }

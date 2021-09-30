@@ -8,21 +8,30 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.jayaspiya.everestbooks.adapter.BookAdapter
 import com.jayaspiya.everestbooks.adapter.CartAdapter
 import com.jayaspiya.everestbooks.adapter.OrderBookAdapter
 import com.jayaspiya.everestbooks.api.ServiceBuilder
+import com.jayaspiya.everestbooks.api.ServiceBuilder.orderBook
 import com.jayaspiya.everestbooks.model.OrderBook
 import com.jayaspiya.everestbooks.model.OrderItem
 import com.jayaspiya.everestbooks.repository.OrderRepository
+import com.jayaspiya.everestbooks.repository.ReviewRepository
 import com.jayaspiya.everestbooks.repository.UserRepository
+import com.jayaspiya.everestbooks.viewModel.order.OrderViewModelFactory
+import com.jayaspiya.everestorders.viewModel.order.OrderViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class OrderActivity : AppCompatActivity() {
+    private lateinit var orderViewModel: OrderViewModel
     private lateinit var progressBar: LinearLayout
     private lateinit var rvOrderList: RecyclerView
     private lateinit var ivEmpty: ImageView
@@ -35,35 +44,20 @@ class OrderActivity : AppCompatActivity() {
         tvEmpty = findViewById(R.id.tvEmpty)
         rvOrderList = findViewById(R.id.rvOrderList)
         progressBar.visibility = View.VISIBLE
-        getOrder()
-    }
-    private fun getOrder() {
-        try {
-            CoroutineScope(Dispatchers.IO).launch {
-                val orderRepository = OrderRepository()
-                val response = orderRepository.getOrder()
-                if(response.success == true){
-                    var orderBook = response.data!!
-                    withContext(Dispatchers.Main){
-                        progressBar.visibility = View.GONE
-                        if(orderBook.isNotEmpty()){
-                            ivEmpty.visibility = View.GONE
-                            tvEmpty.visibility = View.GONE
-                        }
-                        val adapter = OrderBookAdapter(orderBook, this@OrderActivity)
-                        rvOrderList.layoutManager = LinearLayoutManager(this@OrderActivity)
-                        rvOrderList.adapter = adapter
-                    }
-                }
-                else{
-                    withContext(Dispatchers.Main){
-                        Toast.makeText(this@OrderActivity, response.message, Toast.LENGTH_SHORT).show()
-                    }
-                }
+
+
+        orderViewModel= ViewModelProvider(this, OrderViewModelFactory(OrderRepository())).get(OrderViewModel::class.java)
+        orderViewModel.getOrder()
+        orderViewModel.orderList.observe(this, Observer {
+            progressBar.visibility = View.GONE
+            progressBar.visibility = View.GONE
+            if(it.isNotEmpty()){
+                ivEmpty.visibility = View.GONE
+                tvEmpty.visibility = View.GONE
             }
-        }
-        catch(ex: Exception){
-            println(ex)
-        }
+            val adapter = OrderBookAdapter(it, this@OrderActivity)
+            rvOrderList.layoutManager = LinearLayoutManager(this@OrderActivity)
+            rvOrderList.adapter = adapter
+        })
     }
 }

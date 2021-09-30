@@ -1,24 +1,24 @@
-package com.jayaspiya.everestreviews.viewModel.review
+package com.jayaspiya.everestorders.viewModel.order
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jayaspiya.everestbooks.model.Review
-import com.jayaspiya.everestbooks.repository.ReviewRepository
+import com.jayaspiya.everestbooks.model.OrderBook
+import com.jayaspiya.everestbooks.repository.OrderRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class ReviewViewModel(private val reviewRepository: ReviewRepository): ViewModel(){
-    var reviewList = MutableLiveData<MutableList<Review>>()
-    fun getReview(id:String) = viewModelScope.launch {
-        var result:MutableList<Review>?=null
+class OrderViewModel(private val orderRepository: OrderRepository): ViewModel(){
+    var orderList = MutableLiveData<MutableList<OrderBook>>()
+    fun getOrder() = viewModelScope.launch {
+        var result:MutableList<OrderBook>?=null
         withContext(Dispatchers.IO){
-            val response = reviewRepository.getReview(id)
+            val response = orderRepository.getOrder()
                 result=response.data
         }
-        reviewList.value=result!!
+        orderList.value=result!!
 
     }
 

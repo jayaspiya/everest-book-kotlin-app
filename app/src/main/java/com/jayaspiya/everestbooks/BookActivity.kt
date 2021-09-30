@@ -10,7 +10,6 @@ import android.hardware.SensorManager
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -18,7 +17,6 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
@@ -26,15 +24,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.hdd.globalmovie.adapter.BookCoverAdapter
-import com.jayaspiya.everestbooks.adapter.BookAdapter
 import com.jayaspiya.everestbooks.adapter.ReviewAdapter
 import com.jayaspiya.everestbooks.api.ServiceBuilder
-import com.jayaspiya.everestbooks.model.Book
 import com.jayaspiya.everestbooks.model.Review
 import com.jayaspiya.everestbooks.repository.BookRepository
 import com.jayaspiya.everestbooks.repository.ReviewRepository
 import com.jayaspiya.everestbooks.repository.UserRepository
-import com.jayaspiya.everestbooks.viewModel.book.BookViewModel
 import com.jayaspiya.everestbooks.viewModel.review.ReviewViewModelFactory
 import com.jayaspiya.everestreviews.viewModel.review.ReviewViewModel
 import kotlinx.coroutines.CoroutineScope
