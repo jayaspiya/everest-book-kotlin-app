@@ -279,6 +279,7 @@ class ProfileActivity : AppCompatActivity() , SensorEventListener {
                 val response = userRepository.uploadImage(body)
                 if(response.success == true){
                     withContext(Main){
+                        getData()
                         progressBar.visibility = View.GONE
                         Toast.makeText(this@ProfileActivity, response.message, Toast.LENGTH_SHORT).show()
                     }
