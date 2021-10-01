@@ -27,7 +27,7 @@
 
     <TextView
         android:id="@+id/tvPrice"
-        android:layout_width="50dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="price"
